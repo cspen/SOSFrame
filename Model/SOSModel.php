@@ -1,6 +1,7 @@
 <?php
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
+require_once('../SOSFrame/Classes/DBConnection.php');
 
 class SOSModel {
 	private $view;
@@ -10,24 +11,46 @@ class SOSModel {
 	}
 	
 	public function updateState($value) {
-		$path = str_replace("/Ozone/SOSFrame/Public/", "", $_SERVER['REQUEST_URI']);
+		$path = str_ireplace("/Ozone/SOSFrame/Public/", "", $_SERVER['REQUEST_URI']);
 		$request = explode("/", $path);
 		
-		if(is_array($request)) {
+		
+		echo $path.'<br>';
+		print_r($request);
+		echo '<br>';
+		echo $_SERVER['REQUEST_URI'].' &+<br>';
+		
+		
+		$db = new DBConnection();
+		$dbconn = $db->getConnection();
+		$query = "";
+		if(is_array($request)) {			
 			$c = count($request);
 			if($c >= 2 && $request[1] != "") {
 				// Article page
 				echo '<br> Article page - '.$request[1];
-				// Do database search based on article title
+				// $query = "SELECT * FROM article WHERE title=:title";
+				// $stmt->bindParam(':title', $request[1]);
 			} else if($c <= 2) {
 				// Topic page
 				echo '<br> Topic page - '.$request[0];
-				// Do database search based on topic
+				// $query = "SELECT * FROM article WHERE topic=:topic";
+				// $stmt->bindParam(':topic', $request[0]);
 			}
 		}
 		
-		
 		/*
+		$stmt = $dbconn->prepare($query);
+		if($stmt->execute()) {
+			$rowCount = $stmt->rowCount();
+			if($rowCount == 1) {
+				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		*/
+		
+		
+		
+		
+		
 		$output = new SOSOutput(
 				$value,
 				"This is the description",
@@ -36,6 +59,6 @@ class SOSModel {
 				"Prev content",
 				"Next content");
 		$this->view->respond($output);	
-		*/	
+		
 	}
 }

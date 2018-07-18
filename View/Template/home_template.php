@@ -1,4 +1,9 @@
 <?php
+$pageTitle = "Home Page";
+$description = "";
+$contentTitle = "";
+$contentBody = "";
+
 $html = <<< EOT
 <!DOCTYPE html>
 <html>
@@ -54,20 +59,21 @@ $html = <<< EOT
 <div class="w3-container">
 <h5 class="w3-opacity"><b>Content Author / Content Publish Date</b></h5>
 <p>$contentBody</p>
+<p><b>HOME PAGE<b></p>
 <hr>
-
+		
 </div>
-
-
+		
+		
 <!-- End Right Column -->
 </div>
-<p style="text-align:center">Goolge Ad Goes Here</p>
+<p style="text-align:center">Google Ad Goes Here</p>
 <!-- End Grid -->
 </div>
-
+		
 <!-- End Page Container -->
 </div>
-
+		
 <footer class="w3-container w3-teal w3-center w3-margin-top">
 <p>Find me on social media.</p>
 <i class="fa fa-facebook-official w3-hover-opacity"></i>
@@ -78,8 +84,10 @@ $html = <<< EOT
 <i class="fa fa-linkedin w3-hover-opacity"></i>
 <p>Powered by <a href="" target="_blank">SOSFrame</a></p>
 </footer>
-
+		
 </body>
 </html>
 EOT;
+
+echo $html;
 ?>

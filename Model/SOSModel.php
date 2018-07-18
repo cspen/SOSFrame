@@ -14,28 +14,53 @@ class SOSModel {
 		$path = str_ireplace("/Ozone/SOSFrame/Public/", "", $_SERVER['REQUEST_URI']);
 		$request = explode("/", $path);
 		
-		
 		echo $path.'<br>';
 		print_r($request);
 		echo '<br>';
 		echo $_SERVER['REQUEST_URI'].' &+<br>';
 		
 		
+				// $this->view->respond($output);
+		
 		$db = new DBConnection();
 		$dbconn = $db->getConnection();
 		$query = "";
 		if(is_array($request)) {			
 			$c = count($request);
-			if($c >= 2 && $request[1] != "") {
+			echo '<br> count '.$c.'<br>';
+			if($c == 2 && $request[1] != "") {
 				// Article page
-				echo '<br> Article page - '.$request[1];
-				// $query = "SELECT * FROM article WHERE title=:title";
-				// $stmt->bindParam(':title', $request[1]);
-			} else if($c <= 2) {
-				// Topic page
-				echo '<br> Topic page - '.$request[0];
+				$output = new SOSOutput(
+						"Article",
+						"This is the description",
+						"This is the Content Title",
+						"This is the Content Body",
+						"Prev content",
+						"Next content");
+				$this->view->articlePage($output);
+			} else if($c == 2) {
+				// Topic page				
 				// $query = "SELECT * FROM article WHERE topic=:topic";
 				// $stmt->bindParam(':topic', $request[0]);
+				$output = new SOSOutput(
+						"Topic",
+						"This is the description",
+						"This is the Content Title",
+						"This is the Content Body",
+						"Prev content",
+						"Next content");
+				$this->view->topicPage($output);
+			} else if($c == 1) {
+				$output = new SOSOutput(
+						"Topic",
+						"This is the description",
+						"This is the Content Title",
+						"This is the Content Body",
+						"Prev content",
+						"Next content");
+				$this->view->homePage($output);
+			} else {
+				// echo 'ELSE';
 			}
 		}
 		
@@ -50,15 +75,7 @@ class SOSModel {
 		
 		
 		
-		
-		$output = new SOSOutput(
-				$value,
-				"This is the description",
-				"This is the Content Title",
-				"This is the Content Body",
-				"Prev content",
-				"Next content");
-		$this->view->respond($output);	
+			
 		
 	}
 }

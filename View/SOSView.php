@@ -11,16 +11,19 @@ class SOSView {
 	/**
 	 * 
 	 * @param Output $output
-	 */
-	public function respond($output) {
-		$pageTitle = $output->pageTitle();
-		$description = $output->description();
-		$contentTitle = $output->contentTitle();
-		$contentBody = $output->contentBody();
-		$contentPrev = $output->contentPrev();
-		$contentNext = $output->contentNext();
-		
-		require_once('Template/Article.php');
+	 */	
+	public function homePage($output) {
+		require_once('Template/home_template.php');
+		echo $html;
+	}
+	
+	public function topicPage($output) {
+		require_once('Template/topic_template.php');
+		echo $html;
+	}
+	
+	public function articlePage($output) {
+		require_once('Template/article_template.php');
 		echo $html;
 	}
 }

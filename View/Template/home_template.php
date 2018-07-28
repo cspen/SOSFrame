@@ -1,8 +1,4 @@
 <?php
-$pageTitle = "Home Page";
-$description = "";
-$contentTitle = "";
-$contentBody = "";
 
 $html = <<< EOT
 <!DOCTYPE html>
@@ -57,7 +53,6 @@ $html = <<< EOT
 <div class="w3-container w3-card w3-white w3-margin-bottom">
 <h2 class="w3-text-grey w3-padding-16">$contentTitle</h2>
 <div class="w3-container">
-<h5 class="w3-opacity"><b>Content Author / Content Publish Date</b></h5>
 <p>$contentBody</p>
 <p><b>HOME PAGE<b></p>
 <hr>
@@ -88,6 +83,4 @@ $html = <<< EOT
 </body>
 </html>
 EOT;
-
-echo $html;
 ?>

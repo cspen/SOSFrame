@@ -12,7 +12,11 @@ class SOSView {
 	 * 
 	 * @param Output $output
 	 */	
-	public function homePage($output) {
+	public function homePage($output) {		
+		$pageTitle = $output->pageTitle();
+		$description = $output->description();
+		$contentTitle = $output->contentTitle();		
+		$contentBody = $output->contentBody();
 		require_once('Template/home_template.php');
 		echo $html;
 	}

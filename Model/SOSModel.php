@@ -14,20 +14,11 @@ class SOSModel {
 		$path = str_ireplace("/Ozone/SOSFrame/Public/", "", $_SERVER['REQUEST_URI']);
 		$request = explode("/", $path);
 		
-		echo $path.'<br>';
-		print_r($request);
-		echo '<br>';
-		echo $_SERVER['REQUEST_URI'].' &+<br>';
-		
-		
-				// $this->view->respond($output);
-		
 		$db = new DBConnection();
 		$dbconn = $db->getConnection();
 		$query = "";
 		if(is_array($request)) {			
 			$c = count($request);
-			echo '<br> count '.$c.'<br>';
 			if($c == 2 && $request[1] != "") {
 				// Article page
 				$output = new SOSOutput(
@@ -52,7 +43,7 @@ class SOSModel {
 				$this->view->topicPage($output);
 			} else if($c == 1) {
 				$output = new SOSOutput(
-						"Topic",
+						"Home Page - ",
 						"This is the description",
 						"This is the Content Title",
 						"This is the Content Body",

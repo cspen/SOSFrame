@@ -29,7 +29,6 @@ CREATE TABLE user_history (
 )
 ENGINE = MyISAM;
 
-# Table to hold newly registered users till email is verified.
 CREATE TABLE article (
 	articleID 				INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	authorID				INT UNSIGNED NOT NULL,
@@ -41,7 +40,7 @@ CREATE TABLE article (
 	etag					VARCHAR(32),
 	last_modified			TIMESTAMP,
 				
-	
+	PRIMARY KEY(articleID)
 )
 ENGINE = MyISAM;
 

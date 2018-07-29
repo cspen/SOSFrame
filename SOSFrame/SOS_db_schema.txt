@@ -1,0 +1,64 @@
+DROP DATABASE sosframe_db;
+
+CREATE DATABASE sosframe_db
+	DEFAULT CHARACTER SET utf8
+	DEFAULT COLLATE utf8_general_ci;
+
+USE sosframe_db;
+
+# Set timezone to GMT for Http-date compliance
+SET time_zone = '+0:00';
+	
+CREATE TABLE user (
+	userID					INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	name					VARCHAR(60) NOT NULL,
+	password 				VARCHAR(255) NOT NULL,
+	email					VARCHAR(255) NOT NULL,
+	type					TINYTEXT,
+	UNIQUE(email),
+	PRIMARY KEY(userID)	
+)
+ENGINE = MyISAM;
+
+CREATE TABLE user_history (
+	historyID				INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	userID_FK				INT UNSIGNED NOT NULL,	
+	registration_date		TIMESTAMP,	
+	last_activity			TIMESTAMP,
+	PRIMARY KEY(historyID)
+)
+ENGINE = MyISAM;
+
+# Table to hold newly registered users till email is verified.
+CREATE TABLE article (
+	articleID 				INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	authorID				INT UNSIGNED NOT NULL,
+	topic					VARCHAR(32),
+	title					TINYTEXT,
+	body					LONGTEXT,
+	publish					BOOLEAN DEFAULT 0,
+	publish_date			TIMESTAMP,
+	etag					VARCHAR(32),
+	last_modified			TIMESTAMP,
+				
+	
+)
+ENGINE = MyISAM;
+
+delimiter |
+CREATE TRIGGER update_article BEFORE UPDATE ON article
+	FOR EACH ROW
+		BEGIN			
+			SET NEW.last_modified=NOW();
+			SET NEW.etag=MD5(FLOOR(RAND() * 100));
+		END;
+|
+
+CREATE TRIGGER insert_article BEFORE INSERT ON article
+	FOR EACH ROW
+		BEGIN			
+			SET NEW.last_modified=NOW();
+			SET NEW.etag=MD5(FLOOR(RAND() * 100));
+		END;
+|
+delimiter ;

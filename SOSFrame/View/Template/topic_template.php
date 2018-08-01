@@ -1,17 +1,4 @@
 <?php
-$pageTitle = "Topic Page";
-$description = "";
-$contentTitle = "Topic";
-$contentBody = '
-	<ul style="list-style-type: none">
-		<li>Article 1</li>
-		<li>Article 2</li>
-		<li>Article 3</li>
-		<li>Article 4</li>
-		<li>Article 5</li>
-		<li>Article 6</li>
-	</ul>
-';
 
 $html = <<< EOT
 <!DOCTYPE html>
@@ -49,10 +36,7 @@ $html = <<< EOT
 <hr>
 
 <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Topics</b></p>
-<p><a href="javascript:void(0)">Health &amp; Fitness</a></p>
-<p><a href="javascript:void(0)">Photography</a></p>
-<p><a href="javascript:void(0)">Illustrator</a></p>
-<p><a href="javascript:void(0)">Media</a></p>
+$topicsMenu;
 <br>
 </div>
 </div><br>

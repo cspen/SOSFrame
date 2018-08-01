@@ -36,10 +36,7 @@ $html = <<< EOT
 <hr>
 
 <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Topics</b></p>
-<p><a href="javascript:void(0)">Health &amp; Fitness</a></p>
-<p><a href="javascript:void(0)">Photography</a></p>
-<p><a href="javascript:void(0)">Illustrator</a></p>
-<p><a href="javascript:void(0)">Media</a></p>
+$topicsMenu;
 <br>
 </div>
 </div><br>

@@ -12,22 +12,25 @@ class SOSView {
 	 * 
 	 * @param Output $output
 	 */	
-	public function homePage($output) {		
-		$pageTitle = $output->pageTitle();
-		$description = $output->description();
-		$contentTitle = $output->contentTitle();		
-		$contentBody = $output->contentBody();
-		require_once('Template/home_template.php');
-		echo $html;
+	public function homePage($output) {	
+		$this->showPage($output, 'Template/home_template.php');
 	}
 	
 	public function topicPage($output) {
-		require_once('Template/topic_template.php');
-		echo $html;
+		$this->showPage($output, 'Template/topic_template.php');
 	}
 	
 	public function articlePage($output) {
-		require_once('Template/article_template.php');
+		$this->showPage($output, 'Template/article_template.php');
+	}
+	
+	private function showPage($output, $template) {
+		$pageTitle = $output->pageTitle();
+		$description = $output->description();
+		$contentTitle = $output->contentTitle();
+		$contentBody = $output->contentBody();
+		$topicsMenu = $output->topicsMenu();
+		require_once($template);
 		echo $html;
 	}
 }

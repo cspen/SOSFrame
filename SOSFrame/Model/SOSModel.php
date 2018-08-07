@@ -5,9 +5,12 @@ require_once('../SOSFrame/Classes/DBConnection.php');
 
 class SOSModel {
 	private $view;
+	private $dbconn;
 	
 	public function __construct($view) {
 		$this->view = $view;
+		$db = new DBConnection();
+		$this->dbconn = $db->getConnection();
 	}
 	
 	public function updateState($value) {
@@ -21,14 +24,14 @@ class SOSModel {
 		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
 			// Article page
 			$title = end($params);
-			$topic = prev($params);			
+			echo 'TITLE : '.$title;
 			$output = $this->getArticle($title, $topic);
 			$this->view->articlePage($output);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
-			// Topic page				
-			// $query = "SELECT * FROM article WHERE topic=:topic";
-			// $stmt->bindParam(':topic', $request[0]);
-			$topic = end($params);
+			// Topic page	
+			end($params);
+			$topic = prev($params);
+						
 			$output = $this->getTopic($topic);
 			$this->view->topicPage($output);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
@@ -39,14 +42,6 @@ class SOSModel {
 			// Need custom 404 page
 			echo '404 NOT FOUND';
 		}		
-		
-		/*
-		$stmt = $dbconn->prepare($query);
-		if($stmt->execute()) {
-			$rowCount = $stmt->rowCount();
-			if($rowCount == 1) {
-				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		*/		
 	}
 	
 	private function getArticle($title, $topic) {
@@ -60,7 +55,17 @@ class SOSModel {
 				"Next content");
 	}
 	
-	private function getTopic($topic) {
+	private function getTopic($topic) { 
+		$query = "SELECT * FROM article WHERE topic=:topic";
+		$stmt = $this->dbconn->prepare($query);
+		$stmt->bindParam(':topic', $topic);
+		if($stmt->execute()) {
+			
+		} else {
+			header('HTTP/1.1 504 Internal Server Error');
+			exit;
+		}
+		
 		return new SOSOutput(
 				$topic,
 				"This is the description",
@@ -84,10 +89,22 @@ class SOSModel {
 	
 	private function getMenu() {
 		// TO-DO: Make db query for topics and pass
-		// to view. (View should create html)
-		return '<p><a href="javascript:void(0)">Health &amp; Fitness</a></p>
-			<p><a href="javascript:void(0)">Photography</a></p>
-			<p><a href="javascript:void(0)">Illustrator</a></p>
-			<p><a href="javascript:void(0)">Media</a></p>';
+		// to view. (View should create html list)
+		$query = "SELECT distinct topic FROM article";
+		$stmt = $this->dbconn->prepare($query);
+		$results = array();
+		if($stmt->execute()) {
+			$count = $stmt->rowCount();
+			$i = 0;
+			while($i < $count) {
+				$r = $stmt->fetch(PDO::FETCH_ASSOC);
+				$results[] = $r['topic'];
+				$i++;
+			}
+		} else {
+			// Handle the error
+			$results = array("Error");
+		}		
+		return $results;
 	}
 }

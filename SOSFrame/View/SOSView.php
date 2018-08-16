@@ -1,6 +1,7 @@
 <?php
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
+require_once('../SOSFrame/Classes/SOSArticleOutput.php');
 
 class SOSView {
 	
@@ -29,8 +30,26 @@ class SOSView {
 		$description = $output->description();
 		$contentTitle = $output->contentTitle();
 		$contentBody = $output->contentBody();
-		$topicsMenu = $output->topicsMenu();
+		$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
+		
+		// Needed to use instanceof operator
+		$obj = new SOSArticleOutput();
+		if($output instanceof $obj) {
+			$author = $output->author();
+			$publishDate = $output->publishDate();
+			$next = $output->contentNext();
+			$prev = $output->contentPrev();
+		}
 		require_once($template);
 		echo $html;
+		exit;
+	}
+	
+	private function createTopicsMenu($menuItems) {
+		$list = "";
+		foreach($menuItems as $item) {
+			$list .= '<p><a href="/Ozone/SOSFrame/Public/'.$item.'/">'.$item.'</a></p>';
+		}
+		return $list;
 	}
 }

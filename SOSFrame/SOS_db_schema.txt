@@ -34,6 +34,7 @@ CREATE TABLE article (
 	authorID				INT UNSIGNED NOT NULL,
 	topic					VARCHAR(32),
 	title					TINYTEXT,
+	description				TINYTEXT,
 	body					LONGTEXT,
 	publish					BOOLEAN DEFAULT 0,
 	publish_date			TIMESTAMP,

@@ -24,7 +24,7 @@ class SOSModel {
 		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
 			// Article page
 			$title = end($params);
-			echo 'TITLE : '.$title;
+			$topic = prev($params);
 			$output = $this->getArticle($title, $topic);
 			$this->view->articlePage($output);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
@@ -45,14 +45,16 @@ class SOSModel {
 	}
 	
 	private function getArticle($title, $topic) {
-		return new SOSOutput(
+		return new SOSArticleOutput(
 				$title,
 				"This is the description",
-				"This is the Content Title",
+				preg_replace("/-/", " ", $title),
 				"This is the Content Body",
 				$this->getMenu(),
 				"Prev content",
-				"Next content");
+				"Next content",
+				"Bob Marley",
+				"2019-20-20");
 	}
 	
 	private function getTopic($topic) { 

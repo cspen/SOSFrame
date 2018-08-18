@@ -32,9 +32,14 @@ class SOSModel {
 			end($params);
 			$topic = prev($params);
 			
-			if($topic == 'secret') {
+			if($topic == 'secret') { 
+				if(isset($_POST['name']) && isset($_POST['pword'])) {
+					echo 'LOGIN';
+					exit;
+				}
 				$output = $this->getLogin();
 			} else {
+			
 				$output = $this->getTopic($topic);
 			}
 			$this->view->topicPage($output);
@@ -114,11 +119,20 @@ class SOSModel {
 	 * CODE BELOW FOR BACKEND ADMINISTRATION.
 	 */
 	private function getLogin() {
+		$loginForm = '<form action="/Ozone/SOSFrame/Public/secret/" method="post"><table>';
+		$loginForm .= '<tr><td>';
+		$loginForm .= '<label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>';
+		$loginForm .= '<tr><td>';
+		$loginForm .= '<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>';
+		$loginForm .= '</tr><tr><td></td><td><input type="submit" value="Login"></td>';
+		$loginForm .= '</tr></table></form>';
+		
 		return new SOSOutput(
 				"Secret",
 				"Admin login page",
 				"Login",
-				"Login form goes here",
+				$loginForm,
 				$this->getMenu());
 	}
+	
 }

@@ -31,8 +31,12 @@ class SOSModel {
 			// Topic page	
 			end($params);
 			$topic = prev($params);
-						
-			$output = $this->getTopic($topic);
+			
+			if($topic == 'secret') {
+				$output = $this->getLogin();
+			} else {
+				$output = $this->getTopic($topic);
+			}
 			$this->view->topicPage($output);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
 			$output = $this->getHome();
@@ -73,9 +77,7 @@ class SOSModel {
 				"This is the description",
 				"Topic Content Title",
 				"Topic Content Body",
-				$this->getMenu(),
-				"Prev content",
-				"Next content");
+				$this->getMenu());
 	}
 	
 	private function getHome() {
@@ -84,9 +86,7 @@ class SOSModel {
 				"This is the description",
 				"Home Page Content Title",
 				"Home Page Content Body",
-				$this->getMenu(),
-				"Prev content",
-				"Next content");
+				$this->getMenu());
 	}
 	
 	private function getMenu() {
@@ -108,5 +108,17 @@ class SOSModel {
 			$results = array("Error");
 		}		
 		return $results;
+	}
+	
+	/********************************************************
+	 * CODE BELOW FOR BACKEND ADMINISTRATION.
+	 */
+	private function getLogin() {
+		return new SOSOutput(
+				"Secret",
+				"Admin login page",
+				"Login",
+				"Login form goes here",
+				$this->getMenu());
 	}
 }

@@ -32,8 +32,9 @@ class SOSModel {
 			if($topic == 'secret') { 
 				if(isset($_POST['name']) && isset($_POST['pword'])) {
 					// Need to get hash from database
-					$query = "NEED TO WRITE QUERY STRING";
+					$query = "SELECT password FROM user WHERE name=:name";
 					$stmt = $this->dbconn->prepare($query);
+					$stmt->bindParam(":name", $_POST['name']);
 					$stmt->execute();
 					$results = $stmt->fetch();
 					$hash = $results[0];

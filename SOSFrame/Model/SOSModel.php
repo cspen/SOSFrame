@@ -18,9 +18,6 @@ class SOSModel {
 		$requestURI = $requestURI[0];
 		$params = explode("/", $_SERVER['REQUEST_URI']);
 		
-		$db = new DBConnection();
-		$dbconn = $db->getConnection();
-		$query = "";
 		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
 			// Article page
 			$title = end($params);
@@ -34,12 +31,25 @@ class SOSModel {
 			
 			if($topic == 'secret') { 
 				if(isset($_POST['name']) && isset($_POST['pword'])) {
-					echo 'LOGIN';
+					// Need to get hash from database
+					$query = "NEED TO WRITE QUERY STRING";
+					$stmt = $this->dbconn->prepare($query);
+					$stmt->execute();
+					$results = $stmt->fetch();
+					$hash = $results[0];
+					if(password_verify($_POST['pword'], $hash)) {
+						echo 'LOGIN SUCCEEDED';
+					} else {
+						echo 'LOGIN FAILED';
+					}
+					
+					
 					exit;
+				} else {
+					// Send login page
+					$output = $this->getLogin();
 				}
-				$output = $this->getLogin();
-			} else {
-			
+			} else {			
 				$output = $this->getTopic($topic);
 			}
 			$this->view->topicPage($output);

@@ -35,13 +35,17 @@ class SOSModel {
 					$query = "SELECT password FROM user WHERE name=:name";
 					$stmt = $this->dbconn->prepare($query);
 					$stmt->bindParam(":name", $_POST['name']);
-					$stmt->execute();
-					$results = $stmt->fetch();
-					$hash = $results[0];
-					if(password_verify($_POST['pword'], $hash)) {
-						echo 'LOGIN SUCCEEDED';
+					if($stmt->execute()) {
+						$results = $stmt->fetch(); 
+						$hash = $results['password'];
+						if(password_verify($_POST['pword'], $hash)) {
+							echo 'LOGIN SUCCEEDED';
+						} else {
+							echo 'LOGIN FAILED';
+						}
 					} else {
-						echo 'LOGIN FAILED';
+						header('HTTP/1.1 504 Internal Server Error');
+						exit;
 					}
 					
 					

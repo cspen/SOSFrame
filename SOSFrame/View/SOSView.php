@@ -25,6 +25,10 @@ class SOSView {
 		$this->showPage($output, 'Template/article_template.php');
 	}
 	
+	public function adminPage() {
+		echo 'ADMIN PAGE';
+	}
+	
 	private function showPage($output, $template) {
 		$pageTitle = $output->pageTitle();
 		$description = $output->description();

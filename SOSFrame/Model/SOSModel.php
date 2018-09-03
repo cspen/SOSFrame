@@ -39,9 +39,10 @@ class SOSModel {
 						$results = $stmt->fetch(); 
 						$hash = $results['password'];
 						if(password_verify($_POST['pword'], $hash)) {
-							echo 'LOGIN SUCCEEDED';
+							$this->view->adminPage();
 						} else {
 							echo 'LOGIN FAILED';
+							exit;
 						}
 					} else {
 						header('HTTP/1.1 504 Internal Server Error');

@@ -26,7 +26,10 @@ class SOSView {
 	}
 	
 	public function adminPage() {
-		echo 'ADMIN PAGE';
+		// echo 'ADMIN PAGE';
+		require_once('Template/editor_template.php');
+		echo $html;
+		exit;
 	}
 	
 	private function showPage($output, $template) {

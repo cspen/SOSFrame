@@ -1,16 +1,11 @@
 <?php
-$pageTitle = "Editor";
-$description = "Editor";
-$contentTitle = "Edit Article";
-$contentBody = "Content Body";
 $html = <<< EOT
 <!DOCTYPE html>
 <html>
-<title>$pageTitle</title>
+<title>Editor</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="$description">
-<link rel="stylesheet" href="../../../Public/styles/template.css">
+<link rel="stylesheet" href="../styles/template.css">
 <style>
 	input, textarea { width: 100% }
 </style>
@@ -53,7 +48,7 @@ $html = <<< EOT
 <div class="w3-twothird">
 
 <div class="w3-container w3-card w3-white w3-margin-bottom">
-<h2 class="w3-text-grey w3-padding-16">$contentTitle</h2>
+<h2 class="w3-text-grey w3-padding-16">Title</h2>
 <div class="w3-container">
 
 <label for="title">Title: <input type="text" name="title" id="title"></label>
@@ -104,6 +99,4 @@ $html = <<< EOT
 </body>
 </html>
 EOT;
-
-echo $html;
 ?>

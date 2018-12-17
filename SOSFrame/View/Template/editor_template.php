@@ -57,7 +57,7 @@ $html = <<< EOT
 <label for="title">Title: <input type="text" name="title" id="title"></label>
 <br>
 <label for="body">Content:
-<textarea rows="20"></textarea></label>
+<textarea rows="20" style="font-size: xx-large;"></textarea></label>
 <hr>
 <label for="description">Description: <input type="text" id="description"></label>
 

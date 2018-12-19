@@ -7,75 +7,20 @@ require_once('DBQueries.php');
 class SOSModel implements DBQueries {
 	private $view;
 	private $dbconn;
+	private $output;
 	
 	public function __construct($view) {
 		$this->view = $view;
 		$db = new DBConnection();
 		$this->dbconn = $db->getConnection();
 	}
-	
-	public function updateState($value) {
-		$requestURI = explode("?", $_SERVER['REQUEST_URI']);
-		$requestURI = $requestURI[0];
-		$params = explode("/", $_SERVER['REQUEST_URI']);
 		
-		// Determine which page was requested
-		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
-			// Article page
-			$title = end($params);
-			$topic = prev($params);
-			$output = $this->getArticle($title, $topic);
-			$this->view->articlePage($output);
-		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
-			// Topic page	
-			end($params);
-			$topic = prev($params);
-			
-			if($topic == 'secret') { 
-				session_start();
-				if(isset($_POST['name']) && isset($_POST['pword'])
-						&& $this->verifyToken()) {								
-					
-					// Need to get hash from database
-					$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
-					$stmt->bindParam(":name", $_POST['name']);
-					if($stmt->execute()) {
-						$results = $stmt->fetch(); 
-						$hash = $results['password'];
-						if(password_verify($_POST['pword'], $hash)) {
-							$this->view->adminPage();
-						} else {
-							echo 'LOGIN FAILED';
-							exit;
-						}
-					} else {
-						header('HTTP/1.1 504 Internal Server Error');
-					}					
-					exit;
-				} else {
-					// Send login page
-					if (empty($_SESSION['token'])) {
-						// To prevent CSFR attack
-						$_SESSION['token'] = bin2hex(random_bytes(32));
-					}					
-					$output = $this->createLogin($_SESSION['token']);
-				}
-			} else {			
-				$output = $this->getTopic($topic);
-			}
-			$this->view->topicPage($output);
-		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
-			$output = $this->getHome();
-			$this->view->homePage($output);
-		} else {
-			header('HTTP/1.1 404 Not Found');
-			// Need custom 404 page
-			echo '404 NOT FOUND';
-		}		
-	}
+	public function output() {
+		return $this->output;
+	}	
 	
 	private function getArticle($title, $topic) {
-		return new SOSArticleOutput(
+		$this->output = new SOSArticleOutput(
 				$title,
 				"This is the description",
 				preg_replace("/-/", " ", $title),
@@ -87,26 +32,28 @@ class SOSModel implements DBQueries {
 				"2019-20-20");
 	}
 	
-	private function getTopic($topic) { 
+	public function getTopic($topic) { 
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
 		$stmt->bindParam(':topic', $topic);
+		
+		$body = "";
 		if($stmt->execute()) {
-			
+			$body = "SUCCESS";
 		} else {
 			header('HTTP/1.1 504 Internal Server Error');
 			exit;
 		}
 		
-		return new SOSOutput(
+		$this->output = new SOSOutput(
 				$topic,
 				"This is the description",
 				"Topic Content Title",
-				"Topic Content Body",
+				$body,
 				$this->getMenu());
 	}
 	
-	private function getHome() {
-		return new SOSOutput(
+	public function getHome() {
+		$this->output =  new SOSOutput(
 				"Science of Stupidity",
 				"This is the description",
 				"Home Page Content Title",
@@ -135,15 +82,7 @@ class SOSModel implements DBQueries {
 		return $results;
 	}
 	
-	// Prevent CSRF attack
-	private function verifyToken() {
-		if (!empty($_POST['token'])) {
-			if (hash_equals($_SESSION['token'], $_POST['token'])) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	
 	/********************************************************
 	 * CODE BELOW FOR BACKEND ADMINISTRATION ACCESS.

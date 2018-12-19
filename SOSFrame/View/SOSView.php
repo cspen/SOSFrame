@@ -26,20 +26,20 @@ class SOSView {
 	}
 	
 	public function adminPage() {
-		// echo 'ADMIN PAGE';
 		require_once('Template/editor_template.php');
 		echo $html;
 		exit;
 	}
 	
-	private function showPage($output, $template) {
+	public function showPage() {
+		$output = $this->model->output();
+		
 		$pageTitle = $output->pageTitle();
 		$description = $output->description();
 		$contentTitle = $output->contentTitle();
 		$contentBody = $output->contentBody();
 		$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
 		
-		// Needed to use instanceof operator
 		$obj = new SOSArticleOutput();
 		if($output instanceof $obj) {
 			$author = $output->author();

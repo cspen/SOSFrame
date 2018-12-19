@@ -5,12 +5,8 @@ require_once('../SOSFrame/Classes/DBConnection.php');
 require_once('DBQueries.php');
 
 class SOSModel implements DBQueries {
-	private $view;
-	private $dbconn;
-	private $output;
-	
-	public function __construct($view) {
-		$this->view = $view;
+		
+	public function __construct() {
 		$db = new DBConnection();
 		$this->dbconn = $db->getConnection();
 	}
@@ -105,4 +101,6 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
+	private $dbconn;
+	private $output;
 }

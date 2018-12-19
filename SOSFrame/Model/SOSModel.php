@@ -2,8 +2,9 @@
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
 require_once('../SOSFrame/Classes/DBConnection.php');
+require_once('DBQueries.php');
 
-class SOSModel {
+class SOSModel implements DBQueries {
 	private $view;
 	private $dbconn;
 	
@@ -18,6 +19,7 @@ class SOSModel {
 		$requestURI = $requestURI[0];
 		$params = explode("/", $_SERVER['REQUEST_URI']);
 		
+		// Determine which page was requested
 		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
 			// Article page
 			$title = end($params);
@@ -30,10 +32,12 @@ class SOSModel {
 			$topic = prev($params);
 			
 			if($topic == 'secret') { 
-				if(isset($_POST['name']) && isset($_POST['pword'])) {
+				session_start();
+				if(isset($_POST['name']) && isset($_POST['pword'])
+						&& $this->verifyToken()) {								
+					
 					// Need to get hash from database
-					$query = "SELECT password FROM user WHERE name=:name";
-					$stmt = $this->dbconn->prepare($query);
+					$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
 					$stmt->bindParam(":name", $_POST['name']);
 					if($stmt->execute()) {
 						$results = $stmt->fetch(); 
@@ -46,14 +50,15 @@ class SOSModel {
 						}
 					} else {
 						header('HTTP/1.1 504 Internal Server Error');
-						exit;
-					}
-					
-					
+					}					
 					exit;
 				} else {
 					// Send login page
-					$output = $this->getLogin();
+					if (empty($_SESSION['token'])) {
+						// To prevent CSFR attack
+						$_SESSION['token'] = bin2hex(random_bytes(32));
+					}					
+					$output = $this->createLogin($_SESSION['token']);
 				}
 			} else {			
 				$output = $this->getTopic($topic);
@@ -83,8 +88,7 @@ class SOSModel {
 	}
 	
 	private function getTopic($topic) { 
-		$query = "SELECT * FROM article WHERE topic=:topic";
-		$stmt = $this->dbconn->prepare($query);
+		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
 		$stmt->bindParam(':topic', $topic);
 		if($stmt->execute()) {
 			
@@ -131,17 +135,28 @@ class SOSModel {
 		return $results;
 	}
 	
+	// Prevent CSRF attack
+	private function verifyToken() {
+		if (!empty($_POST['token'])) {
+			if (hash_equals($_SESSION['token'], $_POST['token'])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/********************************************************
-	 * CODE BELOW FOR BACKEND ADMINISTRATION.
+	 * CODE BELOW FOR BACKEND ADMINISTRATION ACCESS.
 	 */
-	private function getLogin() {
+	private function createLogin($token) {		
 		$loginForm = '<form action="/Ozone/SOSFrame/Public/secret/" method="post"><table>';
 		$loginForm .= '<tr><td>';
 		$loginForm .= '<label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>';
 		$loginForm .= '<tr><td>';
 		$loginForm .= '<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>';
 		$loginForm .= '</tr><tr><td></td><td><input type="submit" value="Login"></td>';
-		$loginForm .= '</tr></table></form>';
+		$loginForm .= '</tr></table>';
+		$loginForm .= '<input type="hidden" name="token" value="'.$token.'"></form>';
 		
 		return new SOSOutput(
 				"Secret",

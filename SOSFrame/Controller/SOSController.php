@@ -12,11 +12,9 @@
 
 class SOSController {
 	
-	private $model;
-	private $view;
-	
 	public function __construct($model, $view) {
 		$this->model = $model;
+		$this->view = $view;
 	}
 	
 	public function invoke() {
@@ -69,8 +67,8 @@ class SOSController {
 			}
 			$this->view->topicPage($output);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
-			$output = $this->getHome();
-			$this->view->homePage($output);
+			$this->view->setTemplate(SOSView::HOME);
+			$this->model->home();
 		} else {
 			header('HTTP/1.1 404 Not Found');
 			// Need custom 404 page
@@ -114,8 +112,8 @@ class SOSController {
 		}
 		return false;
 	}
+	
+	private $model;
+	private $view;
 }
-
-
-
 ?>

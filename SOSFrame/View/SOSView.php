@@ -5,24 +5,12 @@ require_once('../SOSFrame/Classes/SOSArticleOutput.php');
 
 class SOSView {
 	
-	public function __construct() {
-		// Initialize this view
+	public function __construct($model) {
+		$this->model = $model;
 	}
 	
-	/**
-	 * 
-	 * @param Output $output
-	 */	
-	public function homePage($output) {	
-		$this->showPage($output, 'Template/home_template.php');
-	}
-	
-	public function topicPage($output) {
-		$this->showPage($output, 'Template/topic_template.php');
-	}
-	
-	public function articlePage($output) {
-		$this->showPage($output, 'Template/article_template.php');
+	public function setTemplate($template) {
+		$this->template = $template;
 	}
 	
 	public function adminPage() {
@@ -47,7 +35,7 @@ class SOSView {
 			$next = $output->contentNext();
 			$prev = $output->contentPrev();
 		}
-		require_once($template);
+		require_once($this->template);
 		echo $html;
 		exit;
 	}
@@ -59,4 +47,12 @@ class SOSView {
 		}
 		return $list;
 	}
+	
+	private $model;
+	private $template;
+	
+	const HOME = "Template/home_template.php";
+	const ARTICLE = "Template/article_template.php";
+	const TOPIC = "Template/topic_template.php";
+	const EDITOR = "Template/editor_template.php";
 }

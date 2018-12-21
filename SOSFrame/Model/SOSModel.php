@@ -48,7 +48,7 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
-	public function getHome() {
+	public function home() {
 		$this->output =  new SOSOutput(
 				"Science of Stupidity",
 				"This is the description",

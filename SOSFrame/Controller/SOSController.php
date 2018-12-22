@@ -27,13 +27,15 @@ class SOSController {
 			// Article page
 			$title = end($params);
 			$topic = prev($params);
+			$this->view->setTemplate()
 			$this->model->article($title, $topic);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
 			// Topic page
 			end($params);
 			$topic = prev($params);
 			
-			if($topic == 'secret') {
+			if($topic == 'secret') {}
+				/*
 				session_start();
 				if(isset($_POST['name']) && isset($_POST['pword'])
 						&& $this->verifyToken()) {
@@ -65,7 +67,9 @@ class SOSController {
 			} else {
 				$output = $this->getTopic($topic);
 			}
-			$this->view->topicPage($output);
+			*/
+			$this->view->setTemplate(SOSView::TOPIC);
+			$this->model->topic($topic);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
 			$this->view->setTemplate(SOSView::HOME);
 			$this->model->home();

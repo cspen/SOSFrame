@@ -15,7 +15,7 @@ class SOSModel implements DBQueries {
 		return $this->output;
 	}	
 	
-	private function getArticle($title, $topic) {
+	private function article($title, $topic) {
 		$this->output = new SOSArticleOutput(
 				$title,
 				"This is the description",
@@ -28,7 +28,7 @@ class SOSModel implements DBQueries {
 				"2019-20-20");
 	}
 	
-	public function getTopic($topic) { 
+	public function topic($topic) { 
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
 		$stmt->bindParam(':topic', $topic);
 		

@@ -7,7 +7,8 @@ $html = <<< EOT
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="$description">
-<link rel="stylesheet" href="../styles/template.css">
+<link rel="stylesheet"
+ href="http://localhost/Ozone/SOSFrame/Public/styles/template.css">
 
 <body class="w3-light-grey">
 

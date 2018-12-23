@@ -5,7 +5,8 @@ $html = <<< EOT
 <title>Editor</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../styles/template.css">
+<link rel="stylesheet" 
+ href="http://localhost/Ozone/SOSFrame/Public//styles/template.css">
 <style>
 	input, textarea { width: 100% }
 </style>

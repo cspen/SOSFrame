@@ -22,18 +22,27 @@ class SOSView {
 	public function showPage() {
 		$output = $this->model->output();
 		
-		$pageTitle = $output->pageTitle();
-		$description = $output->description();
-		$contentTitle = $output->contentTitle();
-		$contentBody = $output->contentBody();
-		$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
+		if(!empty($output)) {
+			$pageTitle = $output->pageTitle();
+			$description = $output->description();
+			$contentTitle = $output->contentTitle();
+			$contentBody = $output->contentBody();
+			$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
 		
-		$obj = new SOSArticleOutput();
-		if($output instanceof $obj) {
-			$author = $output->author();
-			$publishDate = $output->publishDate();
-			$next = $output->contentNext();
-			$prev = $output->contentPrev();
+			$obj = new SOSArticleOutput();
+			if($output instanceof $obj) {
+				$author = $output->author();
+				$publishDate = $output->publishDate();
+				$next = $output->contentNext();
+				$prev = $output->contentPrev();
+			}
+		} else {
+			$this->template = SOSView::TOPIC;
+			$pageTitle = "404 Not Found";
+			$description = "The page could not be found on this system";
+			$contentTitle = "404 Not Found";
+			$contentBody = "The page could not be found on this system";
+			$topicsMenu = null;
 		}
 		require_once($this->template);
 		echo $html;
@@ -47,6 +56,8 @@ class SOSView {
 		}
 		return $list;
 	}
+	
+	
 	
 	private $model;
 	private $template;

@@ -27,14 +27,24 @@ class SOSController {
 			// Article page
 			$title = end($params);
 			$topic = prev($params);
-			$this->view->setTemplate()
+			$this->view->setTemplate();
 			$this->model->article($title, $topic);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
 			// Topic page
 			end($params);
 			$topic = prev($params);
 			
-			if($topic == 'secret') {}
+			if($topic == 'secret') {
+				if (empty($_SESSION['token'])) {
+					// To prevent CSFR attack
+					$_SESSION['token'] = bin2hex(random_bytes(32));
+				}
+				$this->view->setTemplate(SOSView::TOPIC);
+				$this->model->login($_SESSION['token']);
+			} else {
+				$this->view->setTemplate(SOSView::TOPIC);
+				$this->model->topic($topic);
+			}
 				/*
 				session_start();
 				if(isset($_POST['name']) && isset($_POST['pword'])
@@ -58,40 +68,33 @@ class SOSController {
 							exit;
 						} else {
 							// Send login page
-							if (empty($_SESSION['token'])) {
-								// To prevent CSFR attack
-								$_SESSION['token'] = bin2hex(random_bytes(32));
-							}
-							$output = $this->createLogin($_SESSION['token']);
+							
 						}
 			} else {
 				$output = $this->getTopic($topic);
 			}
 			*/
-			$this->view->setTemplate(SOSView::TOPIC);
-			$this->model->topic($topic);
+			
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
 			$this->view->setTemplate(SOSView::HOME);
 			$this->model->home();
 		} else {
+			// NOTE: Need to have a central header setting
+			// location in the code -
 			header('HTTP/1.1 404 Not Found');
-			// Need custom 404 page
-			echo '404 NOT FOUND';
+			// SOSView will display custom page
 		}		
 	}
 	
 	public function login() {
 		session_start();
 		if(isset($_POST['name']) && isset($_POST['pword'])
-				&& $this->verifyToken()) {
-			$this->model->login();					
+				&& $_POST['token']) {
+			$this->verifyToken();
+			$this->view->setTemplate(SOSView::TOPIC);
+			$this->model->login($_POST['token']);					
 		} else {
-			// Send login page
-			if (empty($_SESSION['token'])) {
-				// To prevent CSFR attack
-				$_SESSION['token'] = bin2hex(random_bytes(32));
-			}
-			$output = $this->createLogin($_SESSION['token']);
+			exit;
 		}
 	}
 	
@@ -109,7 +112,7 @@ class SOSController {
 	
 	// Prevent CSRF attack
 	private function verifyToken() {
-		if (!empty($_POST['token'])) {
+		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;
 			}

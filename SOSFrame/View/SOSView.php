@@ -22,22 +22,21 @@ class SOSView {
 	public function showPage() {
 		$output = $this->model->output();
 		
-		if(!empty($output)) {
+		if(!empty($output)) {			
 			$pageTitle = $output->pageTitle();
 			$description = $output->description();
 			$contentTitle = $output->contentTitle();
 			$contentBody = $output->contentBody();
 			$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
 		
-			$obj = new SOSArticleOutput();
-			if($output instanceof $obj) {
+			if($output instanceof SOSArticleOutput) {
 				$author = $output->author();
 				$publishDate = $output->publishDate();
 				$next = $output->contentNext();
 				$prev = $output->contentPrev();
-			}
+			}			
 		} else {
-			$this->template = SOSView::TOPIC;
+			$this->template = $this::TOPIC;
 			$pageTitle = "404 Not Found";
 			$description = "The page could not be found on this system";
 			$contentTitle = "404 Not Found";

@@ -56,7 +56,8 @@ $topicsMenu;
 <hr>
 
 </div>
-
+<a href="$prev">Previous</a>
+<a href="$next">Next</a>
 
 <!-- End Right Column -->
 </div>

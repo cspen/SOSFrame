@@ -27,7 +27,7 @@ class SOSController {
 			// Article page
 			$title = end($params);
 			$topic = prev($params);
-			$this->view->setTemplate();
+			$this->view->setTemplate(SOSView::ARTICLE);
 			$this->model->article($title, $topic);
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
 			// Topic page
@@ -35,12 +35,16 @@ class SOSController {
 			$topic = prev($params);
 			
 			if($topic == 'secret') {
+				session_start();
 				if (empty($_SESSION['token'])) {
 					// To prevent CSFR attack
 					$_SESSION['token'] = bin2hex(random_bytes(32));
+					echo 'TOKEN: '.$_SESSION['token'];
+					$this->view->setTemplate(SOSView::TOPIC);
+					$this->model->login($_SESSION['token']);
+				} else {
+					echo 'REDIRECT TO EDITOR PAGE';
 				}
-				$this->view->setTemplate(SOSView::TOPIC);
-				$this->model->login($_SESSION['token']);
 			} else {
 				$this->view->setTemplate(SOSView::TOPIC);
 				$this->model->topic($topic);
@@ -87,12 +91,18 @@ class SOSController {
 	}
 	
 	public function login() {
-		session_start();
+		session_start(); 
 		if(isset($_POST['name']) && isset($_POST['pword'])
 				&& $_POST['token']) {
-			$this->verifyToken();
-			$this->view->setTemplate(SOSView::TOPIC);
-			$this->model->login($_POST['token']);					
+					echo ' TP: '.$_POST['token'].'<br>';
+					echo ' TS: '.$_SESSION['token'].'<br>';
+			if($this->verifyToken()) { 
+				$this->view->setTemplate(SOSView::TOPIC);
+				$this->model->login($_POST['token']);
+			} else {
+				echo 'BAD TOKEN';
+			}
+			exit;
 		} else {
 			exit;
 		}
@@ -111,8 +121,9 @@ class SOSController {
 	}
 	
 	// Prevent CSRF attack
-	private function verifyToken() {
+	private function verifyToken() { echo ' TOKEN TIME ';
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
+			echo ' TWO TOKENS ';
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;
 			}

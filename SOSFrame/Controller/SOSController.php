@@ -34,7 +34,7 @@ class SOSController {
 			end($params);
 			$topic = prev($params);
 			
-			if($topic == 'secret') {
+			if($topic == 'secret') { // Admin login
 				session_start();
 				if (empty($_SESSION['token'])) {
 					// To prevent CSFR attack
@@ -48,37 +48,7 @@ class SOSController {
 			} else {
 				$this->view->setTemplate(SOSView::TOPIC);
 				$this->model->topic($topic);
-			}
-				/*
-				session_start();
-				if(isset($_POST['name']) && isset($_POST['pword'])
-						&& $this->verifyToken()) {
-							
-							// Need to get hash from database
-							$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
-							$stmt->bindParam(":name", $_POST['name']);
-							if($stmt->execute()) {
-								$results = $stmt->fetch();
-								$hash = $results['password'];
-								if(password_verify($_POST['pword'], $hash)) {
-									$this->view->adminPage();
-								} else {
-									echo 'LOGIN FAILED';
-									exit;
-								}
-							} else {
-								header('HTTP/1.1 504 Internal Server Error');
-							}
-							exit;
-						} else {
-							// Send login page
-							
-						}
-			} else {
-				$output = $this->getTopic($topic);
-			}
-			*/
-			
+			}			
 		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
 			$this->view->setTemplate(SOSView::HOME);
 			$this->model->home();
@@ -94,11 +64,9 @@ class SOSController {
 		session_start(); 
 		if(isset($_POST['name']) && isset($_POST['pword'])
 				&& $_POST['token']) {
-					echo ' TP: '.$_POST['token'].'<br>';
-					echo ' TS: '.$_SESSION['token'].'<br>';
 			if($this->verifyToken()) { 
-				$this->view->setTemplate(SOSView::TOPIC);
-				$this->model->login($_POST['token']);
+				$this->view->setTemplate(SOSView::EDITOR);
+				$this->model->editor();
 			} else {
 				echo 'BAD TOKEN';
 			}
@@ -123,7 +91,6 @@ class SOSController {
 	// Prevent CSRF attack
 	private function verifyToken() { echo ' TOKEN TIME ';
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
-			echo ' TWO TOKENS ';
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;
 			}

@@ -39,10 +39,10 @@ class SOSController {
 				if (empty($_SESSION['token'])) {
 					// To prevent CSFR attack
 					$_SESSION['token'] = bin2hex(random_bytes(32));
-					echo 'TOKEN: '.$_SESSION['token'];
 					$this->view->setTemplate(SOSView::TOPIC);
 					$this->model->login($_SESSION['token']);
 				} else {
+					// Check if logged in
 					echo 'REDIRECT TO EDITOR PAGE';
 				}
 			} else {
@@ -67,13 +67,12 @@ class SOSController {
 			if($this->verifyToken()) { 
 				$this->view->setTemplate(SOSView::EDITOR);
 				$this->model->editor();
+				return;
 			} else {
 				echo 'BAD TOKEN';
 			}
-			exit;
-		} else {
-			exit;
 		}
+		exit;
 	}
 	
 	public function topic() {
@@ -89,7 +88,7 @@ class SOSController {
 	}
 	
 	// Prevent CSRF attack
-	private function verifyToken() { echo ' TOKEN TIME ';
+	private function verifyToken() {
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;

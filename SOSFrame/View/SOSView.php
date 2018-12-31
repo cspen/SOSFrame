@@ -13,12 +13,6 @@ class SOSView {
 		$this->template = $template;
 	}
 	
-	public function adminPage() {
-		require_once('Template/editor_template.php');
-		echo $html;
-		exit;
-	}
-	
 	public function showPage() {
 		$output = $this->model->output();
 		
@@ -43,7 +37,7 @@ class SOSView {
 			$contentBody = "The page could not be found on this system";
 			$topicsMenu = null;
 		}
-		require_once($this->template);
+		require_once($this->template); 
 		echo $html;
 		exit;
 	}
@@ -54,9 +48,7 @@ class SOSView {
 			$list .= '<p><a href="/Ozone/SOSFrame/Public/'.$item.'/">'.$item.'</a></p>';
 		}
 		return $list;
-	}
-	
-	
+	}	
 	
 	private $model;
 	private $template;

@@ -10,12 +10,18 @@ class SOSModel implements DBQueries {
 		$db = new DBConnection();
 		$this->dbconn = $db->getConnection();
 	}
+	
+	// Called by the controller object
+	public function update_state($path) {
+		echo " * MODEL ".$path." MODEL * ";
+	}
 		
+	// Called by the view object
 	public function output() {
 		return $this->output;
 	}	
 	
-	private function article($title, $topic) {
+	public function article($title, $topic) {
 		$this->output = new SOSArticleOutput(
 				$title,
 				"This is the description",
@@ -57,6 +63,54 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
+	public function editor() {
+		$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
+		$stmt->bindParam(":name", $_POST['name']);
+		if($stmt->execute()) {
+			$results = $stmt->fetch();
+			$hash = $results['password'];
+			if(password_verify($_POST['pword'], $hash)) {
+				// $this->view->adminPage();
+				$this->output = new SOSOutput(
+						"Editor",
+						"No description",
+						"Admin Page",
+						"Admin Page",
+						$this->getMenu());
+			} else {
+				echo 'LOGIN FAILED';
+				exit;
+			}
+		} else {
+			header('HTTP/1.1 504 Internal Server Error');
+			echo 'LOGIN FUCKED UP';
+		}
+	}
+	
+	
+	
+	/********************************************************
+	 * CODE BELOW FOR BACKEND ADMINISTRATION ACCESS.
+	 */
+	public function login($token) {
+		$loginForm = '<form action="/Ozone/SOSFrame/Public/secret/" method="post"><table>';
+		$loginForm .= '<tr><td>';
+		$loginForm .= '<label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>';
+		$loginForm .= '<tr><td>';
+		$loginForm .= '<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>';
+		$loginForm .= '</tr><tr><td></td><td><input type="submit" value="Login"></td>';
+		$loginForm .= '</tr></table>';
+		$loginForm .= '<input type="hidden" name="token" value="'.$token.'">';
+		$loginForm .= '<input type="hidden" name="action" value="login"></form>';
+		
+		$this->output = new SOSOutput(
+				"Secret",
+				"Admin login page",
+				"Login",
+				$loginForm,
+				$this->getMenu());
+	}
+	
 	private function getMenu() {
 		// TO-DO: Make db query for topics and pass
 		// to view. (View should create html list)
@@ -74,31 +128,8 @@ class SOSModel implements DBQueries {
 		} else {
 			// Handle the error
 			$results = array("Error");
-		}		
+		}
 		return $results;
-	}
-	
-	
-	
-	/********************************************************
-	 * CODE BELOW FOR BACKEND ADMINISTRATION ACCESS.
-	 */
-	private function createLogin($token) {		
-		$loginForm = '<form action="/Ozone/SOSFrame/Public/secret/" method="post"><table>';
-		$loginForm .= '<tr><td>';
-		$loginForm .= '<label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>';
-		$loginForm .= '<tr><td>';
-		$loginForm .= '<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>';
-		$loginForm .= '</tr><tr><td></td><td><input type="submit" value="Login"></td>';
-		$loginForm .= '</tr></table>';
-		$loginForm .= '<input type="hidden" name="token" value="'.$token.'"></form>';
-		
-		return new SOSOutput(
-				"Secret",
-				"Admin login page",
-				"Login",
-				$loginForm,
-				$this->getMenu());
 	}
 	
 	private $dbconn;

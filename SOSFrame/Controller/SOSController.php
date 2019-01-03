@@ -9,14 +9,34 @@
  * @author Craig Spencer <craigspencer@modintro.com>
  *
  */
+require_once('../SOSFrame/Classes/Interfaces/Settings.php');
 
-class SOSController {
+class SOSController implements Settings {
 	
 	public function __construct($model, $view) {
 		$this->model = $model;
 		$this->view = $view;
 	}
 	
+	public function process_request() {
+		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
+		$tail = substr($_SERVER['REQUEST_URI'], -1);
+		$this->model->update_state($path);
+		
+		if(empty($path)) {
+			echo 'HOME PAGE';
+			$this->view->setTemplate(SOSView::HOME);
+		} else if($tail === "/") {
+			echo 'TOPIC';
+			$this->view->setTemplate(SOSView::TOPIC);
+		} else {
+			echo 'ARTICLE';
+			$this->view->setTemplate(SOSView::ARTICLE);
+		}
+		// exit;
+	}
+	
+	// Method to be removed - old design
 	public function invoke() {
 		$requestURI = explode("?", $_SERVER['REQUEST_URI']);
 		$requestURI = $requestURI[0];
@@ -64,7 +84,7 @@ class SOSController {
 		session_start(); 
 		if(isset($_POST['name']) && isset($_POST['pword'])
 				&& $_POST['token']) {
-			if($this->verifyToken()) { 
+			if($this->verify_token()) { 
 				$this->view->setTemplate(SOSView::EDITOR);
 				$this->model->editor();
 				return;
@@ -88,7 +108,7 @@ class SOSController {
 	}
 	
 	// Prevent CSRF attack
-	private function verifyToken() {
+	private function verify_token() {
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;

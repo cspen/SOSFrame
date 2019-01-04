@@ -10,7 +10,7 @@ USE sosframe_db;
 SET time_zone = '+0:00';
 	
 CREATE TABLE user (
-	userID					INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	userID						INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	user_name					VARCHAR(60) NOT NULL,
 	user_password 				VARCHAR(255) NOT NULL,
 	user_email					VARCHAR(255) NOT NULL,
@@ -18,12 +18,12 @@ CREATE TABLE user (
 	user_type					VARCHAR(45),
 	user_activation_key			VARCHAR(255),
 	user_status					VARCHAR(45),
-	UNIQUE(email),
+	UNIQUE(user_email),
 	PRIMARY KEY(userID)	
 )
 ENGINE = MyISAM;
 
-# Need to rethink this table
+/* Need to rethink this table */
 CREATE TABLE user_history (
 	historyID				INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	userID_FK				INT UNSIGNED NOT NULL,	
@@ -35,18 +35,18 @@ ENGINE = MyISAM;
 
 CREATE TABLE article (
 	articleID 				INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	article_topic			VARCHAR(32),
 	article_title			VARCHAR(255),
 	article_description		VARCHAR(255),
 	article_body			LONGTEXT,
 	article_publish_status	BOOLEAN DEFAULT 0,
 	article_publish_date	DATETIME,
-	article_creation_date	DATETIME,
-	article_path			VARCHAR(511) NOT NULL,
+	article_creation_date	DATETIME NOT NULL,
+	article_path			VARCHAR(333) NOT NULL,
 	article_parent			INT UNSIGNED,
 	etag					VARCHAR(32),
 	last_modified			TIMESTAMP,
 				
+	UNIQUE(article_path),
 	PRIMARY KEY(articleID)
 )
 ENGINE = MyISAM;
@@ -79,25 +79,26 @@ CREATE TRIGGER insert_article BEFORE INSERT ON article
 delimiter ;
 
 
-INSERT INTO user (name, password, email, type)
+INSERT INTO user (user_name, user_password, user_email, user_type)
 	VALUES ("Craig Spencer", "Tester", "test@email.com", "Admin");
 SET @last_id_user = LAST_INSERT_ID();
 	
-INSERT INTO article (authorID, topic, title, body, publish, publish_date)
-VALUES (@last_id_user, "Health", "Health Article Title 1", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Health", "Health Article Title 2", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Health", "Health Article Title 3", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Technology", "Tech Article Title 1", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Technology", "Tech Article Title 2", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Technology", "Tech Article Title 3", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Money", "Money Article Title 1", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Money", "Money Article Title 2", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Money", "Money Article Title 3", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Music", "Music Article Title 1", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Music", "Music Article Title 2", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Music", "Music Article Title 3", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Success", "Success Article Title 1", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Success", "Success Article Title 2", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Success", "Success Article Title 3", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Success", "Success Article Title 4", "Blah blah blah", "1", NOW()),
-(@last_id_user, "Health", "Health Article Title 4", "Blah blah blah", "1", NOW());
+INSERT INTO article (article_path, article_title, article_body,
+ article_creation_date)
+VALUES ("/Health/Health-Article-Title-1", "Health Article Title 1", "Blah blah blah", NOW()),
+("/Health/Health-Article-Title-2", "Health Article Title 2", "Blah blah blah", NOW()),
+("/Health/Health-Article-Title-3", "Health Article Title 3", "Blah blah blah", NOW()),
+("/Technology/Tech-Article-Title-1", "Tech Article Title 1", "Blah blah blah", NOW()),
+("/Technology/Tech-Article-Title-2", "Tech Article Title 2", "Blah blah blah", NOW()),
+("/Technology/Coding/Coding-Article-Title", "Tech Article Title 3", "Blah blah blah", NOW()),
+("/Money/Money-Article-Title-1", "Money Article Title 1", "Blah blah blah", NOW()),
+("/Money/Money-Article-Title-2", "Money Article Title 2", "Blah blah blah", NOW()),
+("/Money/Money-Article-Title-3", "Money Article Title 3", "Blah blah blah", NOW()),
+("/Music/Music-Article-Title-1", "Music Article Title 1", "Blah blah blah", NOW()),
+("/Music/Music-Article-Title-2", "Music Article Title 2", "Blah blah blah", NOW()),
+("/Music/Music-Article-Title-3", "Music Article Title 3", "Blah blah blah", NOW()),
+("/Success/Success-Article-Title-1", "Success Article Title 1", "Blah blah blah", NOW()),
+("/Success/Success-Article-Title-2", "Success Article Title 2", "Blah blah blah", NOW()),
+("/Success/Success-Article-Title-3", "Success Article Title 3", "Blah blah blah", NOW()),
+("/Success/Success-Article-Title-4", "Success Article Title 4", "Blah blah blah", NOW()),
+("/Health/Health-Article-Title-4", "Health Article Title 4", "Blah blah blah", NOW());

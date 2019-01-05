@@ -14,6 +14,17 @@ class SOSModel implements DBQueries {
 	// Called by the controller object
 	public function update_state($path) {
 		echo " * MODEL ".$path." MODEL * ";
+		
+		// Need to gather the data
+		if(empty($path)) {
+			// Get home page data
+			$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
+			$stmt->bindParam(':topic', $topic);
+		} else {
+			// Get data for path
+			$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
+			$stmt->bindParam(':topic', $path);
+		}
 	}
 		
 	// Called by the view object

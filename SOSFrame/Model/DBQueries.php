@@ -7,15 +7,16 @@
 
 interface DBQueries {
 	
-	const ARTICLE_QUERY = " ";
+	const PATH_QUERY = 'SELECT * FROM article WHERE path=:path';
 	
-	const TOPIC_QUERY = "SELECT * FROM article WHERE topic=:topic";
+	const TOPIC_QUERY = 'SELECT * FROM article WHERE topic=:topic';
 	
-	const HOME_QUERY = " ";
+	const HOME_QUERY = '';
 	
-	const LOGIN_QUERY = "SELECT password FROM user WHERE name=:name";
+	const LOGIN_QUERY = 'SELECT password FROM user WHERE name=:name';
 	
-	const TOPIC_MENU_QUERY = "";
+	const TOPIC_MENU_QUERY =
+			'SELECT DISTINCT SUBSTRING_INDEX(article_path, "/", 1) FROM article';
 }
 
 ?>

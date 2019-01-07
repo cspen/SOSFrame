@@ -13,18 +13,16 @@ class SOSModel implements DBQueries {
 	
 	// Called by the controller object
 	public function update_state($path) {
-		echo " * MODEL ".$path." MODEL * ";
-		
 		// Need to gather the data
-		if(empty($path)) {
+		if(empty($path)) { echo ' - HOME PAGE - ';
 			// Get home page data
-			$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
-			$stmt->bindParam(':topic', $topic);
+			// $stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
+			// $stmt->bindParam(':topic', $topic);
 		} else {
 			// Get data for path
-			$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
+			$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
 			$stmt->bindParam(':topic', $path);
-		}
+		}		
 	}
 		
 	// Called by the view object
@@ -125,8 +123,7 @@ class SOSModel implements DBQueries {
 	private function getMenu() {
 		// TO-DO: Make db query for topics and pass
 		// to view. (View should create html list)
-		$query = "SELECT distinct topic FROM article";
-		$stmt = $this->dbconn->prepare($query);
+		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
 		$results = array();
 		if($stmt->execute()) {
 			$count = $stmt->rowCount();

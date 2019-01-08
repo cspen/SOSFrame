@@ -14,14 +14,15 @@ class SOSModel implements DBQueries {
 	// Called by the controller object
 	public function update_state($path) {
 		// Need to gather the data
-		if(empty($path)) { echo ' - HOME PAGE - ';
+		if(empty($path)) {
 			// Get home page data
-			// $stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
-			// $stmt->bindParam(':topic', $topic);
+			$this->home();
 		} else {
 			// Get data for path
-			$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
-			$stmt->bindParam(':topic', $path);
+			$this->page_data($path);
+			
+			// $stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
+			// $stmt->bindParam(':topic', $path);
 		}		
 	}
 		
@@ -63,13 +64,26 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
-	public function home() {
+	private function home() {
 		$this->output =  new SOSOutput(
 				"Science of Stupidity",
 				"This is the description",
 				"Home Page Content Title",
 				"Home Page Content Body",
 				$this->getMenu());
+	}
+	
+	private function page_data($path) {
+		$this->output = new SOSArticleOutput(
+				$path,
+				"This is the description",
+				"Content Title",
+				"Content body",
+				$this->getMenu(),
+				"Content Prev",
+				"Content Next",
+				"Author Name",
+				"12/12/12");
 	}
 	
 	public function editor() {

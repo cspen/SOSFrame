@@ -20,9 +20,6 @@ class SOSModel implements DBQueries {
 		} else {
 			// Get data for path
 			$this->page_data($path);
-			
-			// $stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
-			// $stmt->bindParam(':topic', $path);
 		}		
 	}
 		
@@ -73,17 +70,29 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
-	private function page_data($path) {
-		$this->output = new SOSArticleOutput(
-				$path,
-				"This is the description",
-				"Content Title",
-				"Content body",
-				$this->getMenu(),
-				"Content Prev",
-				"Content Next",
-				"Author Name",
-				"12/12/12");
+	private function page_data($path) {		echo ' *** '.$path.' *** ';
+		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
+		$stmt->bindParam(':path', $path); 
+		
+		if($stmt->execute()) {
+			$results = $stmt->fetch();
+			
+			if(!empty($results)) {
+			$this->output = new SOSArticleOutput(
+					$path,
+					$results['article_description'],
+					$results['article_title'],
+					$results['article_body'],
+					$this->getMenu(),
+					"Content Prev",
+					"Content Next",
+					"Author Name",
+					$results['article_publish_date']);
+			} 			
+		} else {
+			header("HTTP/1.1 504 Internal Server Error");
+			exit;
+		}
 	}
 	
 	public function editor() {

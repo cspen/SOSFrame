@@ -97,29 +97,26 @@ INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Success/Success-Article-Title-1", "Success Article Title 1",
+	"Description - Success Article Title 1", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
-
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Music/Music-Article-Title-1", "Music Article Title 1",
+	"Description - Music Article Title 1", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
-
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Technology/Tech-Article-Title-1", "Tech Article Title 1",
+	"Description - Tech Article Title 1", "Text Body 2", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
-
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Food/Recipes/Recipe-Article-Title-1", "Recipe Article Title 1",
+	"Description - Recipe Article Title 1", "Text Body 2", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 
@@ -129,50 +126,27 @@ SET @last_id_user = LAST_INSERT_ID();
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Health/Health-Article-Title-3", "Health Article Title 3",
+	"Description - Health Article Title 3", "Text Body 2", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Health/Health-Article-Title-4", "Health Article Title 4",
+	"Description - Health Article Title 4", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Food/Food-Article-Title-1", "Health Article Title 1",
+	"Description - Health Article Title 2", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Health/Health-Article-Title-2", "Health Article Title 2",
-	"Description - Health Article Title 2", "Text Body 2", NOW(), NOW());
+VALUES ("Health/Health-Article-Title-5", "Health Article Title 5",
+	"Description - Health Article Title 5", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
-
-
-
-
-
-/*
-("Health/Health-Article-Title-3", "Health Article Title 3", "Blah blah blah", NOW()),
-("Technology/Tech-Article-Title-1", "Tech Article Title 1", "Blah blah blah", NOW()),
-("Technology/Tech-Article-Title-2", "Tech Article Title 2", "Blah blah blah", NOW()),
-("Technology/Coding/Coding-Article-Title", "Tech Article Title 3", "Blah blah blah", NOW()),
-("Money/Money-Article-Title-1", "Money Article Title 1", "Blah blah blah", NOW()),
-("Money/Money-Article-Title-2", "Money Article Title 2", "Blah blah blah", NOW()),
-("Money/Money-Article-Title-3", "Money Article Title 3", "Blah blah blah", NOW()),
-("Music/Music-Article-Title-1", "Music Article Title 1", "Blah blah blah", NOW()),
-("Music/Music-Article-Title-2", "Music Article Title 2", "Blah blah blah", NOW()),
-("Music/Music-Article-Title-3", "Music Article Title 3", "Blah blah blah", NOW()),
-("Success/Success-Article-Title-1", "Success Article Title 1", "Blah blah blah", NOW()),
-("Success/Success-Article-Title-2", "Success Article Title 2", "Blah blah blah", NOW()),
-("Success/Success-Article-Title-3", "Success Article Title 3", "Blah blah blah", NOW()),
-("Success/Success-Article-Title-4", "Success Article Title 4", "Blah blah blah", NOW()),
-("Health/Health-Article-Title-4", "Health Article Title 4", "Blah blah blah", NOW());
-
-/*

@@ -2,9 +2,10 @@
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
 require_once('../SOSFrame/Classes/DBConnection.php');
+require_once('../SOSFrame/Classes/Interfaces/Constants.php');
 require_once('DBQueries.php');
 
-class SOSModel implements DBQueries {
+class SOSModel implements DBQueries, Constants {
 		
 	public function __construct() {
 		$db = new DBConnection();
@@ -12,7 +13,7 @@ class SOSModel implements DBQueries {
 	}
 	
 	// Called by the controller object
-	public function update_state($path) {
+	public function update_state($path, $type) {
 		// Need to gather the data
 		if(empty($path)) {
 			// Get home page data
@@ -70,7 +71,9 @@ class SOSModel implements DBQueries {
 				$this->getMenu());
 	}
 	
-	private function page_data($path) {		echo ' *** '.$path.' *** ';
+	private function page_data($path) {
+		// Need to determine if this is article
+		// or topic page
 		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
 		$stmt->bindParam(':path', $path); 
 		
@@ -115,7 +118,7 @@ class SOSModel implements DBQueries {
 			}
 		} else {
 			header('HTTP/1.1 504 Internal Server Error');
-			echo 'LOGIN FUCKED UP';
+			echo 'LOGIN MESSED UP';
 		}
 	}
 	
@@ -165,4 +168,7 @@ class SOSModel implements DBQueries {
 	
 	private $dbconn;
 	private $output;
+	
+	const TOPIC	= 0;
+	const ARTICLE = 1;
 }

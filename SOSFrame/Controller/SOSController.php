@@ -10,30 +10,32 @@
  *
  */
 require_once('../SOSFrame/Classes/Interfaces/Settings.php');
+require_once('../SOSFrame/Classes/Interfaces/Constants.php');
 
-class SOSController implements Settings {
+class SOSController implements Settings, Constants {
 	
 	public function __construct($model, $view) {
 		$this->model = $model;
 		$this->view = $view;
 	}
 	
+	// New design
 	public function process_request() {
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
-		$this->model->update_state($path);
 		
+				
+		// Set the view
 		if(empty($path)) {
-			echo 'HOME PAGE';
 			$this->view->setTemplate(SOSView::HOME);
+			$this->model->update_state($path, null);
 		} else if($tail === "/") {
-			echo 'TOPIC';
-			$this->view->setTemplate(SOSView::TOPIC);
+			$this->view->setTemplate(Constants::TOPIC);
+			$this->model->update_state($path, SOSModel::TOPIC);
 		} else {
-			echo 'ARTICLE';
-			$this->view->setTemplate(SOSView::ARTICLE);
+			$this->view->setTemplate(Constants::ARTICLE);
+			$this->model->update_state($path);
 		}
-		// exit;
 	}
 	
 	// Method to be removed - old design
@@ -93,18 +95,6 @@ class SOSController implements Settings {
 			}
 		}
 		exit;
-	}
-	
-	public function topic() {
-		
-	}
-	
-	public function article() {
-		
-	}
-	
-	public function clicked() {
-		
 	}
 	
 	// Prevent CSRF attack

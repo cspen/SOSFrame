@@ -2,10 +2,9 @@
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
 require_once('../SOSFrame/Classes/DBConnection.php');
-require_once('../SOSFrame/Classes/Interfaces/Constants.php');
 require_once('DBQueries.php');
 
-class SOSModel implements DBQueries, Constants {
+class SOSModel implements DBQueries {
 		
 	public function __construct() {
 		$db = new DBConnection();
@@ -19,8 +18,12 @@ class SOSModel implements DBQueries, Constants {
 			// Get home page data
 			$this->home();
 		} else {
-			// Get data for path
-			$this->page_data($path);
+			if($type == $this::ARTICLE) {
+				// Get data for path
+				$this->article_data($path);
+			} else if($type == $this::TOPIC) {
+				$this->topic_data($path);
+			}
 		}		
 	}
 		
@@ -71,7 +74,7 @@ class SOSModel implements DBQueries, Constants {
 				$this->getMenu());
 	}
 	
-	private function page_data($path) {
+	private function article_data($path) {
 		// Need to determine if this is article
 		// or topic page
 		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
@@ -96,6 +99,10 @@ class SOSModel implements DBQueries, Constants {
 			header("HTTP/1.1 504 Internal Server Error");
 			exit;
 		}
+	}
+	
+	private function topic_data($path) {
+		
 	}
 	
 	public function editor() {

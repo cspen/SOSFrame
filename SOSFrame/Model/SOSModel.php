@@ -102,6 +102,14 @@ class SOSModel implements DBQueries {
 	}
 	
 	private function topic_data($path) {
+		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
+		$stmt->bindParam(":path", $path);
+		if($stmt->execute()) {
+			
+		} else {
+			echo "504 Internal Server Error";
+		}
+		
 		
 	}
 	

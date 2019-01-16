@@ -103,14 +103,22 @@ class SOSModel implements DBQueries {
 	
 	private function topic_data($path) {
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
-		$stmt->bindParam(":path", $path);
+		$stmt->bindParam(':path', $path);
 		if($stmt->execute()) {
+			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$a = array();
+			foreach($results as $r)
+				$a[] = $r['article_title'];
 			
+			$this->output = new SOSOutput(
+					rtrim($path, "/"),
+					"No description",
+					$path,
+					$a,
+					$this->getMenu());
 		} else {
 			echo "504 Internal Server Error";
-		}
-		
-		
+		}		
 	}
 	
 	public function editor() {

@@ -66,12 +66,20 @@ class SOSModel implements DBQueries {
 	}
 	
 	private function home() {
-		$this->output =  new SOSOutput(
-				"Science of Stupidity",
-				"This is the description",
-				"Home Page Content Title",
-				"Home Page Content Body",
-				$this->getMenu());
+		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);
+		if($stmt->execute()) {
+			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			print_r($results);
+			
+			$this->output =  new SOSOutput(
+					"Science of Stupidity",
+					"This is the description",
+					"Home Page Content Title",
+					"Home Page Content Body",
+					$this->getMenu());
+		} else {
+			echo 'FART FART FART FART FART';
+		}
 	}
 	
 	private function article_data($path) {
@@ -92,7 +100,7 @@ class SOSModel implements DBQueries {
 					$this->getMenu(),
 					"Content Prev",
 					"Content Next",
-					"Author Name",
+					$results['user_first_name']." ".$results['user_last_name'],
 					$results['article_publish_date']);
 			} 			
 		} else {

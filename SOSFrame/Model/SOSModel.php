@@ -69,13 +69,20 @@ class SOSModel implements DBQueries {
 		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);
 		if($stmt->execute()) {
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			print_r($results);
+			// print_r($results);
+			
+			$articles = array();
+			foreach($results as $r) {
+				$articles[] = str_replace("-", " ", $r['article_path']);
+				// $article[] = $r['article_path'];
+				// $articles[] = $article;
+			}
 			
 			$this->output =  new SOSOutput(
 					"Science of Stupidity",
 					"This is the description",
-					"Home Page Content Title",
-					"Home Page Content Body",
+					"Home",
+					$articles,
 					$this->getMenu());
 		} else {
 			echo 'FART FART FART FART FART';

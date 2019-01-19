@@ -18,7 +18,7 @@ interface DBQueries {
 	const TOPIC_QUERY = 'SELECT article_title FROM article WHERE 
 			article_path LIKE CONCAT(:path, "%")';
 	
-	const HOME_QUERY = '';
+	const HOME_QUERY = 'SELECT * FROM article LIMIT 10';
 	
 	const LOGIN_QUERY = 'SELECT password FROM user WHERE name=:name';
 	

@@ -27,7 +27,7 @@ $html = <<< EOT
 <div class="w3-white w3-text-grey w3-card-4">
 <div class="w3-display-container">
 <div class="w3-container w3-text-black">
-<h2 id="blogtitle">Science of Stupidity</h2>
+<h2 id="blogtitle"><a href="$siteURL">$siteTitle</a></h2>
 <small id="tagline">Better living through trial and error</small><hr>
 </div>
 </div>

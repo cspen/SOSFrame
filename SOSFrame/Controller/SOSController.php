@@ -10,9 +10,8 @@
  *
  */
 require_once('../SOSFrame/Classes/Interfaces/Settings.php');
-require_once('../SOSFrame/Classes/Interfaces/Constants.php');
 
-class SOSController implements Settings, Constants {
+class SOSController implements Settings {
 	
 	public function __construct($model, $view) {
 		$this->model = $model;
@@ -23,18 +22,20 @@ class SOSController implements Settings, Constants {
 	public function process_request() {
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
-		
-				
+						
 		// Set the view
 		if(empty($path)) {
 			$this->view->setTemplate(SOSView::HOME);
 			$this->model->update_state($path, null);
 		} else if($tail === "/") {
-			$this->view->setTemplate(Constants::TOPIC);
+			$this->view->setTemplate(SOSView::TOPIC);
 			$this->model->update_state($path, SOSModel::TOPIC);
 		} else {
-			$this->view->setTemplate(Constants::ARTICLE);
-			$this->model->update_state($path);
+			if(strcmp($path, Settings::APP_URL.'/secret')) {
+				echo 'ADMIN LOGIN ';exit;
+			}
+			$this->view->setTemplate(SOSView::ARTICLE);
+			$this->model->update_state($path, SOSModel::ARTICLE);
 		}
 	}
 	

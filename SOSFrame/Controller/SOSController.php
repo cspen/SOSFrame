@@ -32,12 +32,26 @@ class SOSController implements Settings {
 			$this->model->update_state($path, SOSModel::TOPIC);
 		} else {
 			if(strcmp($path, Settings::APP_URL.'/secret')) {
-				echo 'ADMIN LOGIN ';exit;
+				$this->token();
+				$this->model->login($_SESSION['token']);
+				$this->view->setTemplate(SOSView::ADMIN_LOGIN);
+				// $this->model->update_state($path, SOSModel::ARTICLE);
+			} else {
+				$this->view->setTemplate(SOSView::ARTICLE);
+				$this->model->update_state($path, SOSModel::ARTICLE);
 			}
-			$this->view->setTemplate(SOSView::ARTICLE);
-			$this->model->update_state($path, SOSModel::ARTICLE);
 		}
 	}
+	
+	// Set session token for form validation
+	private function token() {
+		session_start();
+		if (empty($_SESSION['token'])) {
+			// To prevent CSFR attack
+			$_SESSION['token'] = bin2hex(random_bytes(32));			
+		} 
+	}
+	
 	
 	// Method to be removed - old design
 	public function invoke() {

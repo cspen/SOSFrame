@@ -30,12 +30,11 @@ class SOSController implements Settings {
 		} else if($tail === "/") {
 			$this->view->setTemplate(SOSView::TOPIC);
 			$this->model->update_state($path, SOSModel::TOPIC);
-		} else {
-			if(strcmp($path, Settings::APP_URL.'/secret')) {
+		} else { 
+			if(strcmp($path, Settings::ADMIN_LOGIN_PAGE) == 0) {
 				$this->token();
 				$this->model->login($_SESSION['token']);
 				$this->view->setTemplate(SOSView::ADMIN_LOGIN);
-				// $this->model->update_state($path, SOSModel::ARTICLE);
 			} else {
 				$this->view->setTemplate(SOSView::ARTICLE);
 				$this->model->update_state($path, SOSModel::ARTICLE);
@@ -102,11 +101,10 @@ class SOSController implements Settings {
 		if(isset($_POST['name']) && isset($_POST['pword'])
 				&& $_POST['token']) {
 			if($this->verify_token()) { 
-				$this->view->setTemplate(SOSView::EDITOR);
-				$this->model->editor();
+				if($this->model->validate_login()) {
+					$this->view->setTemplate(SOSView::EDITOR);
+				}
 				return;
-			} else {
-				echo 'BAD TOKEN';
 			}
 		}
 		exit;
@@ -117,6 +115,9 @@ class SOSController implements Settings {
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;
+			} else {
+				echo $_SESSION['token'].'<br>';
+				echo $_POST['token'].'<br>';
 			}
 		}
 		return false;

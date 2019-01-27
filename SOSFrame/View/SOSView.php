@@ -37,7 +37,7 @@ class SOSView implements Settings {
 				}
 				$contentBody = $a;
 			} 			
-			$topicsMenu = $this->createTopicsMenu($output->topicsMenu());
+			$topicsMenu = $this->createSideMenu($output->sideMenu());
 		
 			if($output instanceof SOSArticleOutput) {
 				$author = $output->author();
@@ -58,10 +58,10 @@ class SOSView implements Settings {
 		exit;
 	}
 	
-	private function createTopicsMenu($menuItems) {
+	private function createSideMenu($menuItems) {
 		$list = "";
 		foreach($menuItems as $item) {
-			$list .= '<p><a href="/Ozone/SOSFrame/Public/'.$item.'/">'.$item.'</a></p>';
+			$list .= '<p><a href="'.Settings::APP_URL.$item.'/">'.$item.'</a></p>';
 		}
 		return $list;
 	}	
@@ -73,4 +73,5 @@ class SOSView implements Settings {
 	const ARTICLE = "Template/article_template.php";
 	const TOPIC = "Template/topic_template.php";
 	const EDITOR = "Template/editor_template.php";
+	const ADMIN_LOGIN = "Template/admin_login_template.php";
 }

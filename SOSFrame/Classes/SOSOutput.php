@@ -14,10 +14,11 @@ class SOSOutput implements Output {
 	private $description;		// Meta tag description for SEO
 	private $contentTitle;		// Title of page content
 	private $contentBody;		// Page content
+	private $sideMenu;			// Menu displayed on left side bar
 	private $contentPrev;		// Link to previous related content
 	private $contentNext;		// Link to next related content
 	
-	public function __construct() {
+	function __construct() {
 		$args = func_get_args();
 		$num = func_num_args();
 		if (method_exists($this,$f='__construct'.$num)) {
@@ -38,37 +39,32 @@ class SOSOutput implements Output {
 		$this->contentBody = $contentBody;
 	}
 	
-	function __construct6($pageTitle, $description, $contentTitle,
-			$contentBody, $contentPrev, $contentNext) {
-		$this->pageTitle = $pageTitle;
-		$this->description = $description;
-		$this->contentTitle = $contentTitle;
-		$this->contentBody = $contentBody;
-		$this->contentPrev = $contentPrev;
-		$this->contentNext = $contentNext;
+	function __construct5($pageTitle, $description, $contentTitle,
+			$contentBody, $sideMenu) {
+				$this->pageTitle = $pageTitle;
+				$this->description = $description;
+				$this->contentTitle = $contentTitle;
+				$this->contentBody = $contentBody;
+				$this->sideMenu = $sideMenu;
 	}
 	
-	function pageTitle() {
+	public function pageTitle() {
 		return $this->pageTitle;
 	}
 	
-	function description() {
+	public function description() {
 		return $this->description;
 	}
 	
-	function contentTitle() {
+	public function contentTitle() {
 		return $this->contentTitle;
 	}
 	
-	function contentBody() {
+	public function contentBody() {
 		return $this->contentBody;
 	}
 	
-	function contentPrev() {
-		return $this->contentPrev;
-	}
-	
-	function contentNext() {
-		return $this->contentNext;
+	public function sideMenu() {
+		return $this->sideMenu;
 	}	
 }

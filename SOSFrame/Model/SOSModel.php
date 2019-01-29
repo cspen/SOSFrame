@@ -2,9 +2,10 @@
 
 require_once('../SOSFrame/Classes/SOSOutput.php');
 require_once('../SOSFrame/Classes/DBConnection.php');
+require_once('../SOSFrame/Classes/Interfaces/Settings.php');
 require_once('DBQueries.php');
 
-class SOSModel implements DBQueries {
+class SOSModel implements DBQueries, Settings {
 		
 	public function __construct() {
 		$db = new DBConnection();
@@ -31,19 +32,6 @@ class SOSModel implements DBQueries {
 	public function output() {
 		return $this->output;
 	}	
-	
-	public function article($title, $topic) {
-		$this->output = new SOSArticleOutput(
-				$title,
-				"This is the description",
-				preg_replace("/-/", " ", $title),
-				"This is the Content Body",
-				$this->getMenu(),
-				"Prev content",
-				"Next content",
-				"Bob Marley",
-				"2019-20-20");
-	}
 	
 	public function topic($topic) { 
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
@@ -79,13 +67,13 @@ class SOSModel implements DBQueries {
 			}
 			
 			$this->output =  new SOSOutput(
-					"Science of Stupidity",
-					"This is the description",
-					"Home",
+					Settings::SITE_TITLE,
+					Settings::HOME_PAGE_DESCRIPTION,
+					Settings::HOME_PAGE_TITLE,
 					$articles,
 					$this->getMenu());
 		} else {
-			echo 'FART FART FART FART FART';
+			echo 'OUT';
 		}
 	}
 	
@@ -136,12 +124,15 @@ class SOSModel implements DBQueries {
 		}		
 	}
 	
-	public function editor() {
+	// Validate user login
+	public function validate_login() {
+		$name = explode(" ", $_POST['name']);
 		$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
-		$stmt->bindParam(":name", $_POST['name']);
+		$stmt->bindParam(":fname", $name[0]);
+		$stmt->bindParam(":lname", $name[1]);
 		if($stmt->execute()) {
 			$results = $stmt->fetch();
-			$hash = $results['password'];
+			$hash = $results['user_password'];
 			if(password_verify($_POST['pword'], $hash)) {
 				// $this->view->adminPage();
 				$this->output = new SOSOutput(
@@ -150,38 +141,15 @@ class SOSModel implements DBQueries {
 						"Admin Page",
 						"Admin Page",
 						$this->getMenu());
+				return true;
 			} else {
-				echo 'LOGIN FAILED';
-				exit;
+				echo 'ICEBURGER';
+				return false;
 			}
 		} else {
 			header('HTTP/1.1 504 Internal Server Error');
-			echo 'LOGIN MESSED UP';
+			return false;
 		}
-	}
-	
-	
-	
-	/********************************************************
-	 * CODE BELOW FOR BACKEND ADMINISTRATION ACCESS.
-	 */
-	public function login($token) {
-		$loginForm = '<form action="/Ozone/SOSFrame/Public/secret/" method="post"><table>';
-		$loginForm .= '<tr><td>';
-		$loginForm .= '<label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>';
-		$loginForm .= '<tr><td>';
-		$loginForm .= '<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>';
-		$loginForm .= '</tr><tr><td></td><td><input type="submit" value="Login"></td>';
-		$loginForm .= '</tr></table>';
-		$loginForm .= '<input type="hidden" name="token" value="'.$token.'">';
-		$loginForm .= '<input type="hidden" name="action" value="login"></form>';
-		
-		$this->output = new SOSOutput(
-				"Secret",
-				"Admin login page",
-				"Login",
-				$loginForm,
-				$this->getMenu());
 	}
 	
 	private function getMenu() {
@@ -202,6 +170,18 @@ class SOSModel implements DBQueries {
 			$results = array("Error");
 		}
 		return $results;
+	}
+	
+	/********************************************************
+	 * BACKEND ADMINISTRATION ACCESS.
+	 */
+	public function login() {
+		$this->output = new SOSOutput(
+				"Secret",
+				"Admin login page",
+				"Login",
+				"",
+				$this->getMenu());
 	}
 	
 	private $dbconn;

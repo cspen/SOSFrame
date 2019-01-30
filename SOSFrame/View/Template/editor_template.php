@@ -1,4 +1,8 @@
 <?php
+require_once('../SOSFrame/Classes/Interfaces/Settings.php');
+
+$styleSheet = Settings::APP_URL."styles/template.css";
+
 $html = <<< EOT
 <!DOCTYPE html>
 <html>
@@ -6,7 +10,7 @@ $html = <<< EOT
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" 
- href="http://localhost/Ozone/SOSFrame/Public//styles/template.css">
+ href="$styleSheet">
 <style>
 	input, textarea { width: 100% }
 </style>

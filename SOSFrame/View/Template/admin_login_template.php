@@ -1,6 +1,9 @@
 <?php
 require_once('../SOSFrame/Classes/Interfaces/Settings.php');
+
 $token = $_SESSION['token'];
+$loginURL = Settings::APP_URL;
+$styleSheet = Settings::APP_URL."styles/template.css";
 
 // echo getcwd();
 $html = <<< EOT
@@ -11,7 +14,7 @@ $html = <<< EOT
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="$description">
 <link rel="stylesheet"
- href="http://localhost/Ozone/SOSFrame/Public//styles/template.css">
+ href="$styleSheet">
  
 <body class="w3-light-grey">
 
@@ -53,7 +56,7 @@ $topicsMenu;
 <div class="w3-container">
 <h5 class="w3-opacity"></h5>
 
-<form action="/Ozone/SOSFrame/Public/secret/" method="post">
+<form action="$loginURL" method="post">
 <table>
 <tr><td>
 <label for="name">Name: <label></td><td><input type="text" name="name" id="name"></td>
@@ -61,7 +64,7 @@ $topicsMenu;
 		<label for="pword">Password: </label></td><td><input type="password" name="pword" id="pword"></td>
 		</tr><tr><td></td><td><input type="submit" value="Login"></td>
 		</tr></table>
-		<input type="hidden" name="token" value="'.$token.'">
+		<input type="hidden" name="token" value="$token">
 		<input type="hidden" name="action" value="login"></form>
 		
 <hr>

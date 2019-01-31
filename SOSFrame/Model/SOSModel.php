@@ -134,16 +134,17 @@ class SOSModel implements DBQueries, Settings {
 			$results = $stmt->fetch();
 			$hash = $results['user_password'];
 			if(password_verify($_POST['pword'], $hash)) {
+				echo "WHAT!";
 				// $this->view->adminPage();
 				$this->output = new SOSOutput(
-						"Editor",
+						"Shmeditor",
 						"No description",
 						"Admin Page",
-						"Admin Page",
-						$this->getMenu());
+						"Admin Page sdfsdfsdf",
+						$this->getEditorMenu());
+				echo 'WHERE DID THE CODE GO';
 				return true;
 			} else {
-				echo 'ICEBURGER';
 				return false;
 			}
 		} else {
@@ -153,8 +154,6 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	private function getMenu() {
-		// TO-DO: Make db query for topics and pass
-		// to view. (View should create html list)
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
 		$results = array();
 		if($stmt->execute()) {
@@ -170,6 +169,10 @@ class SOSModel implements DBQueries, Settings {
 			$results = array("Error");
 		}
 		return $results;
+	}
+	
+	private function getEditorMenu() {
+		return array("Sign Out");
 	}
 	
 	/********************************************************

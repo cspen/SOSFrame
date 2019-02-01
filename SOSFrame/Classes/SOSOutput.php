@@ -14,7 +14,8 @@ class SOSOutput implements Output {
 	private $description;		// Meta tag description for SEO
 	private $contentTitle;		// Title of page content
 	private $contentBody;		// Page content
-	private $sideMenu;			// Menu displayed on left side bar
+	private $sideMenuTitle;		// Title of side menu
+	private $sideMenu;			// Menu displayed on side bar
 	private $contentPrev;		// Link to previous related content
 	private $contentNext;		// Link to next related content
 	
@@ -48,6 +49,16 @@ class SOSOutput implements Output {
 				$this->sideMenu = $sideMenu;
 	}
 	
+	function __construct6($pageTitle, $description, $contentTitle,
+			$contentBody, $sideMenuTitle, $sideMenu) {
+				$this->pageTitle = $pageTitle;
+				$this->description = $description;
+				$this->contentTitle = $contentTitle;
+				$this->contentBody = $contentBody;
+				$this->sideMenuTitle = $sideMenuTitle;
+				$this->sideMenu = $sideMenu;
+	}
+	
 	public function pageTitle() {
 		return $this->pageTitle;
 	}
@@ -62,6 +73,10 @@ class SOSOutput implements Output {
 	
 	public function contentBody() {
 		return $this->contentBody;
+	}
+	
+	public function sideMenuTitle() {
+		return $this->sideMenuTitle;
 	}
 	
 	public function sideMenu() {

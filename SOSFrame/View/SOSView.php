@@ -37,7 +37,8 @@ class SOSView implements Settings {
 				}
 				$contentBody = $a;
 			} 			
-			$topicsMenu = $this->createSideMenu($output->sideMenu());
+			$sideMenuTitle = $output->sideMenuTitle();
+			$sideMenu = $this->createSideMenu($output->sideMenu());
 		
 			if($output instanceof SOSArticleOutput) {
 				$author = $output->author();
@@ -51,11 +52,10 @@ class SOSView implements Settings {
 			$description = "The page could not be found on this system";
 			$contentTitle = "404 Not Found";
 			$contentBody = "The page could not be found on this system";
-			$topicsMenu = null;
+			$sideMenu = null;
 		}
 		require_once($this->template); 
 		echo $html;
-		exit;
 	}
 	
 	private function createSideMenu($menuItems) {

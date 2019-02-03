@@ -9,8 +9,7 @@ $html = <<< EOT
 <title>Editor</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" 
- href="$styleSheet">
+<link rel="stylesheet" href="$styleSheet">
 <style>
 	input, textarea { width: 100% }
 </style>
@@ -37,11 +36,11 @@ $html = <<< EOT
 <p><a href="javascript:void(0)">About</a></p>
 <hr>
 
-<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Topics</b></p>
-<p><a href="javascript:void(0)">Health &amp; Fitness</a></p>
-<p><a href="javascript:void(0)">Photography</a></p>
-<p><a href="javascript:void(0)">Illustrator</a></p>
-<p><a href="javascript:void(0)">Media</a></p>
+<p class="w3-large">
+	<b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
+	$sideMenuTitle</b>
+</p>
+$topicsMenu
 <br>
 </div>
 </div><br>

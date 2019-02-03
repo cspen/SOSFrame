@@ -10,8 +10,7 @@ $html = <<< EOT
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="$description">
-<link rel="stylesheet" 
- href="$styleSheet">
+<link rel="stylesheet" href="$styleSheet">
 
 <body class="w3-light-grey">
 
@@ -39,8 +38,11 @@ $html = <<< EOT
 <p><a href="javascript:void(0)">About</a></p>
 <hr>
 
-<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Topics</b></p>
-$topicsMenu;
+<p class="w3-large">
+	<b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
+	$sideMenuTitle</b>
+</p>
+$sideMenu;
 <br>
 </div>
 </div><br>

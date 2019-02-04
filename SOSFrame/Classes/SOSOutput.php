@@ -40,15 +40,6 @@ class SOSOutput implements Output {
 		$this->contentBody = $contentBody;
 	}
 	
-	function __construct5($pageTitle, $description, $contentTitle,
-			$contentBody, $sideMenu) {
-				$this->pageTitle = $pageTitle;
-				$this->description = $description;
-				$this->contentTitle = $contentTitle;
-				$this->contentBody = $contentBody;
-				$this->sideMenu = $sideMenu;
-	}
-	
 	function __construct6($pageTitle, $description, $contentTitle,
 			$contentBody, $sideMenuTitle, $sideMenu) {
 				$this->pageTitle = $pageTitle;

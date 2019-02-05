@@ -52,6 +52,7 @@ class SOSView implements Settings {
 			$description = "The page could not be found on this system";
 			$contentTitle = "404 Not Found";
 			$contentBody = "The page could not be found on this system";
+			$sideMenuTitle = "SIDE MENU TITLE";
 			$sideMenu = null;
 		}
 		require_once($this->template); 

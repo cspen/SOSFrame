@@ -18,6 +18,8 @@ class SOSOutput implements Output {
 	private $sideMenu;			// Menu displayed on side bar
 	private $contentPrev;		// Link to previous related content
 	private $contentNext;		// Link to next related content
+	private $etag;				
+	private $lastModified;		
 	
 	function __construct() {
 		$args = func_get_args();
@@ -34,20 +36,27 @@ class SOSOutput implements Output {
 	
 	function __construct4($pageTitle, $description, $contentTitle,
 			$contentBody) {
+		$this::__construct2($contentTitle, $contentBody);
 		$this->pageTitle = $pageTitle;
 		$this->description = $description;
-		$this->contentTitle = $contentTitle;
-		$this->contentBody = $contentBody;
 	}
 	
 	function __construct6($pageTitle, $description, $contentTitle,
 			$contentBody, $sideMenuTitle, $sideMenu) {
-				$this->pageTitle = $pageTitle;
-				$this->description = $description;
-				$this->contentTitle = $contentTitle;
-				$this->contentBody = $contentBody;
+				$this::__construct4($pageTitle, $description, $contentTitle,
+						$contentBody);
 				$this->sideMenuTitle = $sideMenuTitle;
 				$this->sideMenu = $sideMenu;
+	}
+	
+	function __construct8($pageTitle, $description, $contentTitle,
+				$contentBody, $sideMenuTitle, $sideMenu, $etag,
+				$lastModified) {
+					$this::__construct6($pageTitle, $description,
+							$contentTitle, $contentBody, $sideMenuTitle,
+							$sideMenu);
+					$this->etag = $etag;
+					$this->lastModified = $lastModified;		
 	}
 	
 	public function pageTitle() {

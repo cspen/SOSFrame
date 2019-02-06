@@ -82,4 +82,12 @@ class SOSOutput implements Output {
 	public function sideMenu() {
 		return $this->sideMenu;
 	}	
+	
+	public function etag() {
+		return $this->etag;
+	}
+	
+	public function lastModified() {
+		return $this->lastModified;
+	}
 }

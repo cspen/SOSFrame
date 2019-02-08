@@ -50,14 +50,13 @@ class SOSModel implements DBQueries, Settings {
 				"This is the description",
 				"Topic Content Title",
 				$body,
-				$this->getMenu());
+				$this->getSideMenu());
 	}
 	
 	private function home() {
 		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);
 		if($stmt->execute()) {
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			// print_r($results);
 			
 			$articles = array();
 			foreach($results as $r) {
@@ -71,7 +70,8 @@ class SOSModel implements DBQueries, Settings {
 					Settings::HOME_PAGE_DESCRIPTION,
 					Settings::HOME_PAGE_TITLE,
 					$articles,
-					$this->getMenu());
+					"Topics Menu",
+					$this->getSideMenu());
 		} else {
 			echo 'OUT';
 		}
@@ -86,18 +86,20 @@ class SOSModel implements DBQueries, Settings {
 		if($stmt->execute()) {
 			$results = $stmt->fetch();
 			
-			if(!empty($results)) {
-			$this->output = new SOSArticleOutput(
+			if(!empty($results)) { 
+				$menu = $this->getSideMenu();
+				$this->output = new SOSArticleOutput(
 					$path,
 					$results['article_description'],
 					$results['article_title'],
 					$results['article_body'],
-					$this->getMenu(),
+					"Topics Menu",
+					$menu,
 					"Content Prev",
 					"Content Next",
 					$results['user_first_name']." ".$results['user_last_name'],
 					$results['article_publish_date']);
-			} 			
+			}
 		} else {
 			header("HTTP/1.1 504 Internal Server Error");
 			exit;
@@ -111,14 +113,15 @@ class SOSModel implements DBQueries, Settings {
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$a = array();
 			foreach($results as $r)
-				$a[] = $r['article_title'];
+				$a[] = $r['article_path'];
 			
 			$this->output = new SOSOutput(
 					rtrim($path, "/"),
 					"No description",
 					$path,
 					$a,
-					$this->getMenu());
+					"Topics",
+					$this->getSideMenu());
 		} else {
 			echo "504 Internal Server Error";
 		}		
@@ -134,15 +137,14 @@ class SOSModel implements DBQueries, Settings {
 			$results = $stmt->fetch();
 			$hash = $results['user_password'];
 			if(password_verify($_POST['pword'], $hash)) {
-				echo "WHAT!";
 				// $this->view->adminPage();
 				$this->output = new SOSOutput(
 						"Shmeditor",
 						"No description",
 						"Admin Page",
-						"Admin Page sdfsdfsdf",
+						"Admin Page",
+						"Edit Menu",
 						$this->getEditorMenu());
-				echo 'WHERE DID THE CODE GO';
 				return true;
 			} else {
 				return false;
@@ -153,12 +155,12 @@ class SOSModel implements DBQueries, Settings {
 		}
 	}
 	
-	private function getMenu() {
+	private function getSideMenu() {
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
 		$results = array();
 		if($stmt->execute()) {
 			$count = $stmt->rowCount();
-			$i = 0;
+			$i = 0; 
 			while($i < $count) {
 				$r = $stmt->fetch(PDO::FETCH_ASSOC);
 				$results[] = $r['topic'];
@@ -184,7 +186,8 @@ class SOSModel implements DBQueries, Settings {
 				"Admin login page",
 				"Login",
 				"",
-				$this->getMenu());
+				"Menu Title",
+				$this->getSideMenu());
 	}
 	
 	private $dbconn;

@@ -16,8 +16,6 @@ class SOSView implements Settings {
 	
 	public function showPage() {
 		$output = $this->model->output();
-		$siteURL = Settings::APP_URL;
-		$siteTitle = Settings::SITE_TITLE;
 		
 		if(!empty($output)) {
 			$pageTitle = $output->pageTitle();
@@ -28,8 +26,29 @@ class SOSView implements Settings {
 				$a = "";
 				foreach($contentBody as $c) {
 					$url = "";
-					if($contentTitle != Settings::HOME_PAGE_TITLE) {
-						$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
+					$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
+					echo 'C = '.$c.'<br> U = '.$u.' <BR> S = '.$_SERVER['REQUEST_URI'].'<br>';
+					echo strrev($c).'<br>';
+					// echo 'POS = '.strpos($c, "/", -1).'<br>';
+					if($contentTitle != Settings::HOME_PAGE_TITLE) {						
+						
+						if(substr_count($c, "/") > 1) {  // Link to "Directory"
+							do {
+								$c = substr($c, strpos($c, "/")+1);
+								// echo '<br> DW '.$c;
+							} while(substr_count($c, "/") > 1);
+							$c = substr($c, 0, strpos($c, "/")+1);
+							 // echo '<br> ( '.$c.' ) ';
+							
+							$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
+						} else {	// Link to "File"
+							
+							
+							$pos = strpos($c, "/");
+							$c = substr($c, $pos+1);
+							// echo '<br> '.$c;
+							$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
+						}
 					} else {
 						$url = Settings::APP_URL.str_replace(" ", "-", $c);						
 					}

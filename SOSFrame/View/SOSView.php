@@ -23,38 +23,36 @@ class SOSView implements Settings {
 			$contentTitle = $output->contentTitle();
 			$contentBody = $output->contentBody();
 			if(is_array($contentBody)) {
-				$a = "";
+				$a = array();
 				foreach($contentBody as $c) {
 					$url = "";
 					$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
-					echo 'C = '.$c.'<br> U = '.$u.' <BR> S = '.$_SERVER['REQUEST_URI'].'<br>';
-					echo strrev($c).'<br>';
-					// echo 'POS = '.strpos($c, "/", -1).'<br>';
-					if($contentTitle != Settings::HOME_PAGE_TITLE) {						
-						
+					$d = str_replace($u, "", $c);
+					// echo 'C = '.$c.'<br> U = '.$u.' <BR> S = '.$_SERVER['REQUEST_URI'].'<br>';
+					// echo 'D = '.$d.'<br>';
+					if($contentTitle != Settings::HOME_PAGE_TITLE) {					
 						if(substr_count($c, "/") > 1) {  // Link to "Directory"
-							do {
-								$c = substr($c, strpos($c, "/")+1);
-								// echo '<br> DW '.$c;
-							} while(substr_count($c, "/") > 1);
-							$c = substr($c, 0, strpos($c, "/")+1);
-							 // echo '<br> ( '.$c.' ) ';
-							
-							$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
-						} else {	// Link to "File"
-							
-							
+							// $url = $d;
+							if(substr_count($d, "/") > 0)
+								$url = $c = substr($d, 0, strpos($d, "/")+1);
+							else
+								$url = $c = $d;
+						} else {	// Link to "File"							
 							$pos = strpos($c, "/");
 							$c = substr($c, $pos+1);
-							// echo '<br> '.$c;
 							$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
 						}
 					} else {
 						$url = Settings::APP_URL.str_replace(" ", "-", $c);						
 					}
-					$a .= '<a href="'.$url.'">'.$c.'</a><br>';
+					$a[] = '<a href="'.$url.'">'.$c.'</a><br>';
 				}
-				$contentBody = $a;
+				$contentBody = "";
+				$a = array_unique($a);	// Remove duplicates
+				asort($a, SORT_STRING);
+				foreach($a as $b)
+					$contentBody .= $b;
+				
 			} 			
 			$sideMenuTitle = $output->sideMenuTitle();
 			$sideMenu = $this->createSideMenu($output->sideMenu());
@@ -65,7 +63,7 @@ class SOSView implements Settings {
 				$next = $output->contentNext();
 				$prev = $output->contentPrev();
 			}
-		} else {
+		} else { echo 'CHEESE';
 			$this->template = $this::TOPIC;
 			$pageTitle = "404 Not Found";
 			$description = "The page could not be found on this system";

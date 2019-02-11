@@ -24,12 +24,11 @@ class SOSView implements Settings {
 			$contentBody = $output->contentBody();
 			if(is_array($contentBody)) {
 				$a = array();
+				$b = array();
 				foreach($contentBody as $c) {
 					$url = "";
 					$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 					$d = str_replace($u, "", $c);
-					// echo 'C = '.$c.'<br> U = '.$u.' <BR> S = '.$_SERVER['REQUEST_URI'].'<br>';
-					// echo 'D = '.$d.'<br>';
 					if($contentTitle != Settings::HOME_PAGE_TITLE) {					
 						if(substr_count($c, "/") > 1) {  // Link to "Directory"
 							// $url = $d;
@@ -45,13 +44,19 @@ class SOSView implements Settings {
 					} else {
 						$url = Settings::APP_URL.str_replace(" ", "-", $c);						
 					}
-					$a[] = '<a href="'.$url.'">'.$c.'</a><br>';
+					
+					if(strpos($c, "/"))
+						$b[] = '<a href="'.$url.'">'.$c.'</a><br>';
+					else
+						$a[] = '<a href="'.$url.'">'.$c.'</a><br>';
 				}
 				$contentBody = "";
 				$a = array_unique($a);	// Remove duplicates
-				asort($a, SORT_STRING);
-				foreach($a as $b)
-					$contentBody .= $b;
+				$b = array_unique($b);
+				foreach($a as $c)
+						$contentBody .= $c;
+				foreach($b as $c)
+						$contentBody .= $c;
 				
 			} 			
 			$sideMenuTitle = $output->sideMenuTitle();

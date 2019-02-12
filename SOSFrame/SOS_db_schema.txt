@@ -11,7 +11,8 @@ SET time_zone = '+0:00';
 	
 CREATE TABLE user (
 	userID						INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	user_name					VARCHAR(60) NOT NULL,
+	user_first_name				VARCHAR(60) NOT NULL,
+	user_last_name				VARCHAR(60) NOT NULL,
 	user_password 				VARCHAR(255) NOT NULL,
 	user_email					VARCHAR(255) NOT NULL,
 	user_url					VARCHAR(255),
@@ -79,8 +80,8 @@ CREATE TRIGGER insert_article BEFORE INSERT ON article
 delimiter ;
 
 
-INSERT INTO user (user_name, user_password, user_email, user_type)
-	VALUES ("Craig Spencer", "Tester", "test@email.com", "Admin");
+INSERT INTO user (user_first_name, user_last_name, user_password, user_email, user_type)
+	VALUES ("Craig", "Spencer", "Tester", "test@email.com", "Admin");
 SET @last_id_user = LAST_INSERT_ID();
 
 INSERT INTO article (article_path, article_title, article_description,
@@ -120,8 +121,8 @@ VALUES ("Food/Recipes/Recipe-Article-Title-1", "Recipe Article Title 1",
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 
-INSERT INTO user (user_name, user_password, user_email, user_type)
-	VALUES ("John Smith", "Password", "none@email.com", "USER");
+INSERT INTO user (user_first_name, user_last_name, user_password, user_email, user_type)
+	VALUES ("John", "Smith", "Password", "none@email.com", "USER");
 SET @last_id_user = LAST_INSERT_ID();
 
 INSERT INTO article (article_path, article_title, article_description,
@@ -140,7 +141,7 @@ INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
 INSERT INTO article (article_path, article_title, article_description,
 	article_body, article_publish_date, article_creation_date)
-VALUES ("Food/Food-Article-Title-1", "Health Article Title 1",
+VALUES ("Food/Food-Article-Title-1", "Food Article Title 1",
 	"Description - Health Article Title 2", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
 
@@ -150,3 +151,17 @@ INSERT INTO article (article_path, article_title, article_description,
 VALUES ("Health/Health-Article-Title-5", "Health Article Title 5",
 	"Description - Health Article Title 5", "Text Body", NOW(), NOW());
 INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
+
+
+INSERT INTO article (article_path, article_title, article_description,
+	article_body, article_publish_date, article_creation_date)
+VALUES ("Food/Recipes/Chicken/Chicken-Recipe-One", "Chicken Recipe One",
+	"Description - Chicken Recipe One", "Text Body", NOW(), NOW());
+INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
+
+INSERT INTO article (article_path, article_title, article_description,
+	article_body, article_publish_date, article_creation_date)
+VALUES ("Food/Recipes/Beef/Beef-Recipe-One", "Beef Recipe One",
+	"Description - Beef Recipe One", "Text Body", NOW(), NOW());
+INSERT INTO author (userID, articleID) VALUES(@last_id_user, LAST_INSERT_ID());
+

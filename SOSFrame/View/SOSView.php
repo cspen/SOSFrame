@@ -31,7 +31,6 @@ class SOSView implements Settings {
 					$d = str_replace($u, "", $c);
 					if($contentTitle != Settings::HOME_PAGE_TITLE) {					
 						if(substr_count($c, "/") > 1) {  // Link to "Directory"
-							// $url = $d;
 							if(substr_count($d, "/") > 0)
 								$url = $c = substr($d, 0, strpos($d, "/")+1);
 							else
@@ -68,7 +67,7 @@ class SOSView implements Settings {
 				$next = $output->contentNext();
 				$prev = $output->contentPrev();
 			}
-		} else { echo 'CHEESE';
+		} else {
 			$this->template = $this::TOPIC;
 			$pageTitle = "404 Not Found";
 			$description = "The page could not be found on this system";

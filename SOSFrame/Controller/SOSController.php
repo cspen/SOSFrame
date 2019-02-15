@@ -18,7 +18,7 @@ class SOSController implements Settings {
 		$this->view = $view;
 	}
 	
-	// New design
+	// Called during program execution
 	public function process_request() {
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
@@ -42,60 +42,14 @@ class SOSController implements Settings {
 		}
 	}
 	
-	// Set session token for form validation
-	private function token() {
-		session_start();
-		if (empty($_SESSION['token'])) {
-			// To prevent CSFR attack
-			$_SESSION['token'] = bin2hex(random_bytes(32));			
-		} 
-	}
 	
 	
-	// Method to be removed - old design
-	public function invoke() {
-		$requestURI = explode("?", $_SERVER['REQUEST_URI']);
-		$requestURI = $requestURI[0];
-		$params = explode("/", $_SERVER['REQUEST_URI']);
-		
-		// Determine which page was requested
-		if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-za-z0-9-]+)\/([A-za-z0-9-]+)$/', $requestURI)) {
-			// Article page
-			$title = end($params);
-			$topic = prev($params);
-			$this->view->setTemplate(SOSView::ARTICLE);
-			$this->model->article($title, $topic);
-		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/([A-Za-z0-9-]+)\/$/', $requestURI)) {
-			// Topic page
-			end($params);
-			$topic = prev($params);
-			
-			if($topic == 'secret') { // Admin login
-				session_start();
-				if (empty($_SESSION['token'])) {
-					// To prevent CSFR attack
-					$_SESSION['token'] = bin2hex(random_bytes(32));
-					$this->view->setTemplate(SOSView::TOPIC);
-					$this->model->login($_SESSION['token']);
-				} else {
-					// Check if logged in
-					echo 'REDIRECT TO EDITOR PAGE';
-				}
-			} else {
-				$this->view->setTemplate(SOSView::TOPIC);
-				$this->model->topic($topic);
-			}			
-		} else if(preg_match('/^\/Ozone\/SOSFrame\/Public\/$/', $requestURI)) {
-			$this->view->setTemplate(SOSView::HOME);
-			$this->model->home();
-		} else {
-			// NOTE: Need to have a central header setting
-			// location in the code -
-			header('HTTP/1.1 404 Not Found');
-			// SOSView will display custom page
-		}		
-	}
 	
+
+	/**
+	 * Validate the login form credentials
+	 * and the form token.
+	 */
 	public function login() {
 		session_start(); 
 		if(isset($_POST['name']) && isset($_POST['pword'])
@@ -109,15 +63,28 @@ class SOSController implements Settings {
 		}
 		exit;
 	}
+	 
+	/**
+	 * Set session token for form validation
+	 * to prevent CSFR attack.
+	 */
+	private function token() {
+		session_start();
+		if (empty($_SESSION['token'])) { 
+			$_SESSION['token'] = bin2hex(random_bytes(32));
+		}
+	}	
 	
-	// Prevent CSRF attack
+	/**
+	 * Prevent CSRF attack by verifying the token
+	 * sent with the form. The token is created
+	 * when the form is created and the token value
+	 * is stored in the session variable.
+	 */ 
 	private function verify_token() {
 		if (!empty($_POST['token']) && !empty($_SESSION['token'])) {
 			if (hash_equals($_SESSION['token'], $_POST['token'])) {
 				return true;
-			} else {
-				echo $_SESSION['token'].'<br>';
-				echo $_POST['token'].'<br>';
 			}
 		}
 		return false;

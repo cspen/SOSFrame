@@ -30,10 +30,16 @@ Some points I'm thinking of for this system
 	Multiple Users
 	Link Validation
 	Custom Pages
-	Images
+		Forms
+		Tables
+		Lists
+		Images
+		Javascripts
+		CSS
+		Meta-tags
 	Advertisements
 	Mobile/Responsive Design
 	HTTP Headers
-	
+	Social Media
 	
 	

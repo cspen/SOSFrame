@@ -8,6 +8,7 @@ class SOSView implements Settings {
 	
 	public function __construct($model) {
 		$this->model = $model;
+		$this->template = $this::HOME; // Default
 	}
 	
 	public function setTemplate($template) {
@@ -57,6 +58,9 @@ class SOSView implements Settings {
 				foreach($b as $c)
 						$contentBody .= $c;
 				
+				if($this->template == $this::TOPIC)
+					$contentTitle = $this->linkify($contentTitle);
+				
 			} 			
 			$sideMenuTitle = $output->sideMenuTitle();
 			$sideMenu = $this->createSideMenu($output->sideMenu());
@@ -86,7 +90,11 @@ class SOSView implements Settings {
 			$list .= '<p><a href="'.Settings::APP_URL.$item.'/">'.$item.'</a></p>';
 		}
 		return $list;
-	}	
+	}
+	
+	private function linkify($str) { echo 'TOPIC';
+		return $str;
+	}
 	
 	private $model;
 	private $template;

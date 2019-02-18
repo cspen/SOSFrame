@@ -92,8 +92,15 @@ class SOSView implements Settings {
 		return $list;
 	}
 	
-	private function linkify($str) { echo 'TOPIC';
-		return $str;
+	private function linkify($str) { echo $str.'<br>';
+		$parts = explode("/", $str);
+		$links = "";
+		$t = "";
+		foreach($parts as $p) {
+			$t .= $p.'/';
+			$links .= '<a href="'.Settings::APP_URL.$t.'">'.$p.'</a> / ';
+		}
+		return $links;
 	}
 	
 	private $model;

@@ -78,8 +78,6 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	private function article_data($path) {
-		// Need to determine if this is article
-		// or topic page
 		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
 		$stmt->bindParam(':path', $path); 
 		
@@ -101,6 +99,7 @@ class SOSModel implements DBQueries, Settings {
 					$results['article_publish_date']);
 			}
 		} else {
+			// For debugging
 			header("HTTP/1.1 504 Internal Server Error");
 			exit;
 		}
@@ -115,14 +114,16 @@ class SOSModel implements DBQueries, Settings {
 			foreach($results as $r)
 				$a[] = $r['article_path'];
 			
+			$path = rtrim($path, "/");
 			$this->output = new SOSOutput(
-					rtrim($path, "/"),
+					$path,
 					"No description",
 					$path,
 					$a,
 					"Topics",
 					$this->getSideMenu());
 		} else {
+			// For debugging
 			echo "504 Internal Server Error";
 		}		
 	}
@@ -150,6 +151,7 @@ class SOSModel implements DBQueries, Settings {
 				return false;
 			}
 		} else {
+			// For degugging
 			header('HTTP/1.1 504 Internal Server Error');
 			return false;
 		}

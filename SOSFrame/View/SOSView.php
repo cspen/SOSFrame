@@ -19,10 +19,11 @@ class SOSView implements Settings {
 		$output = $this->model->output();
 		
 		if(!empty($output)) {
-			$pageTitle = $output->pageTitle();
+			$pageTitle =$output->pageTitle();
 			$description = $output->description();
 			$contentTitle = $output->contentTitle();
 			$contentBody = $output->contentBody();
+			
 			if(is_array($contentBody)) {
 				$a = array();
 				$b = array();
@@ -58,13 +59,15 @@ class SOSView implements Settings {
 				foreach($b as $c)
 						$contentBody .= $c;
 				
-				if($this->template == $this::TOPIC)
-					$contentTitle = $this->linkify($contentTitle);
-				
+				// Site navigation
+				$contentTitle = rtrim($contentTitle, "/");
+				$contentTitle = $this->linkify($contentTitle);
 			} 			
 			$sideMenuTitle = $output->sideMenuTitle();
 			$sideMenu = $this->createSideMenu($output->sideMenu());
-		
+			$navLink = $this->linkify(
+				str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']));
+			
 			if($output instanceof SOSArticleOutput) {
 				$author = $output->author();
 				$publishDate = $output->publishDate();

@@ -114,7 +114,6 @@ class SOSModel implements DBQueries, Settings {
 			foreach($results as $r)
 				$a[] = $r['article_path'];
 			
-			$path = rtrim($path, "/");
 			$this->output = new SOSOutput(
 					$path,
 					"No description",

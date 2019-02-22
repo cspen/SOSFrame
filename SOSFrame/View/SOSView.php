@@ -24,6 +24,8 @@ class SOSView implements Settings {
 			$contentTitle = $output->contentTitle();
 			$contentBody = $output->contentBody();
 			
+			echo '<br>'.$contentTitle.'<br>';
+			
 			if(is_array($contentBody)) {
 				$a = array();
 				$b = array();
@@ -65,8 +67,11 @@ class SOSView implements Settings {
 			} 			
 			$sideMenuTitle = $output->sideMenuTitle();
 			$sideMenu = $this->createSideMenu($output->sideMenu());
-			$navLink = $this->linkify(
-				str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']));
+			$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
+			
+			
+			
+			$navLink = $this->linkify($u);
 			
 			if($output instanceof SOSArticleOutput) {
 				$author = $output->author();
@@ -95,7 +100,7 @@ class SOSView implements Settings {
 		return $list;
 	}
 	
-	private function linkify($str) { echo $str.'<br>';
+	private function linkify($str) {
 		$parts = explode("/", $str);
 		$links = "";
 		$t = "";

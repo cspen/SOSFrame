@@ -19,7 +19,7 @@ class SOSModel implements DBQueries, Settings {
 			// Get home page data
 			$this->home();
 		} else {
-			if($type == $this::ARTICLE) {
+			if($type == $this::ARTICLE) { 
 				// Get data for path
 				$this->article_data($path);
 			} else if($type == $this::TOPIC) {
@@ -110,17 +110,20 @@ class SOSModel implements DBQueries, Settings {
 		$stmt->bindParam(':path', $path);
 		if($stmt->execute()) {
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			$a = array();
-			foreach($results as $r)
-				$a[] = $r['article_path'];
 			
-			$this->output = new SOSOutput(
-					$path,
-					"No description",
-					$path,
-					$a,
-					"Topics",
-					$this->getSideMenu());
+			if(count($results) > 0) {
+				$a = array();
+				foreach($results as $r)
+					$a[] = $r['article_path'];
+			
+				$this->output = new SOSOutput(
+						$path,
+						"",
+						$path,
+						$a,
+						"Topics",
+						$this->getSideMenu());
+			}
 		} else {
 			// For debugging
 			echo "504 Internal Server Error";

@@ -61,8 +61,6 @@ class SOSModel implements DBQueries, Settings {
 			$articles = array();
 			foreach($results as $r) {
 				$articles[] = str_replace("-", " ", $r['article_path']);
-				// $article[] = $r['article_path'];
-				// $articles[] = $article;
 			}
 			
 			$this->output =  new SOSOutput(
@@ -72,8 +70,6 @@ class SOSModel implements DBQueries, Settings {
 					$articles,
 					"Topics Menu",
 					$this->getSideMenu());
-		} else {
-			echo 'OUT';
 		}
 	}
 	

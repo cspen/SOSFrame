@@ -10,6 +10,7 @@ class SOSModel implements DBQueries, Settings {
 	public function __construct() {
 		$db = new DBConnection();
 		$this->dbconn = $db->getConnection();
+		$this->error = false;		
 	}
 	
 	// Called by the controller object
@@ -31,7 +32,11 @@ class SOSModel implements DBQueries, Settings {
 	// Called by the view object
 	public function output() {
 		return $this->output;
-	}	
+	}
+	
+	public function error() {
+		return $this->error;
+	}
 	
 	public function topic($topic) { 
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
@@ -41,8 +46,8 @@ class SOSModel implements DBQueries, Settings {
 		if($stmt->execute()) {
 			$body = "SUCCESS";
 		} else {
-			header('HTTP/1.1 504 Internal Server Error');
-			exit;
+			$this->error = true;
+			return;
 		}
 		
 		$this->output = new SOSOutput(
@@ -70,6 +75,8 @@ class SOSModel implements DBQueries, Settings {
 					$articles,
 					"Topics Menu",
 					$this->getSideMenu());
+		} else {
+			$this->error = true;
 		}
 	}
 	
@@ -95,9 +102,7 @@ class SOSModel implements DBQueries, Settings {
 					$results['article_publish_date']);
 			}
 		} else {
-			// For debugging
-			header("HTTP/1.1 504 Internal Server Error");
-			exit;
+			$this->error = true;
 		}
 	}
 	
@@ -121,8 +126,7 @@ class SOSModel implements DBQueries, Settings {
 						$this->getSideMenu());
 			}
 		} else {
-			// For debugging
-			echo "504 Internal Server Error";
+			$this->error = true;
 		}		
 	}
 	
@@ -149,8 +153,7 @@ class SOSModel implements DBQueries, Settings {
 				return false;
 			}
 		} else {
-			// For degugging
-			header('HTTP/1.1 504 Internal Server Error');
+			$this->error = true;
 			return false;
 		}
 	}
@@ -192,6 +195,7 @@ class SOSModel implements DBQueries, Settings {
 	
 	private $dbconn;
 	private $output;
+	private $error;
 	
 	const TOPIC	= 0;
 	const ARTICLE = 1;

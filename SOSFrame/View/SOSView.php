@@ -18,13 +18,20 @@ class SOSView implements Settings {
 	public function showPage() {
 		$output = $this->model->output();
 		
-		if(!empty($output)) {
+		if($this->model->error()) {
+			header("HTTP/1.1 504 Internal Server Error");
+			$this->template = $this::TOPIC;
+			$pageTitle = "504 Internal Server Error";
+			$description = "Internal Server Error";
+			$contentTitle = "504 Internal Server Error";
+			$contentBody = "Oops! Something went wrong.";
+			$sideMenuTitle = "SIDE MENU TITLE";
+			$sideMenu = null;
+		} else if(!empty($output)) {
 			$pageTitle =$output->pageTitle();
 			$description = $output->description();
 			$contentTitle = $output->contentTitle();
 			$contentBody = $output->contentBody();
-			
-			echo '<br>'.$contentTitle.'<br>';
 			
 			if(is_array($contentBody)) {
 				$a = array();
@@ -68,8 +75,8 @@ class SOSView implements Settings {
 			$sideMenuTitle = $output->sideMenuTitle();
 			$sideMenu = $this->createSideMenu($output->sideMenu());
 			$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
-			
-			
+			$pos = strrpos($u, "/");
+			$u = substr($u, 0, $pos);		
 			
 			$navLink = $this->linkify($u);
 			
@@ -80,6 +87,7 @@ class SOSView implements Settings {
 				$prev = $output->contentPrev();
 			}
 		} else {
+			// 404 Page Not Found Error
 			$this->template = $this::TOPIC;
 			$pageTitle = "404 Not Found";
 			$description = "The page could not be found on this system";

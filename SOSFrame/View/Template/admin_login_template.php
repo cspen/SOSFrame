@@ -39,8 +39,11 @@ $html = <<< EOT
 <p><a href="javascript:void(0)">About</a></p>
 <hr>
 
-<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Topics</b></p>
-$topicsMenu;
+<p class="w3-large">
+	<b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
+	$sideMenuTitle</b>
+</p>
+$sideMenu;
 <br>
 </div>
 </div><br>

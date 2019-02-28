@@ -2,6 +2,8 @@
 require_once('../SOSFrame/Classes/Interfaces/Settings.php');
 
 $styleSheet = Settings::APP_URL."styles/template.css";
+$siteTitle = Settings::SITE_TITLE;
+$siteURL = Settings::APP_URL;
 
 $html = <<< EOT
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ $html = <<< EOT
 	<b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
 	$sideMenuTitle</b>
 </p>
-$topicsMenu
+$sideMenu
 <br>
 </div>
 </div><br>

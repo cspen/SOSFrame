@@ -19,7 +19,10 @@ class SOSView implements Settings {
 		$output = $this->model->output();
 		
 		if($this->model->error()) {
+			// Set header
 			header("HTTP/1.1 504 Internal Server Error");
+			
+			// Show error page
 			$this->template = $this::TOPIC;
 			$pageTitle = "504 Internal Server Error";
 			$description = "Internal Server Error";
@@ -27,6 +30,7 @@ class SOSView implements Settings {
 			$contentBody = "Oops! Something went wrong.";
 			$sideMenuTitle = "SIDE MENU TITLE";
 			$sideMenu = null;
+			
 		} else if(!empty($output)) {
 			$pageTitle =$output->pageTitle();
 			$description = $output->description();
@@ -86,8 +90,12 @@ class SOSView implements Settings {
 				$next = $output->contentNext();
 				$prev = $output->contentPrev();
 			}
+			
 		} else {
-			// 404 Page Not Found Error
+			// Set header
+			header("HTTP/1.1 404 Not Found");
+			
+			// Set error page
 			$this->template = $this::TOPIC;
 			$pageTitle = "404 Not Found";
 			$description = "The page could not be found on this system";
@@ -97,7 +105,11 @@ class SOSView implements Settings {
 			$sideMenu = null;
 		}
 		require_once($this->template); 
-		echo $html;
+		$this->setHeaders($html);
+		
+		if($_SERVER['REQUEST_METHOD'] == "GET") {
+			echo $html;
+		} 		
 	}
 	
 	private function createSideMenu($menuItems) {
@@ -117,6 +129,14 @@ class SOSView implements Settings {
 			$links .= '<a href="'.Settings::APP_URL.$t.'">'.$p.'</a> / ';
 		}
 		return $links;
+	}
+	
+	private function setHeaders($output) {
+		header('HTTP/1.1 200 OK');
+		header('Content-Length: '.strlen($output));
+		
+		// TO-DO: Add headers for etag and 
+		
 	}
 	
 	private $model;

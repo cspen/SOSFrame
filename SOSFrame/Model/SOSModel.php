@@ -34,28 +34,9 @@ class SOSModel implements DBQueries, Settings {
 		return $this->output;
 	}
 	
+	// Called by the view object
 	public function error() {
 		return $this->error;
-	}
-	
-	public function topic($topic) { 
-		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
-		$stmt->bindParam(':topic', $topic);
-		
-		$body = "";
-		if($stmt->execute()) {
-			$body = "SUCCESS";
-		} else {
-			$this->error = true;
-			return;
-		}
-		
-		$this->output = new SOSOutput(
-				$topic,
-				"This is the description",
-				"Topic Content Title",
-				$body,
-				$this->getSideMenu());
 	}
 	
 	private function home() {

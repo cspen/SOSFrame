@@ -60,6 +60,20 @@ CREATE TABLE author (
 	PRIMARY KEY(userID, articleID)
 )
 ENGINE = MyISAM;
+
+CREATE TABLE link (
+	linkID					INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	link_creator			INT UNSIGNED NOT NULL,
+	link_name
+	link_href				
+	link_rel
+	link_target
+	link_description
+	link_date
+	link_valid
+	link_
+)
+ENGINE = MyISAM;
 	
 delimiter |
 CREATE TRIGGER update_article BEFORE UPDATE ON article

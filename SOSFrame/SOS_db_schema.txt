@@ -64,14 +64,16 @@ ENGINE = MyISAM;
 CREATE TABLE link (
 	linkID					INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	link_creator			INT UNSIGNED NOT NULL,
-	link_name
-	link_href				
-	link_rel
-	link_target
-	link_description
-	link_date
-	link_valid
-	link_
+	link_name				VARCHAR(250) NOT NULL,
+	link_href				VARCHAR(250) NOT NULL,			
+	link_rel				VARCHAR(20),
+	link_target				VARCHAR(20),
+	link_description		VARCHAR(250),
+	link_date				DATETIME NOT NULL,
+	link_valid				BOOLEAN NOT NULL,
+	
+	UNIQUE(link_href),
+	PRIMARY KEY(linkID)
 )
 ENGINE = MyISAM;
 	

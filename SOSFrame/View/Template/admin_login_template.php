@@ -5,6 +5,10 @@ $token = $_SESSION['token'];
 $loginURL = Settings::APP_URL;
 $styleSheet = Settings::APP_URL."styles/template.css";
 
+$siteTitle = Settings::SITE_TITLE;
+$siteURL = Settings::APP_URL;
+
+
 // echo getcwd();
 $html = <<< EOT
 <!DOCTYPE html>

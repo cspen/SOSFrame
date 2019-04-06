@@ -57,6 +57,8 @@ class SOSController implements Settings {
 			if($this->verify_token()) { 
 				if($this->model->validate_login()) {
 					$this->view->setTemplate(SOSView::EDITOR);
+				} else {
+					$this->view->setTemplate(SOSView::ADMIN_LOGIN_PAGE);
 				}
 				return;
 			}

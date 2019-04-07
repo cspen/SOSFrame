@@ -17,7 +17,7 @@ class SOSView implements Settings {
 	
 	public function showPage() {
 		$output = $this->model->output();
-		
+		 
 		if($this->model->error()) {
 			// Set header
 			header("HTTP/1.1 504 Internal Server Error");
@@ -104,12 +104,12 @@ class SOSView implements Settings {
 			$sideMenuTitle = "SIDE MENU TITLE";
 			$sideMenu = null;
 		}
-		require_once($this->template); 
+		require_once($this->template);
 		$this->setHeaders($html);
 		
-		if($_SERVER['REQUEST_METHOD'] == "GET") {
+		// if($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo $html;
-		} 		
+		// } 		
 	}
 	
 	private function createSideMenu($menuItems) {
@@ -135,7 +135,7 @@ class SOSView implements Settings {
 		header('HTTP/1.1 200 OK');
 		header('Content-Length: '.strlen($output));
 		
-		// TO-DO: Add headers for etag and 
+		// TO-DO: Add headers for etag and last modified
 		
 	}
 	

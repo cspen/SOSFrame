@@ -58,7 +58,9 @@ class SOSController implements Settings {
 				if($this->model->validate_login()) {
 					$this->view->setTemplate(SOSView::EDITOR);
 				} else {
-					$this->view->setTemplate(SOSView::ADMIN_LOGIN_PAGE);
+					$this->token();
+					$this->model->login($_SESSION['token']);
+					$this->view->setTemplate(SOSView::ADMIN_LOGIN);
 				}
 				return;
 			}
@@ -71,7 +73,9 @@ class SOSController implements Settings {
 	 * to prevent CSFR attack.
 	 */
 	private function token() {
-		session_start();
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		if (empty($_SESSION['token'])) { 
 			$_SESSION['token'] = bin2hex(random_bytes(32));
 		}

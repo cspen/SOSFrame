@@ -1,0 +1,26 @@
+/* @CHARSET "ISO-8859-1"; */
+
+body {
+	/* background-color: red; */
+	/* margin: auto; */
+}
+
+.inline-input {
+	height: 25px;
+	font-size: 1.5em;
+	/* background-color: black;
+	color: white; */
+	font-weight: 500;
+}
+
+#main-content {
+	margin: auto;
+	width: 1000px;
+}
+
+#content {
+	font-size: xx-large;
+	font-weight: 600;
+	background-color: black;
+	color: white;
+}

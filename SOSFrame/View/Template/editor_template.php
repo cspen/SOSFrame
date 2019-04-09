@@ -19,7 +19,7 @@ $html = <<< EOT
 <body class="w3-light-grey">
 
 <!-- Page Container -->
-<div class="w3-content w3-margin-top">
+<div id="main-content">
 
 	<!-- The Grid -->
 	<div class="w3-row-padding">
@@ -31,7 +31,7 @@ $html = <<< EOT
 				<div class="w3-display-container">
 					<div class="w3-container w3-text-black">
 						<h2 id="blogtitle">Science of Stupidity</h2>
-						<small id="tagline">Better living through trial and error</small><hr>
+						<hr>
 					</div>
 				</div>
 
@@ -45,58 +45,60 @@ $html = <<< EOT
 		</div>
 		<br>
 		<!-- End Left Column -->
-</div>
 
-<!-- Right Column -->
-<div class="w3-twothird">
+		<!-- Right Column -->
+		<div class="w3-twothird">
 
-<div class="w3-container w3-card w3-white w3-margin-bottom">
-	<h2 class="w3-text-grey w3-padding-16">Editor</h2>
-		<select>
-			<option>Title of Draft 1</option>
-			<option>Title of Draft 2</option>
-		</select>
+			<div class="w3-container w3-card w3-white w3-margin-bottom">
+			<form action="javascript:void(0);" method="POST">
+				<h2 class="w3-text-grey w3-padding-16">Editor</h2>
+				<select>
+					<option>Title of Draft 1</option>
+					<option>Title of Draft 2</option>
+				</select>
 
-	<div class="w3-container">
-		<label for="title">Title: <input type="text" name="title" id="title"></label>
-		<br>
-		<label for="content">Content:</label>
-		<textarea rows="20" style="" id="content"></textarea>
-		<hr>
-		<label for="description">Description: <input type="text" id="description"></label>
+				<div class="w3-container">
+					<label for="title">Title: </label>
+					<input type="text" name="title" id="title" class="inline-input">
+					<br>
+					<label for="content">Content: </label>
+					<textarea rows="20" style="" id="content"></textarea>
+					<hr>
+					<label for="description">Description: </label>
+					<input type="text" id="description" class="inline-input">
 
-		<label for="topiclist">Topic:
-		<input list="topics" id="topiclist" name="topiclist"></label>
-		<datalist id="topics" name="topics">
-  			<!-- Need to make a list of topics -->
-  				<option value="Internet Explorer">
-  				<option value="Firefox">
-  				<option value="Chrome">
-  				<option value="Opera">
-  				<option value="Safari">
-			</datalist>
-			<br><br>
+					<label for="topiclist">Topic: </label>
+					<input list="topics" id="topiclist" name="topiclist" class="inline-input">
+					<datalist id="topics" name="topics">
+  						<!-- Need to make a list of topics -->
+  						<option value="Internet Explorer">
+  						<option value="Firefox">
+  						<option value="Chrome">
+  						<option value="Opera">
+  						<option value="Safari">
+					</datalist>
+					<br>
+					<br>
 
-		<select>
-			<option>Draft</option>
-			<option>Publish</option>
-		</select>
-		<button type="button">Update</button>
+					<select>
+						<option>Draft</option>
+						<option>Publish</option>
+					</select>
+					<input type="submit" value="Update">
+			</form>
+			</div>
+		<!-- End Right Column -->
+		</div>
 
+	<!-- End Grid -->
 	</div>
-
-
-<!-- End Right Column -->
-</div>
-<!-- End Grid -->
-</div>
 
 <!-- End Page Container -->
 </div>
 
-<footer class="w3-container w3-teal w3-center w3-margin-top">
-<p>Powered by <a href="" target="_blank">SOSFrame</a></p>
-</footer>
+	<footer class="w3-container w3-teal w3-center w3-margin-top">
+		<p>Powered by <a href="" target="_blank">SOSFrame</a></p>
+	</footer>
 
 </body>
 </html>

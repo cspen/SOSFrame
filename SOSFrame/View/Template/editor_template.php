@@ -25,35 +25,21 @@ $html = <<< EOT
 	<div class="w3-row-padding">
 
 		<!-- Left Column -->
-		<div class="w3-third">
-			<div class="w3-white w3-text-grey w3-card-4">
-
-				<div class="w3-display-container">
-					<div class="w3-container w3-text-black">
-						<h2 id="blogtitle">Science of Stupidity</h2>
-						<hr>
-					</div>
-				</div>
-
-				<p class="w3-large">
-					<b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
-					$sideMenuTitle</b>
-				</p>
-				$sideMenu
-				<br>
-			</div>
-		</div>
+		<div class="topnav">
+			<a>Science of Stupidity</a>
+			<a>$sideMenu</a>					
+		</div>				
 		<br>
 		<!-- End Left Column -->
 
 		<!-- Right Column -->
 		<div class="w3-twothird">
 
-			<div class="w3-container w3-card w3-white w3-margin-bottom">
+			<div class="">
 			<form action="javascript:void(0);" method="POST">
-				<h2 class="w3-text-grey w3-padding-16">Editor</h2>
-				<select>
-					<option>Title of Draft 1</option>
+				<h2 class="">Editor</h2>
+				<select class="">
+					<option style="">Title of Draft 1</option>
 					<option>Title of Draft 2</option>
 				</select>
 

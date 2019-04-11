@@ -25,10 +25,16 @@ $html = <<< EOT
 	<div class="w3-row-padding">
 
 		<!-- Left Column -->
-		<div class="topnav">
-			<a>Science of Stupidity</a>
-			<a>$sideMenu</a>					
-		</div>				
+		<div class="">
+			<a>Science of Stupidity</a>	
+			<hr>
+			<ul id="navlist">			
+				
+				<li><a>Sign out</a></li>
+				<li><a>New</a><li>
+			</ul>				
+		</div>
+					
 		<br>
 		<!-- End Left Column -->
 

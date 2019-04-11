@@ -5,12 +5,43 @@ body {
 	/* margin: auto; */
 }
 
+#navlist {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+}
+
+#navlist li {
+	float: right;
+}
+
+#navlist li a {
+	display: block;
+  	text-align: center;
+  	padding-right: 10px;
+  	text-decoration: none;
+  	font-size: 1em;
+}
+
+#navlist a {
+	display: block;
+	float: left;
+	font-size: 1.5em;
+}
+
+
 .inline-input {
 	height: 25px;
 	font-size: 1.5em;
 	/* background-color: black;
 	color: white; */
 	font-weight: 500;
+}
+
+.select-input {
+	height: 0;
 }
 
 #main-content {

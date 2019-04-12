@@ -28,10 +28,14 @@ $html = <<< EOT
 		<div class="">
 			<a>Science of Stupidity</a>	
 			<hr>
-			<ul id="navlist">			
+			<ul id="navlist">		
+				<li><select class="">
+					<option style="">Title of Draft 1</option>
+					<option>Title of Draft 2</option>
+				</select></li>		
 				
-				<li><a>Sign out</a></li>
 				<li><a>New</a><li>
+				<li><a>Sign out</a></li>
 			</ul>				
 		</div>
 					
@@ -43,11 +47,7 @@ $html = <<< EOT
 
 			<div class="">
 			<form action="javascript:void(0);" method="POST">
-				<h2 class="">Editor</h2>
-				<select class="">
-					<option style="">Title of Draft 1</option>
-					<option>Title of Draft 2</option>
-				</select>
+				
 
 				<div class="w3-container">
 					<label for="title">Title: </label>

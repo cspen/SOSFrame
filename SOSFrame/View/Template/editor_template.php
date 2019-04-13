@@ -28,14 +28,16 @@ $html = <<< EOT
 		<div class="">
 			<a>Science of Stupidity</a>	
 			<hr>
-			<ul id="navlist">		
-				<li><select class="">
-					<option style="">Title of Draft 1</option>
-					<option>Title of Draft 2</option>
-				</select></li>		
+			<ul id="navlist">
+				<li style="padding: 0;"><button>Sign out</button></li>	
+				<li style="float: left;"><button>New</button><li>
+				<li style="float: left;">
+					<select class="">
+						<option style="font-style:italic;">Title of Draft 1</option>
+						<option>Title of Draft 2</option>
+					</select>
+				</li>				
 				
-				<li><a>New</a><li>
-				<li><a>Sign out</a></li>
 			</ul>				
 		</div>
 					

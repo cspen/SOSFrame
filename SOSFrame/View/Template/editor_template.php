@@ -22,7 +22,7 @@ $html = <<< EOT
 <div id="main-content">
 
 	<!-- The Grid -->
-	<div class="w3-row-padding">
+	<div class="">
 
 		<!-- Left Column -->
 		<div class="">
@@ -30,24 +30,21 @@ $html = <<< EOT
 			<hr>
 			<ul class="navlist">
 				<li style="padding: 0;"><button>Sign out</button></li>	
-				<li style="float: left;"><button>New</button><li>
-				<li style="float: left;">
+				<li style=""><button>New</button></li>
+				<li style="">
 					<select class="">
 						<option style="font-style:italic;">Title of Draft 1</option>
 						<option>Title of Draft 2</option>
 					</select>
 				</li>				
-				
 			</ul>				
-		</div>
-					
-		<br>
+		</div>					
 		<!-- End Left Column -->
 
 		<!-- Right Column -->
-		<div class="w3-twothird">
+		<div class="">
 
-			<form action="javascript:void(0);" method="POST" style="border: 1px solid red;">
+			<form action="javascript:void(0);" method="POST" style="border: ;">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" class="inline-input">
 				<br>

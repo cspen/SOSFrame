@@ -16,7 +16,7 @@ $html = <<< EOT
 	input, textarea { width: 100% }
 </style>
 
-<body class="w3-light-grey">
+<body>
 
 <!-- Page Container -->
 <div id="main-content">
@@ -86,7 +86,7 @@ $html = <<< EOT
 <!-- End Page Container -->
 </div>
 
-	<footer class="w3-container w3-teal w3-center w3-margin-top">
+	<footer class="">
 		<p>Powered by <a href="" target="_blank">SOSFrame</a></p>
 	</footer>
 

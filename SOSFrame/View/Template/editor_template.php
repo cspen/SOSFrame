@@ -12,12 +12,8 @@ $html = <<< EOT
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="$styleSheet">
-<style>
-	input, textarea { width: 100% }
-</style>
 
 <body>
-
 <!-- Page Container -->
 <div id="main-content">
 

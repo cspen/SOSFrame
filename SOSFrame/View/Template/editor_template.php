@@ -29,7 +29,10 @@ $html = <<< EOT
 				<li style=""><button>New</button></li>
 				<li style="">
 					<select class="">
-						<option style="font-style:italic;">Title of Draft 1</option>
+						<!-- Populate list with drafts
+							this list is not part of the form.
+							Need to handle events separately. -->
+						<option>Title of Draft 1</option>
 						<option>Title of Draft 2</option>
 					</select>
 				</li>				
@@ -40,7 +43,7 @@ $html = <<< EOT
 		<!-- Right Column -->
 		<div class="">
 
-			<form action="javascript:void(0);" method="POST" style="border: ;">
+			<form action="javascript:formPost();" style="border: ;">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" class="inline-input">
 				<br>
@@ -85,6 +88,14 @@ $html = <<< EOT
 	<footer class="">
 		<p>Powered by <a href="" target="_blank">SOSFrame</a></p>
 	</footer>
+
+<script>
+function formPost() {
+		// e.stopPropagation();
+		alert("FORM SUBMIT");
+
+}
+</script>
 
 </body>
 </html>

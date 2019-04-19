@@ -28,7 +28,7 @@ $html = <<< EOT
 				<li style="padding: 0;"><button>Sign out</button></li>	
 				<li style=""><button>New</button></li>
 				<li style="">
-					<select class="">
+					<select id="draftList" onchange="draftListChange()">
 						<!-- Populate list with drafts
 							this list is not part of the form.
 							Need to handle events separately. -->
@@ -91,10 +91,14 @@ $html = <<< EOT
 
 <script>
 function formPost() {
-		// e.stopPropagation();
 		alert("FORM SUBMIT");
-
 }
+
+function draftListChange() {
+	alert("DRAFT LIST CHANGE");
+}
+
+
 </script>
 
 </body>

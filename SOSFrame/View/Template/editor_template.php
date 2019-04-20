@@ -25,8 +25,8 @@ $html = <<< EOT
 			<a>Science of Stupidity</a>	
 			<hr>
 			<ul class="navlist">
-				<li style="padding: 0;"><button>Sign out</button></li>	
-				<li style=""><button>New</button></li>
+				<li style="padding: 0;"><button onclick="signOut()">Sign out</button></li>	
+				<li style=""><button onclick="fresh()">New</button></li>
 				<li style="">
 					<select id="draftList" onchange="draftListChange()">
 						<!-- Populate list with drafts
@@ -98,6 +98,13 @@ function draftListChange() {
 	alert("DRAFT LIST CHANGE");
 }
 
+function signOut() {
+	alert("SIGN OUT");
+}
+
+function fresh() {
+	alert("NEW");
+}
 
 </script>
 

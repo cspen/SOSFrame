@@ -25,8 +25,8 @@ $html = <<< EOT
 			<a>Science of Stupidity</a>	
 			<hr>
 			<ul class="navlist">
-				<li style="padding: 0;"><button onclick="signOut()">Sign out</button></li>	
-				<li style=""><button onclick="fresh()">New</button></li>
+				<li style="padding: 0;"><button onclick="editor.signOut()">Sign out</button></li>	
+				<li style=""><button onclick="editor.newContent()">New</button></li>
 				<li style="">
 					<select id="draftList" onchange="draftListChange()">
 						<!-- Populate list with drafts
@@ -43,7 +43,7 @@ $html = <<< EOT
 		<!-- Right Column -->
 		<div class="">
 
-			<form action="javascript:formPost();" style="border: ;">
+			<form action="editor.formPost();" style="border: ;">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" class="inline-input">
 				<br>
@@ -90,21 +90,27 @@ $html = <<< EOT
 	</footer>
 
 <script>
-function formPost() {
-		alert("FORM SUBMIT");
+function Editor() {
+
 }
 
-function draftListChange() {
+Editor.prototype.formPost = function()  {
+	alert("FORM SUBMIT");
+}
+
+Editor.prototype.draftListChange = function () {
 	alert("DRAFT LIST CHANGE");
 }
 
-function signOut() {
+Editor.prototype.signOut = function() {
 	alert("SIGN OUT");
 }
 
-function fresh() {
+Editor.prototype.newContent = function() {
 	alert("NEW");
 }
+
+var editor = new Editor();
 
 </script>
 

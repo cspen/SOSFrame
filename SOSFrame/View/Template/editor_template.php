@@ -25,7 +25,11 @@ $html = <<< EOT
 			<a>Science of Stupidity</a>	
 			<hr>
 			<ul class="navlist">
-				<li style="padding: 0;"><button onclick="editor.signOut()">Sign out</button></li>	
+				<li style="padding: 0;">
+					<form action="editor.signOut()" method="POST">
+						<input type="submit" value="Submit">
+					</form>
+				</li>	
 				<li style=""><button onclick="editor.newContent()">New</button></li>
 				<li style="">
 					<select id="draftList" onchange="draftListChange()">

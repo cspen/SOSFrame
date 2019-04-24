@@ -26,8 +26,9 @@ $html = <<< EOT
 			<hr>
 			<ul class="navlist">
 				<li style="padding: 0;">
-					<form action="editor.signOut()" method="POST">
+					<form action="" method="POST">
 						<input type="submit" value="Submit">
+						<input type="hidden" name="action" value="signout">
 					</form>
 				</li>	
 				<li style=""><button onclick="editor.newContent()">New</button></li>

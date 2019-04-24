@@ -63,8 +63,19 @@ class SOSController implements Settings {
 					$this->view->setTemplate(SOSView::ADMIN_LOGIN);
 				}
 				return;
+			} else {
+				echo 'BAD TOKEN';
 			}
 		}
+		exit;
+	}
+	
+	public function signout() {
+		session_start();
+		session_destroy();
+		$home_url = 'http://'.$_SERVER['HTTP_HOST'].Settings::APP_URL;
+		echo $home_url;
+		header('Location: '.$home_url);
 		exit;
 	}
 	 

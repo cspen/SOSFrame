@@ -26,7 +26,7 @@ $html = <<< EOT
 			<hr>
 			<ul class="navlist">
 				<li style="padding: 0;">
-					<form action="" method="POST">
+					<form method="POST">
 						<input type="submit" value="Submit">
 						<input type="hidden" name="action" value="signout">
 					</form>
@@ -48,7 +48,7 @@ $html = <<< EOT
 		<!-- Right Column -->
 		<div class="">
 
-			<form action="editor.formPost();" style="border: ;">
+			<form action="" onsubmit="javascript:editor.formPost()">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" class="inline-input">
 				<br>

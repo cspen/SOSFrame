@@ -78,6 +78,11 @@ class SOSController implements Settings {
 		header('Location: '.$home_url);
 		exit;
 	}
+	
+	public function editor() {
+		echo 'CHEERS';
+		exit;
+	}
 	 
 	/**
 	 * Set session token for form validation

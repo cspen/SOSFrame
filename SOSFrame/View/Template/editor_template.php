@@ -79,6 +79,7 @@ $html = <<< EOT
 					</li>
 					<li><input type="submit" value="Update"></li>
 				</ul>
+				<input type="hidden" name="action" value="editor">
 			</form>
 			
 		<!-- End Right Column -->

@@ -49,7 +49,7 @@ $html = <<< EOT
 		<!-- Right Column -->
 		<div class="">
 
-			<form action="" onsubmit="javascript:editor.formPost()">
+			<form method="POST" onsubmit="javascript:editor.formPost()">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" class="inline-input">
 				<br>
@@ -58,10 +58,10 @@ $html = <<< EOT
 				<textarea rows="20" style="" id="content"></textarea>
 				<hr>
 				<label for="description">Description: </label>
-				<input type="text" id="description" class="inline-input">
+				<input type="text" id="description" class="inline-input" name="description">
 
 				<label for="topiclist">Topic: </label>
-				<input list="topics" id="topiclist" name="topiclist" class="inline-input">
+				<input list="topics" id="topiclist" name="topic" class="inline-input">
 				<datalist id="topics" name="topics">
   					<!-- Need to make a list of topics -->
   					<option value="Internet Explorer">
@@ -73,7 +73,7 @@ $html = <<< EOT
 				
 				<ul class="navlist" style="border: 1px solid blue">
 					<li>
-						<select>
+						<select name="status">
 							<option>Draft</option>
 							<option>Publish</option>
 						</select>

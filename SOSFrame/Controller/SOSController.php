@@ -79,8 +79,10 @@ class SOSController implements Settings {
 		exit;
 	}
 	
-	public function editor() {
-		echo 'CHEERS';
+	public function newpost() {
+		$postList = array("title", "content", "description", "topic", "status");
+		$this->checkPostValues($postList);
+		
 		exit;
 	}
 	 
@@ -111,6 +113,15 @@ class SOSController implements Settings {
 		}
 		return false;
 	}
+	
+	private function checkPostValues($names) {
+		foreach($names as $n) { echo $n.'<br>';
+			if(isset($POST[$n])) {
+				echo $n.'<br>';
+			}
+		}
+	}
+	
 	
 	private $model;
 	private $view;

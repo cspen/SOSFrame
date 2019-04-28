@@ -27,7 +27,7 @@ $html = <<< EOT
 			<ul class="navlist">
 				<li style="padding: 0;">
 					<form method="POST">
-						<input type="submit" value="Submit">
+						<input type="submit" value="Sign out">
 						<input type="hidden" name="action" value="signout">
 					</form>
 				</li>	
@@ -41,7 +41,8 @@ $html = <<< EOT
 						<option>Title of Draft 2</option>
 					</select>
 				</li>				
-			</ul>				
+			</ul>
+			<hr>	
 		</div>					
 		<!-- End Left Column -->
 
@@ -79,7 +80,7 @@ $html = <<< EOT
 					</li>
 					<li><input type="submit" value="Update"></li>
 				</ul>
-				<input type="hidden" name="action" value="editor">
+				<input type="hidden" name="action" value="newpost">
 			</form>
 			
 		<!-- End Right Column -->

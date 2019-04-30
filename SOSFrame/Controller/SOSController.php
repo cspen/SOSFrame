@@ -115,9 +115,9 @@ class SOSController implements Settings {
 	}
 	
 	private function checkPostValues($names) {
-		foreach($names as $n) { echo $n.'<br>';
-			if(isset($POST[$n])) {
-				echo $n.'<br>';
+		foreach($names as $n) {
+			if(!empty($POST[$n])) {
+				echo $POST[$n].'*<br>';
 			}
 		}
 	}

@@ -81,8 +81,9 @@ class SOSController implements Settings {
 	
 	public function newpost() {
 		$postList = array("title", "content", "description", "topic", "status");
-		$this->checkPostValues($postList);
-		
+		if($this->checkPostValues($postList)) {
+			echo "POST CHECK A-OKAY";
+		}		
 		exit;
 	}
 	 
@@ -116,8 +117,8 @@ class SOSController implements Settings {
 	
 	private function checkPostValues($names) {
 		foreach($names as $n) {
-			if(!empty($POST[$n])) {
-				echo $POST[$n].'*<br>';
+			if(empty($_POST[$n])) {				
+				return false;
 			}
 		}
 	}

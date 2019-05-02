@@ -82,9 +82,14 @@ class SOSController implements Settings {
 	public function newpost() {
 		$postList = array("title", "content", "description", "topic", "status");
 		if($this->checkPostValues($postList)) {
-			echo "POST CHECK A-OKAY";
-		}		
-		exit;
+			// need to pass to the model
+			// to cache the data in the db
+			$this->model->savePost();
+		} else {
+			// Return error header
+			header("HTTP/1.1 400 Bad Request");
+			exit;
+		}
 	}
 	 
 	/**

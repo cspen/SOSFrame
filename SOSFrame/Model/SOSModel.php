@@ -184,6 +184,10 @@ class SOSModel implements DBQueries, Settings {
 				$this->getSideMenu());
 	}
 	
+	public function savePost() {
+		echo 'SAVE POST';
+	}
+	
 	private $dbconn;
 	private $output;
 	private $error;

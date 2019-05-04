@@ -39,6 +39,7 @@ class SOSModel implements DBQueries, Settings {
 		return $this->error;
 	}
 	
+	// Get home page content
 	private function home() {
 		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);
 		if($stmt->execute()) {
@@ -61,6 +62,7 @@ class SOSModel implements DBQueries, Settings {
 		}
 	}
 	
+	// Get article content
 	private function article_data($path) {
 		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
 		$stmt->bindParam(':path', $path); 
@@ -87,6 +89,7 @@ class SOSModel implements DBQueries, Settings {
 		}
 	}
 	
+	// Get topic page content
 	private function topic_data($path) {
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_QUERY);
 		$stmt->bindParam(':path', $path);
@@ -116,7 +119,7 @@ class SOSModel implements DBQueries, Settings {
 		$name = explode(" ", $_POST['name']);
 		$stmt = $this->dbconn->prepare(DBQueries::LOGIN_QUERY);
 		$stmt->bindParam(":fname", $name[0]);
-		$stmt->bindParam(":lname", $name[1]);
+		$stmt->bindParam(":lname", $name[1]); 
 		if($stmt->execute()) {
 			$results = $stmt->fetch();
 			$hash = $results['user_password'];
@@ -131,6 +134,13 @@ class SOSModel implements DBQueries, Settings {
 						$this->getEditorMenu());
 				return true;
 			} else {
+				$this->output = new SOSOutput(
+						"Admin login page",
+						"Administration login page",
+						"Admin Page",
+						"Admin Page",
+						"Edit Menu",
+						$this->getEditorMenu());
 				return false;
 			}
 		} else {
@@ -166,7 +176,7 @@ class SOSModel implements DBQueries, Settings {
 	 */
 	public function login() {
 		$this->output = new SOSOutput(
-				"Secret",
+				"Secret ? ",
 				"Admin login page",
 				"Login",
 				"",

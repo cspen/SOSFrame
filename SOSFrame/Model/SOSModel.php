@@ -185,6 +185,20 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	public function savePost() {
+		$title = $_POST["title"];
+		$content = $_POST["content"];
+		$desc = $_POST["description"];
+		$topic = $_POST["topic"];
+		$status = $_POST["status"];
+		
+		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
+		$results = array();
+		if($stmt->execute()) {
+			;
+		}
+		
+		
+		
 		echo 'SAVE POST';
 	}
 	

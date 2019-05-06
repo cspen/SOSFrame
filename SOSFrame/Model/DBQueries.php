@@ -27,6 +27,12 @@ interface DBQueries {
 	const TOPIC_MENU_QUERY =
 			'SELECT DISTINCT SUBSTRING_INDEX(article_path, "/", 1) AS
 			topic FROM article';
+	
+	const SAVE_POST_QUERY = 
+			'INSERT INTO article (article_title, article_description,
+			article_body, article_publish_status, article_creation_date,
+			article_path, article_parent) VALUES (:title, :description,
+			:body, :status, NOW(), :path, :parent)';
 }
 
 ?>

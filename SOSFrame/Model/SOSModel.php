@@ -190,8 +190,16 @@ class SOSModel implements DBQueries, Settings {
 		$desc = $_POST["description"];
 		$topic = $_POST["topic"];
 		$status = $_POST["status"];
+		$parent = $_POST["parent"];
 		
-		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
+		$stmt = $this->dbconn->prepare(DBQueries::SAVE_POST_QUERY);
+		$stmt->bindParam(':title', $title); 
+		$stmt->bindParam(':description', $desc); 
+		$stmt->bindParam(':body', $content); 
+		$stmt->bindParam(':status', $status); 
+		$stmt->bindParam(':path', $topic."/".$path); 
+		$stmt->bindParam(':parent', $parent); 
+		
 		$results = array();
 		if($stmt->execute()) {
 			;

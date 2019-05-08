@@ -55,7 +55,7 @@ $html = <<< EOT
 				<br>
 				
 				<label for="content">Content: </label>
-				<textarea rows="20" style="" id="content"></textarea>
+				<textarea rows="20" style="" id="content" name="content"></textarea>
 				<hr>
 				<label for="description">Description: </label>
 				<input type="text" id="description" class="inline-input" name="description">
@@ -70,6 +70,8 @@ $html = <<< EOT
   					<option value="Opera">
   					<option value="Safari">
 				</datalist>
+
+				<input type="checkbox">Parent
 				
 				<ul class="navlist" style="border: 1px solid blue">
 					<li>
@@ -120,6 +122,9 @@ Editor.prototype.newContent = function() {
 var editor = new Editor();
 
 </script>
+
+<!- POP OVER ->
+
 
 </body>
 </html>

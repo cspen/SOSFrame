@@ -71,7 +71,7 @@ $html = <<< EOT
   					<option value="Safari">
 				</datalist>
 
-				<input type="checkbox">Parent
+				<input type="button" value="Parent" onclick="editor.setParent()">
 				
 				<ul class="navlist" style="border: 1px solid blue">
 					<li>
@@ -119,12 +119,20 @@ Editor.prototype.newContent = function() {
 	alert("NEW");
 }
 
+Editor.prototype.setParent = function() {
+	var elem = document.getElementById("parent-pop-over");
+	alert(elem.tagName + " " + elem.id);
+	elem.style.display = "block";
+}
+
 var editor = new Editor();
 
 </script>
 
 <!- POP OVER ->
-<div style="">
+<div style="display: none;" id="parent-pop-over">
+	<fieldset>
+	<legend>Article Parent</legend>
 	<select size="5">
 		<option>Option1</option>
 		<option>Option2</option>
@@ -141,6 +149,7 @@ var editor = new Editor();
 		<option>Option13</option>
 		<option>Option14</option>
 	</select>
+	</fieldset>
 	<button>Cancel</button>
 	<button>Ok</button>
 </div>

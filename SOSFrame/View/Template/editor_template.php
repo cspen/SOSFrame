@@ -120,9 +120,11 @@ Editor.prototype.newContent = function() {
 }
 
 Editor.prototype.setParent = function() {
-	var elem = document.getElementById("parent-pop-over");
-	alert(elem.tagName + " " + elem.id);
-	elem.style.display = "block";
+	alert("CHEESE");
+	var back = document.getElementById("overlay");
+	var front = document.getElementById("parent-pop-over");
+	back.style.display = "block";
+	front.style.display = "block";
 }
 
 var editor = new Editor();
@@ -130,28 +132,32 @@ var editor = new Editor();
 </script>
 
 <!- POP OVER ->
-<div style="display: none;" id="parent-pop-over">
-	<fieldset>
-	<legend>Article Parent</legend>
-	<select size="5">
-		<option>Option1</option>
-		<option>Option2</option>
-		<option>Option3</option>
-		<option>Option4</option>
-		<option>Option5</option>
-		<option>Option6</option>
-		<option>Option7</option>
-		<option>Option8</option>
-		<option>Option9</option>
-		<option>Option10</option>
-		<option>Option11</option>
-		<option>Option12</option>
-		<option>Option13</option>
-		<option>Option14</option>
-	</select>
-	</fieldset>
-	<button>Cancel</button>
-	<button>Ok</button>
+<div id="overlay">
+	<div id="overlaytop">
+    	<div id="parent-pop-over" class="overlaycontent" style="display: none;">
+        	<fieldset>
+				<legend>Article Parent</legend>
+				<select size="5">
+					<option>Option1</option>
+					<option>Option2</option>
+					<option>Option3</option>
+					<option>Option4</option>
+					<option>Option5</option>
+					<option>Option6</option>
+					<option>Option7</option>
+					<option>Option8</option>
+					<option>Option9</option>
+					<option>Option10</option>
+					<option>Option11</option>
+					<option>Option12</option>
+					<option>Option13</option>
+					<option>Option14</option>
+				</select>
+			</fieldset>
+			<button>Cancel</button>
+			<button>Ok</button>
+		</div>
+	</div>
 </div>
 
 </body>

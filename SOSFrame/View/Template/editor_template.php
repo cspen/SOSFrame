@@ -119,20 +119,20 @@ Editor.prototype.newContent = function() {
 	alert("NEW");
 }
 
-/* pop-over
+
 Editor.prototype.setParent = function() {
 	var back = document.getElementById("overlay");
 	var front = document.getElementById("parent-pop-over");
 	back.style.display = "block";
 	front.style.display = "block";
 }
-*/
+
 
 var editor = new Editor();
 
 </script>
 
-<!- POP OVER - decided not to add
+<!- POP OVER -->
 <div id="overlay">
 	<div id="overlaytop">
     	<div id="parent-pop-over" class="overlaycontent" style="display: none;">
@@ -160,7 +160,6 @@ var editor = new Editor();
 		</div>
 	</div>
 </div>
-->
  
 </body>
 </html>

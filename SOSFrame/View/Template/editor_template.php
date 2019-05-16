@@ -127,6 +127,11 @@ Editor.prototype.setParent = function() {
 	front.style.display = "block";
 }
 
+Editor.prototype.cancelParentPopOver = function() {
+	document.getElementById("parent-pop-over").style.display = none;
+	document.getElementById("overlay").style.display = none;
+	document.getElementById("article-list").value="";
+}
 
 var editor = new Editor();
 
@@ -138,7 +143,7 @@ var editor = new Editor();
     	<div id="parent-pop-over" class="overlaycontent" style="display: none;">
         	<fieldset>
 				<legend>Article Parent</legend>
-				<select size="5" style="width: 100%;">
+				<select size="5" style="width: 100%;" id="article-list">
 					<option>Option1</option>
 					<option>Option2</option>
 					<option>Option3</option>
@@ -155,7 +160,7 @@ var editor = new Editor();
 					<option>Option14</option>
 				</select>
 			</fieldset>
-			<button>Cancel</button>
+			<button onclick="editor.cancel();">Cancel</button>
 			<button>Ok</button>
 		</div>
 	</div>

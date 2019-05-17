@@ -121,6 +121,10 @@ Editor.prototype.newContent = function() {
 
 
 Editor.prototype.setParent = function() {
+	// Need to make an AJAX call to get the list
+	// of articles from the server then call
+	// the code below in a callback
+
 	var back = document.getElementById("overlay");
 	var front = document.getElementById("parent-pop-over");
 	back.style.display = "block";
@@ -134,7 +138,9 @@ Editor.prototype.cancelParentPopOver = function() {
 }
 
 Editor.prototype.okParentPopOver = function() {
-	alert("OK PARENT POP OVER");
+	document.getElementById("parent-pop-over").style.display = "none";
+	document.getElementById("overlay").style.display = "none";
+	alert(document.getElementById("article-list").value);
 }
 
 var editor = new Editor();

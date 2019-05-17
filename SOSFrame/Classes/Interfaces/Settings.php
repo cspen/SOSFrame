@@ -15,6 +15,9 @@ interface Settings {
 	// Admin login page location
 	const ADMIN_LOGIN_PAGE = "secret";
 	
+	// System operations location
+	const SYS_OPS = "system_ops";
+	
 }
 
 ?>

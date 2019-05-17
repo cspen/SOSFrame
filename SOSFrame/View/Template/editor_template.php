@@ -128,9 +128,13 @@ Editor.prototype.setParent = function() {
 }
 
 Editor.prototype.cancelParentPopOver = function() {
-	document.getElementById("parent-pop-over").style.display = none;
-	document.getElementById("overlay").style.display = none;
+	document.getElementById("parent-pop-over").style.display = "none";
+	document.getElementById("overlay").style.display = "none";
 	document.getElementById("article-list").value="";
+}
+
+Editor.prototype.okParentPopOver = function() {
+	alert("OK PARENT POP OVER");
 }
 
 var editor = new Editor();
@@ -160,8 +164,8 @@ var editor = new Editor();
 					<option>Option14</option>
 				</select>
 			</fieldset>
-			<button onclick="editor.cancel();">Cancel</button>
-			<button>Ok</button>
+			<button onclick="editor.cancelParentPopOver()">Cancel</button>
+			<button onclick="editor.okParentPopOver()">Ok</button>
 		</div>
 	</div>
 </div>

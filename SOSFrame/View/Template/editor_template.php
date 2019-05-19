@@ -100,7 +100,7 @@ $html = <<< EOT
 
 <script>
 function Editor() {
-
+	this.ajax = new AJAX();
 }
 
 Editor.prototype.formPost = function()  {
@@ -141,6 +141,10 @@ Editor.prototype.okParentPopOver = function() {
 	document.getElementById("parent-pop-over").style.display = "none";
 	document.getElementById("overlay").style.display = "none";
 	alert(document.getElementById("article-list").value);
+}
+
+function AJAX() {
+	alert("This is AJAX");
 }
 
 var editor = new Editor();

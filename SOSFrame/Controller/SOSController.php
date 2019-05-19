@@ -35,7 +35,10 @@ class SOSController implements Settings {
 				$this->token();
 				$this->model->login($_SESSION['token']);
 				$this->view->setTemplate(SOSView::ADMIN_LOGIN);
+			} else if(strcmp($path, Settings::SYS_OPS) == 0) {
+				echo 'SYS_OPS SERVICE';
 			} else {
+			
 				$this->view->setTemplate(SOSView::ARTICLE);
 				$this->model->update_state($path, SOSModel::ARTICLE);
 			}

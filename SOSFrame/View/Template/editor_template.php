@@ -147,6 +147,11 @@ function AJAX() {
 	alert("This is AJAX");
 }
 
+AJAX.get(url, callBack) {
+
+}
+
+
 var editor = new Editor();
 
 </script>

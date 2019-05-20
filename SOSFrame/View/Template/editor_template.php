@@ -151,6 +151,9 @@ AJAX.get(url, callBack) {
 
 }
 
+AJAX.post(url, callBack) {
+
+}
 
 var editor = new Editor();
 

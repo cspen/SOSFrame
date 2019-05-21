@@ -144,11 +144,18 @@ Editor.prototype.okParentPopOver = function() {
 }
 
 function AJAX() {
-	alert("This is AJAX");
+	this.xmlhttp = new XMLHttpRequest();
 }
 
-AJAX.get(url, callBack) {
-
+AJAX.get(url, data, callBack) {
+	xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+    		callbackFunc(this, data, url);
+        } 
+    };
+    xmlhttp.open("GET", url, true);        
+   	xmlhttp.setRequestHeader("Accept", "application/json");
+   	xmlhttp.send();
 }
 
 AJAX.post(url, callBack) {

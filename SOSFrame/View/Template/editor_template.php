@@ -149,7 +149,7 @@ function AJAX() {
 
 AJAX.get(url, data, callBack) {
 	xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
+    	if (this.readyState == 4) {
     		callbackFunc(this, data, url);
         } 
     };
@@ -158,7 +158,16 @@ AJAX.get(url, data, callBack) {
    	xmlhttp.send();
 }
 
-AJAX.post(url, callBack) {
+AJAX.post(url, data, callBack) {
+	xmlhttp.onreadystatechange = function() {
+    	if (this.readyState == 4) {
+    		callbackFunc(this, data, url);
+        } 
+    };
+    xmlhttp.open("POST", url, true);        
+   	xmlhttp.setRequestHeader("Accept", "application/json");
+	xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  	xmlhttp.send(data);
 
 }
 

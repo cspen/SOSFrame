@@ -36,7 +36,8 @@ class SOSController implements Settings {
 				$this->model->login($_SESSION['token']);
 				$this->view->setTemplate(SOSView::ADMIN_LOGIN);
 			} else if(strcmp($path, Settings::SYS_OPS) == 0) {
-				echo 'SYS_OPS SERVICE';
+				$this->system_operation();
+				exit;
 			} else {
 			
 				$this->view->setTemplate(SOSView::ARTICLE);
@@ -93,6 +94,10 @@ class SOSController implements Settings {
 			header("HTTP/1.1 400 Bad Request");
 			exit;
 		}
+	}
+	
+	private function system_operation() {
+		echo 'SYSTEM OPERATION';
 	}
 	 
 	/**

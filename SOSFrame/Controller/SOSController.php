@@ -96,6 +96,9 @@ class SOSController implements Settings {
 		}
 	}
 	
+	/**
+	 * Change the state of the app.
+	 */
 	private function system_operation() {
 		echo 'SYSTEM OPERATION';
 	}

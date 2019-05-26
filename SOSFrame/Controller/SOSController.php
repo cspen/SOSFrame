@@ -97,10 +97,17 @@ class SOSController implements Settings {
 	}
 	
 	/**
-	 * Change the state of the app.
+	 * Application operations accessed via
+	 * administration backend.
 	 */
 	private function system_operation() {
-		echo 'SYSTEM OPERATION';
+		if($_SERVER['REQUEST_METHOD'] === "POST") {
+			
+		} else if($_SERVER['REQUEST_METHOD'] === "GET") {
+			
+		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
+			
+		}
 	}
 	 
 	/**

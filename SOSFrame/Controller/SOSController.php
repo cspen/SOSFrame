@@ -102,11 +102,11 @@ class SOSController implements Settings {
 	 */
 	private function system_operation() {
 		if($_SERVER['REQUEST_METHOD'] === "POST") {
-			
+			echo 'POST';
 		} else if($_SERVER['REQUEST_METHOD'] === "GET") {
-			
+			echo 'GET';
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
-			
+			echo 'DELETE';
 		}
 	}
 	 

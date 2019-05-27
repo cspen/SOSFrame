@@ -15,12 +15,15 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Called by the controller object
 	public function update_state($path, $type) {
-		// Need to gather the data
+		/* Need to add restFul service
+		 * structure here. Determine request
+		 * method then take appropriate action.
+		 */
 		if(empty($path)) {
 			// Get home page data
 			$this->home();
 		} else {
-			if($type == $this::ARTICLE) { 
+			if($type == $this::ARTICLE) {				
 				// Get data for path
 				$this->article_data($path);
 			} else if($type == $this::TOPIC) {
@@ -202,7 +205,9 @@ class SOSModel implements DBQueries, Settings {
 		
 		$results = array();
 		if($stmt->execute()) {
-			;
+			
+		} else {
+			// Need to send 504 error to client
 		}
 		
 		

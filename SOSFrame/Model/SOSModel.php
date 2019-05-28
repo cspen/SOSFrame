@@ -16,7 +16,7 @@ class SOSModel implements DBQueries, Settings {
 	// Called by the controller object
 	public function update_state($path, $type) {
 		/* Need to add restFul service
-		 * structure here. Determine request
+		 * structure in this function. Determine request
 		 * method then take appropriate action.
 		 */
 		if(empty($path)) {
@@ -25,9 +25,25 @@ class SOSModel implements DBQueries, Settings {
 		} else {
 			if($type == $this::ARTICLE) {				
 				// Get data for path
-				$this->article_data($path);
-			} else if($type == $this::TOPIC) {
-				$this->topic_data($path);
+				if($_SERVER['REQUEST_METHOD'] === "GET") {
+					$this->article_data($path);
+				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
+					echo 'DELETE'; exit;
+				} else if($_SERVER['REQUEST_METHOD'] === "HEAD") {
+					echo 'HEAD'; exit;
+				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
+					echo 'PUT'; exit;
+				}
+			} else if($type == $this::TOPIC) {				
+				if($_SERVER['REQUEST_METHOD'] === "GET") {
+					$this->topic_data($path);
+				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
+					echo 'DELETE'; exit;
+				} else if($_SERVER['REQUEST_METHOD'] === "HEAD") {
+					echo 'HEAD'; exit;
+				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
+					echo 'PUT'; exit;
+				}
 			}
 		}		
 	}

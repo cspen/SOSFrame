@@ -58,6 +58,16 @@ class SOSModel implements DBQueries, Settings {
 		return $this->error;
 	}
 	
+	// Delete the specified article
+	private function delete_artcle($path) {
+		
+	}
+	
+	// Delete all articles of the specified topic
+	private function delate_topic($path) {
+		
+	}
+	
 	// Get home page content
 	private function home() {
 		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);

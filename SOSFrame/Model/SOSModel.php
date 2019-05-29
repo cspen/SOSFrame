@@ -68,11 +68,19 @@ class SOSModel implements DBQueries, Settings {
 		
 	}
 	
-	private function article_head($path) {
+	private function head_article($path) {
 		
 	}
 	
-	private function topic_head($path) {
+	private function head_topic($path) {
+		
+	}
+	
+	private function put_article($path) {
+		
+	}
+	
+	private function put_topic($path) {
 		
 	}
 	

@@ -68,6 +68,14 @@ class SOSModel implements DBQueries, Settings {
 		
 	}
 	
+	private function article_head($path) {
+		
+	}
+	
+	private function topic_head($path) {
+		
+	}
+	
 	// Get home page content
 	private function home() {
 		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);

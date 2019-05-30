@@ -33,6 +33,8 @@ interface DBQueries {
 			article_body, article_publish_status, article_creation_date,
 			article_path, article_parent) VALUES (:title, :description,
 			:body, :status, NOW(), :path, :parent)';
+	
+	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 }
 
 ?>

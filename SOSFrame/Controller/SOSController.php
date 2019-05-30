@@ -20,6 +20,10 @@ class SOSController implements Settings {
 	
 	// Called during program execution
 	public function process_request() {
+		
+		// Need to check request method and
+		// validate user for certain requests
+		
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
 						

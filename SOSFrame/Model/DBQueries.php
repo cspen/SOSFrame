@@ -37,7 +37,12 @@ interface DBQueries {
 	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 	
 	const UPDATE_ARTICLE_QUERY = "UPDATE article SET
-		(col = value) WHERE article_path=:path"
+		(article_title=:title,
+		 article_description=:desc,
+		 article_body=:body,
+		 article_publish_status=:status,
+		 ) WHERE article_path=:path";
+	
 }
 
 ?>

@@ -41,7 +41,9 @@ interface DBQueries {
 		 article_description=:desc,
 		 article_body=:body,
 		 article_publish_status=:status,
-		 ) WHERE article_path=:path";
+		 article_publish_date=:date,
+		 article_path=:path,
+		 article_parent=:parent) WHERE article_path=:path";
 	
 }
 

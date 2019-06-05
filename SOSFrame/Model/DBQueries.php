@@ -28,6 +28,7 @@ interface DBQueries {
 			'SELECT DISTINCT SUBSTRING_INDEX(article_path, "/", 1) AS
 			topic FROM article';
 	
+	// Create a new article
 	const SAVE_POST_QUERY = 
 			'INSERT INTO article (article_title, article_description,
 			article_body, article_publish_status, article_creation_date,
@@ -36,6 +37,7 @@ interface DBQueries {
 	
 	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 	
+	// Modify an existing article
 	const UPDATE_ARTICLE_QUERY = "UPDATE article SET
 		(article_title=:title,
 		 article_description=:desc,
@@ -43,8 +45,7 @@ interface DBQueries {
 		 article_publish_status=:status,
 		 article_publish_date=:date,
 		 article_path=:path,
-		 article_parent=:parent) WHERE article_path=:path";
-	
+		 article_parent=:parent) WHERE article_path=:path";	
 }
 
 ?>

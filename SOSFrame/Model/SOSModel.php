@@ -60,12 +60,15 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Delete the specified article
 	private function delete_artcle($path) {
-		
+		$stmt = $this->dbconn->prepare(DBQueries::DELETE_ARTICLE_QUERY);
+		if($stmt->execute()) {
+		}
 	}
 	
 	// Delete all articles of the specified topic
 	private function delate_topic($path) {
-		
+		// Will have to first get all articles 
+		// in the topic and delete them one by one
 	}
 	
 	private function head_article($path) {
@@ -81,7 +84,9 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	private function put_topic($path) {
-		
+		// I don't think this function
+		// is necessary nor possible to
+		// implement easily
 	}
 	
 	// Get home page content

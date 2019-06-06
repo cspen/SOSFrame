@@ -71,14 +71,21 @@ class SOSModel implements DBQueries, Settings {
 		// in the topic and delete them one by one
 	}
 	
+	// Retreive only the HTTP HEAD request
+	// information for the article at the
+	// specified path.
 	private function head_article($path) {
 		
 	}
 	
+	// Retreive only the HTTP HEAD request
+	// information for the topic at the
+	// specified path.
 	private function head_topic($path) {
 		
 	}
 	
+	// Update an existing article
 	private function put_article($path) {
 		
 	}

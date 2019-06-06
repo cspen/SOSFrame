@@ -75,7 +75,9 @@ class SOSModel implements DBQueries, Settings {
 	// information for the article at the
 	// specified path.
 	private function head_article($path) {
-		
+		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
+		if($stmt->execute()) {
+		}
 	}
 	
 	// Retreive only the HTTP HEAD request

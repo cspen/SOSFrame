@@ -71,46 +71,6 @@ class SOSModel implements DBQueries, Settings {
 		// in the topic and delete them one by one
 	}
 	
-	// Retreive only the HTTP HEAD request
-	// information for the article at the
-	// specified path.
-	private function head_article($path) {
-		$stmt = $this->dbconn->prepare(DBQueries::PATH_QUERY);
-		if($stmt->execute()) {
-			$results = $stmt->fetch();
-			
-			if(!empty($results)) {
-				$menu = $this->getSideMenu();
-				// Need to calculate the size of the
-				// data that would be sent if this
-				// were a GET request
-				
-				/*
-				$this->output = new SOSArticleOutput(
-						$path,
-						$results['article_description'],
-						$results['article_title'],
-						$results['article_body'],
-						"Topics Menu",
-						$menu,
-						"Content Prev",
-						"Content Next",
-						$results['user_first_name']." ".$results['user_last_name'],
-						$results['article_publish_date']);
-				*/
-			}
-		} else {
-			$this->error = true;
-		}
-	}
-	
-	// Retreive only the HTTP HEAD request
-	// information for the topic at the
-	// specified path.
-	private function head_topic($path) {
-		
-	}
-	
 	// Update an existing article
 	private function put_article($path) {
 		

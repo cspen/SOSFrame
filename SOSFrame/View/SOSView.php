@@ -107,9 +107,11 @@ class SOSView implements Settings {
 		require_once($this->template);
 		$this->setHeaders($html);
 		
-		// if($_SERVER['REQUEST_METHOD'] == "GET") {
+		if($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo $html;
-		// } 		
+		} else if($_SERVER['REQUEST_METHOD'] == "HEAD") {
+			exit;
+		}
 	}
 	
 	private function createSideMenu($menuItems) {
@@ -136,6 +138,8 @@ class SOSView implements Settings {
 		header('Content-Length: '.strlen($output));
 		
 		// TO-DO: Add headers for etag and last modified
+		// header('');
+		// header('');
 		
 	}
 	

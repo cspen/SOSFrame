@@ -43,7 +43,6 @@ class SOSController implements Settings {
 				$this->system_operation();
 				exit;
 			} else {
-			
 				$this->view->setTemplate(SOSView::ARTICLE);
 				$this->model->update_state($path, SOSModel::ARTICLE);
 			}

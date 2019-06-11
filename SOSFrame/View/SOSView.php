@@ -109,10 +109,7 @@ class SOSView implements Settings {
 		
 		if($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo $html;
-		} else if($_SERVER['REQUEST_METHOD'] == "HEAD") {
-			
-			exit;
-		}
+		} 
 	}
 	
 	private function createSideMenu($menuItems) {

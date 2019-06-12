@@ -25,22 +25,20 @@ class SOSModel implements DBQueries, Settings {
 		} else {
 			if($type == $this::ARTICLE) {				
 				// Get data for path
-				if($_SERVER['REQUEST_METHOD'] === "GET") {
+				if($_SERVER['REQUEST_METHOD'] === "GET" ||
+						$_SERVER['REQUEST_METHOD'] === "HEAD") {
 					$this->article_data($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 					echo 'DELETE'; exit;
-				} else if($_SERVER['REQUEST_METHOD'] === "HEAD") {
-					echo 'HEAD'; exit;
 				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
 					echo 'PUT'; exit;
 				}
 			} else if($type == $this::TOPIC) {				
-				if($_SERVER['REQUEST_METHOD'] === "GET") {
+				if($_SERVER['REQUEST_METHOD'] === "GET" ||
+						$_SERVER['REQUEST_METHOD'] === "HEAD") {
 					$this->topic_data($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 					echo 'DELETE'; exit;
-				} else if($_SERVER['REQUEST_METHOD'] === "HEAD") {
-					echo 'HEAD'; exit;
 				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
 					echo 'PUT'; exit;
 				}

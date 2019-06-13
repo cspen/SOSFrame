@@ -29,18 +29,18 @@ class SOSModel implements DBQueries, Settings {
 						$_SERVER['REQUEST_METHOD'] === "HEAD") {
 					$this->article_data($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
-					echo 'DELETE'; exit;
+					$this->delete_article($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
-					echo 'PUT'; exit;
+					$this->put_article($path);
 				}
 			} else if($type == $this::TOPIC) {				
 				if($_SERVER['REQUEST_METHOD'] === "GET" ||
 						$_SERVER['REQUEST_METHOD'] === "HEAD") {
 					$this->topic_data($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
-					echo 'DELETE'; exit;
+					$this->delate_topic($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
-					echo 'PUT'; exit;
+					$this->put_topic($path);
 				}
 			}
 		}		
@@ -246,10 +246,7 @@ class SOSModel implements DBQueries, Settings {
 			
 		} else {
 			// Need to send 504 error to client
-		}
-		
-		
-		
+		}		
 		echo 'SAVE POST';
 	}
 	

@@ -59,7 +59,12 @@ class SOSModel implements DBQueries, Settings {
 	// Delete the specified article
 	private function delete_article($path) {
 		$stmt = $this->dbconn->prepare(DBQueries::DELETE_ARTICLE_QUERY);
+		$stmt->bindParam(':path', $path);
+		
 		if($stmt->execute()) {
+			// Not sure what to do here
+		} else {
+			// Error
 		}
 	}
 	

@@ -75,7 +75,22 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	// Update an existing article
-	private function put_article($path) {
+	private function put_article($path) {		
+		// This conditional should go in the
+		// controller
+		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			// This should go in the view
+			header('HTTP/1.1 412 Precondition Failed');
+			exit;
+		}
+		
+		// Should do this in the controller
+		$putVar = json_decode(file_get_contents("php://input"), true);
+		if(isset($putVar)) {
+			// Need to parse the JSON input,
+			// validate the input, then persist
+			// if valid
+		}
 		
 	}
 	

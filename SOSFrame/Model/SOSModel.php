@@ -90,14 +90,20 @@ class SOSModel implements DBQueries, Settings {
 			// Need to parse the JSON input,
 			// validate the input, then persist
 			// if valid
-		}
-		
+		} else {
+			// Error
+		}		
 	}
 	
 	private function put_topic($path) {
 		// I don't think this function
 		// is necessary nor possible to
 		// implement easily
+		
+		// I don't think it's normal
+		// to do a PUT operation on a
+		// a collection. I think it's just
+		// for single entities.
 	}
 	
 	// Get home page content

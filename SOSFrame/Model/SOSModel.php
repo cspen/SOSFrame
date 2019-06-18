@@ -15,16 +15,13 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Called by the controller object
 	public function update_state($path, $type) {
-		/* Need to add restFul service
-		 * structure in this function. Determine request
-		 * method then take appropriate action.
-		 */
 		if(empty($path)) {
 			// Get home page data
 			$this->home();
 		} else {
+			// Perform the requested operation
+			// on the specifed path
 			if($type == $this::ARTICLE) {				
-				// Get data for path
 				if($_SERVER['REQUEST_METHOD'] === "GET" ||
 						$_SERVER['REQUEST_METHOD'] === "HEAD") {
 					$this->article_data($path);

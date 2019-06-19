@@ -32,63 +32,69 @@ class SOSView implements Settings {
 			$sideMenu = null;
 			
 		} else if(!empty($output)) {
-			$pageTitle =$output->pageTitle();
-			$description = $output->description();
-			$contentTitle = $output->contentTitle();
-			$contentBody = $output->contentBody();
+			// Need to check for header only
+			// response to the client
+			if() {				
+				$pageTitle = $output->pageTitle();
+				$description = $output->description();
+				$contentTitle = $output->contentTitle();
+				$contentBody = $output->contentBody();
 			
-			if(is_array($contentBody)) {
-				$a = array();
-				$b = array();
-				foreach($contentBody as $c) {
-					$url = "";
-					$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
-					$d = str_replace($u, "", $c);
-					if($contentTitle != Settings::HOME_PAGE_TITLE) {					
-						if(substr_count($c, "/") > 1) {  // Link to "Directory"
-							if(substr_count($d, "/") > 0)
-								$url = $c = substr($d, 0, strpos($d, "/")+1);
-							else
-								$url = $c = $d;
-						} else {	// Link to "File"							
-							$pos = strpos($c, "/");
-							$c = substr($c, $pos+1);
-							$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
+				if(is_array($contentBody)) {
+					$a = array();
+					$b = array();
+					foreach($contentBody as $c) {
+						$url = "";
+						$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
+						$d = str_replace($u, "", $c);
+						if($contentTitle != Settings::HOME_PAGE_TITLE) {					
+							if(substr_count($c, "/") > 1) {  // Link to "Directory"
+								if(substr_count($d, "/") > 0)
+									$url = $c = substr($d, 0, strpos($d, "/")+1);
+								else
+									$url = $c = $d;
+							} else {	// Link to "File"							
+								$pos = strpos($c, "/");
+								$c = substr($c, $pos+1);
+								$url = Settings::APP_URL.$contentTitle.str_replace(" ", "-", $c);
+							}
+						} else {
+							$url = Settings::APP_URL.str_replace(" ", "-", $c);						
 						}
-					} else {
-						$url = Settings::APP_URL.str_replace(" ", "-", $c);						
-					}
 					
-					if(strpos($c, "/"))
-						$b[] = '<a href="'.$url.'">'.$c.'</a><br>';
-					else
-						$a[] = '<a href="'.$url.'">'.$c.'</a><br>';
-				}
-				$contentBody = "";
-				$a = array_unique($a);	// Remove duplicates
-				$b = array_unique($b);
-				foreach($a as $c)
+						if(strpos($c, "/"))
+							$b[] = '<a href="'.$url.'">'.$c.'</a><br>';
+						else
+							$a[] = '<a href="'.$url.'">'.$c.'</a><br>';
+					}
+					$contentBody = "";
+					$a = array_unique($a);	// Remove duplicates
+					$b = array_unique($b);
+					foreach($a as $c)
 						$contentBody .= $c;
-				foreach($b as $c)
+					foreach($b as $c)
 						$contentBody .= $c;
 				
-				// Site navigation
-				$contentTitle = rtrim($contentTitle, "/");
-				$contentTitle = $this->linkify($contentTitle);
-			} 			
-			$sideMenuTitle = $output->sideMenuTitle();
-			$sideMenu = $this->createSideMenu($output->sideMenu());
-			$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
-			$pos = strrpos($u, "/");
-			$u = substr($u, 0, $pos);		
+					// Site navigation
+					$contentTitle = rtrim($contentTitle, "/");
+					$contentTitle = $this->linkify($contentTitle);
+				} 			
+				$sideMenuTitle = $output->sideMenuTitle();
+				$sideMenu = $this->createSideMenu($output->sideMenu());
+				$u = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
+				$pos = strrpos($u, "/");
+				$u = substr($u, 0, $pos);		
 			
-			$navLink = $this->linkify($u);
+				$navLink = $this->linkify($u);
 			
-			if($output instanceof SOSArticleOutput) {
-				$author = $output->author();
-				$publishDate = $output->publishDate();
-				$next = $output->contentNext();
-				$prev = $output->contentPrev();
+				if($output instanceof SOSArticleOutput) {
+					$author = $output->author();
+					$publishDate = $output->publishDate();
+					$next = $output->contentNext();
+					$prev = $output->contentPrev();
+				}
+			} else {
+				
 			}
 			
 		} else {

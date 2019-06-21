@@ -94,6 +94,7 @@ class SOSView implements Settings {
 			if($_SERVER['REQUEST_METHOD'] === "DELETE" ||
 					$_SERVER['REQUEST_METHOD'] === "PUT") {
 				header('HTTP/1.1 204 No Content');
+				exit;
 			} else {			
 				// Set header
 				header('HTTP/1.1 404 Not Found');

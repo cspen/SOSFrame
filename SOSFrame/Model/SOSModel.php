@@ -59,9 +59,7 @@ class SOSModel implements DBQueries, Settings {
 		$stmt->bindParam(':path', $path);
 		
 		if($stmt->execute()) {
-			// Not sure what to do here
-			// Need to send a 204 (No Content)
-			// header to the client
+			// Set output
 		} else {
 			$this->error = true;
 		}

@@ -60,15 +60,16 @@ class SOSModel implements DBQueries, Settings {
 		
 		if($stmt->execute()) {
 			// Not sure what to do here
+			// Need to send a 204 (No Content)
+			// header to the client
 		} else {
-			// Error
+			$this->error = true;
 		}
 	}
 	
 	// Delete all articles of the specified topic
 	private function delate_topic($path) {
-		// Will have to first get all articles 
-		// in the topic and delete them one by one
+		
 	}
 	
 	// Update an existing article
@@ -88,19 +89,8 @@ class SOSModel implements DBQueries, Settings {
 			// validate the input, then persist
 			// if valid
 		} else {
-			// Error
+			$this->error = true;
 		}		
-	}
-	
-	private function put_topic($path) {
-		// I don't think this function
-		// is necessary nor possible to
-		// implement easily
-		
-		// I don't think it's normal
-		// to do a PUT operation on a
-		// a collection. I think it's just
-		// for single entities.
 	}
 	
 	// Get home page content

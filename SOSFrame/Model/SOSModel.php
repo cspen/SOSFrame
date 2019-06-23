@@ -254,9 +254,10 @@ class SOSModel implements DBQueries, Settings {
 		
 		$results = array();
 		if($stmt->execute()) {
-			
+			// According to the HTTP specification
+			// should retrun a 201 Created header
 		} else {
-			// Need to send 504 error to client
+			$this->error = true;
 		}		
 		echo 'SAVE POST';
 	}

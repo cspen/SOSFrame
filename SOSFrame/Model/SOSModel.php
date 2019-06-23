@@ -255,11 +255,10 @@ class SOSModel implements DBQueries, Settings {
 		$results = array();
 		if($stmt->execute()) {
 			// According to the HTTP specification
-			// should retrun a 201 Created header
+			// should return a 201 Created header
 		} else {
 			$this->error = true;
-		}		
-		echo 'SAVE POST';
+		}
 	}
 	
 	private $dbconn;

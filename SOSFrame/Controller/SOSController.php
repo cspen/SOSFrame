@@ -49,10 +49,6 @@ class SOSController implements Settings {
 		}
 	}
 	
-	
-	
-	
-
 	/**
 	 * Validate the login form credentials
 	 * and the form token.
@@ -159,9 +155,13 @@ class SOSController implements Settings {
 	// and with parameters. Returns false
 	// otherwise
 	private function allset() {
-		return true;
-	}
-	
+		if(isset($_POST['title']) && isset($_POST['content']) &&
+				isset($_POST['description']) && isset($_POST['topics']) &&
+				isset($_POST['status']) && isset($_POST['parent'])) {
+			return true;
+		}
+		return false;
+	}	
 	
 	private $model;
 	private $view;

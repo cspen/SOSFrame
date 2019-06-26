@@ -107,7 +107,11 @@ class SOSController implements Settings {
 		if($_SERVER['REQUEST_METHOD'] === "POST") {
 			// Need to validate POST data here
 			// before calling the model
-			echo 'POST';
+			if(isset($_POST[''])) {
+				
+			} else {
+				
+			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 			echo 'DELETE';
 		}
@@ -147,6 +151,15 @@ class SOSController implements Settings {
 				return false;
 			}
 		}
+	}
+	
+	// Determine if correct post variables
+	// are set for creating a new article
+	// returns true if all values set
+	// and with parameters. Returns false
+	// otherwise
+	private function allset() {
+		return true;
 	}
 	
 	

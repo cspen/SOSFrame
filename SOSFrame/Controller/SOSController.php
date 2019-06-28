@@ -103,10 +103,11 @@ class SOSController implements Settings {
 		if($_SERVER['REQUEST_METHOD'] === "POST") {
 			// Need to validate POST data here
 			// before calling the model
-			if(isset($_POST[''])) {
-				
+			if(allset()) {
+				// Persist
+				$this->model->savePost();
 			} else {
-				
+				// Error
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 			echo 'DELETE';

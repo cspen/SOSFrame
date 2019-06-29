@@ -107,7 +107,7 @@ class SOSController implements Settings {
 				// Persist
 				$this->model->savePost();
 			} else {
-				// Error
+				$this->view->error();
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 			echo 'DELETE';

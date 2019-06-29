@@ -15,6 +15,10 @@ class SOSView implements Settings {
 		$this->template = $template;
 	}
 	
+	public function error() {
+		echo "ERROR";
+	}
+	
 	public function showPage() {
 		$output = $this->model->output();
 		 

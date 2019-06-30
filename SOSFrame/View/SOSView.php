@@ -15,8 +15,9 @@ class SOSView implements Settings {
 		$this->template = $template;
 	}
 	
-	public function error() {
-		echo "ERROR";
+	public function error($hdr) {
+		header($hdr);
+		exit;
 	}
 	
 	public function showPage() {

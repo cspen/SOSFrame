@@ -107,7 +107,7 @@ class SOSController implements Settings {
 				// Persist
 				$this->model->savePost();
 			} else {
-				$this->view->error();
+				$this->view->error('HTTP/1.1 400 Bad Request');
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 			echo 'DELETE';

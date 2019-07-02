@@ -101,16 +101,13 @@ class SOSController implements Settings {
 	 */
 	private function system_operation() {
 		if($_SERVER['REQUEST_METHOD'] === "POST") {
-			// Need to validate POST data here
-			// before calling the model
-			if(allset()) {
-				// Persist
+			if($this->allset()) {
 				$this->model->savePost();
 			} else {
 				$this->view->error('HTTP/1.1 400 Bad Request');
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
-			echo 'DELETE';
+			// Need to send header response
 		}
 	}
 	 

@@ -15,7 +15,7 @@ class SOSView implements Settings {
 		$this->template = $template;
 	}
 	
-	public function error($hdr) {
+	public function headerOnly($hdr) {
 		header($hdr);
 		exit;
 	}

@@ -104,10 +104,10 @@ class SOSController implements Settings {
 			if($this->allset()) {
 				$this->model->savePost();
 			} else {
-				$this->view->error('HTTP/1.1 400 Bad Request');
+				$this->view->headerOnly('HTTP/1.1 400 Bad Request');
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
-			// Need to send header response
+			$this->view->headerOnly('HTTP/1.1 200 Ok');
 		}
 	}
 	 

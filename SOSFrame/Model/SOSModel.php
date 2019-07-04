@@ -67,6 +67,8 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Delete all articles of the specified topic
 	private function delate_topic($path) {
+		// Need to do a substring search for topic
+		// in the path - substring query
 		
 	}
 	
@@ -255,7 +257,7 @@ class SOSModel implements DBQueries, Settings {
 		$results = array();
 		if($stmt->execute()) {
 			// According to the HTTP specification
-			// should return a 201 Created header
+			// should return a "201 Created" header
 		} else {
 			$this->error = true;
 		}

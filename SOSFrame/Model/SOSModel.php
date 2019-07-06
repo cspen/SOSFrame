@@ -67,9 +67,14 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Delete all articles of the specified topic
 	private function delate_topic($path) {
-		// Need to do a substring search for topic
-		// in the path - substring query
+		$stmt = $this->dbconn->prepare(DBQueries::DELETE_TOPIC_QUERY);
+		$stmt->bindParam(':path', $path);
 		
+		if($stmt->execute()) {
+			// Set output
+		} else {
+			$this->error = true;
+		}
 	}
 	
 	// Update an existing article

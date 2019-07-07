@@ -37,6 +37,8 @@ interface DBQueries {
 	
 	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 	
+	const DELETE_TOPIC_QUERY = "";
+	
 	// Modify an existing article
 	const UPDATE_ARTICLE_QUERY = "UPDATE article SET
 		(article_title=:title,

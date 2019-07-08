@@ -60,6 +60,7 @@ class SOSModel implements DBQueries, Settings {
 		
 		if($stmt->execute()) {
 			// Set output
+			// Need to return 200 Ok header
 		} else {
 			$this->error = true;
 		}
@@ -72,6 +73,7 @@ class SOSModel implements DBQueries, Settings {
 		
 		if($stmt->execute()) {
 			// Set output
+			// Need to return 200 Ok header
 		} else {
 			$this->error = true;
 		}

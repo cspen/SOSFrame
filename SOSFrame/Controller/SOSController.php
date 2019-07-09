@@ -23,6 +23,10 @@ class SOSController implements Settings {
 		
 		// Need to check request method and
 		// validate user for certain requests
+		if($_SERVER['REQUEST_URI'] == "DELETE") {
+			// Check credentials
+			// If ok delete
+		}
 		
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);

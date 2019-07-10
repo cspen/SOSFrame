@@ -20,14 +20,6 @@ class SOSController implements Settings {
 	
 	// Called during program execution
 	public function process_request() {
-		
-		// Need to check request method and
-		// validate user for certain requests
-		if($_SERVER['REQUEST_URI'] == "DELETE") {
-			// Check credentials
-			// If ok delete
-		}
-		
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
 						
@@ -44,7 +36,7 @@ class SOSController implements Settings {
 				$this->model->login($_SESSION['token']);
 				$this->view->setTemplate(SOSView::ADMIN_LOGIN);
 			} else if(strcmp($path, Settings::SYS_OPS) == 0) {
-				$this->system_operation();
+				$this->system_operation($tail);
 				exit;
 			} else {
 				$this->view->setTemplate(SOSView::ARTICLE);
@@ -111,7 +103,13 @@ class SOSController implements Settings {
 				$this->view->headerOnly('HTTP/1.1 400 Bad Request');
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
+			if(substr($_SERVER['REQUEST_URI'], -1) === "/") {
+				$this->model->delete_topic();
+			} else {
+				$this->model->delete_article();
+			}
 			$this->view->headerOnly('HTTP/1.1 200 Ok');
+			exit;
 		}
 	}
 	 

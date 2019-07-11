@@ -109,7 +109,6 @@ class SOSController implements Settings {
 				$this->model->delete_article();
 			}
 			$this->view->headerOnly('HTTP/1.1 200 Ok');
-			exit;
 		}
 	}
 	 

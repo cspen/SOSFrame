@@ -48,7 +48,8 @@ CREATE TABLE article (
 	last_modified			TIMESTAMP,
 				
 	UNIQUE(article_path),
-	PRIMARY KEY(articleID)
+	PRIMARY KEY(articleID),
+	FULLTEXT(article_path)
 )
 ENGINE = MyISAM;
 

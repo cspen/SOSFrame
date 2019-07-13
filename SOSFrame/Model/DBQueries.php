@@ -37,7 +37,9 @@ interface DBQueries {
 	
 	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 	
-	const DELETE_TOPIC_QUERY = "";
+	// Need to do a substring search in the query
+	const DELETE_TOPIC_QUERY = "DELETE * FROM article
+			WHERE MATCH(article_path) AGAINST(:path)";
 	
 	// Modify an existing article
 	const UPDATE_ARTICLE_QUERY = "UPDATE article SET

@@ -58,12 +58,10 @@ class SOSModel implements DBQueries, Settings {
 		$stmt = $this->dbconn->prepare(DBQueries::DELETE_ARTICLE_QUERY);
 		$stmt->bindParam(':path', $path);
 		
-		if($stmt->execute()) {
-			// Set output
-			// Need to return 200 Ok header
-		} else {
-			$this->error = true;
-		}
+		if(!$stmt->execute())
+			return false;
+		
+		return true;
 	}
 	
 	// Delete all articles of the specified topic

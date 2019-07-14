@@ -104,9 +104,11 @@ class SOSController implements Settings {
 			}
 		} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 			if(substr($_SERVER['REQUEST_URI'], -1) === "/") {
-				$this->model->delete_topic();
+				if(!$this->model->delete_topic())
+					$this->view->headerOnly('HTTP/1.1 504 Internal Server Error');
 			} else {
-				$this->model->delete_article();
+				if(!$this->model->delete_article())
+					$this->view->headerOnly('HTTP/1.1 504 Internal Server Error');
 			}
 			$this->view->headerOnly('HTTP/1.1 200 Ok');
 		}

@@ -111,6 +111,8 @@ class SOSController implements Settings {
 					$this->view->headerOnly('HTTP/1.1 504 Internal Server Error');
 			}
 			$this->view->headerOnly('HTTP/1.1 200 Ok');
+		} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
+			// Put will only work for articles, not topics.
 		}
 	}
 	 

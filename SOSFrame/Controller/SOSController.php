@@ -113,7 +113,13 @@ class SOSController implements Settings {
 			$this->view->headerOnly('HTTP/1.1 200 Ok');
 		} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
 			// Put will only work for articles, not topics.
+			if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+				header('HTTP/1.1 412 Precondition Failed');
+				exit;
+			}
 			
+			$putVar = json_decode(file_get_contents("php://input"), true);
+			if(isset($putVar)
 			// Need to validate PUT data
 			// then place in database
 			// then return appropriate header

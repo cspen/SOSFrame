@@ -119,10 +119,15 @@ class SOSController implements Settings {
 			}
 			
 			$putVar = json_decode(file_get_contents("php://input"), true);
-			if(isset($putVar)
+			if(isset($putVar)) {
 			// Need to validate PUT data
 			// then place in database
 			// then return appropriate header
+			} else {
+				// Return error header
+			}
+		} else {
+			// Unsupported operation
 		}
 	}
 	 

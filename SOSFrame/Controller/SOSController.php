@@ -123,6 +123,7 @@ class SOSController implements Settings {
 			// Need to validate PUT data
 			// then place in database
 			// then return appropriate header
+				if(valid)
 			} else {
 				// Return error header
 			}
@@ -159,12 +160,16 @@ class SOSController implements Settings {
 		return false;
 	}
 	
-	private function checkPostValues($names) {
-		foreach($names as $n) {
-			if(empty($_POST[$n])) {				
+	private function checkPostValues($values) {
+		foreach($values as $v) {
+			if(empty($_POST[$v])) {				
 				return false;
 			}
 		}
+	}
+	
+	private function checkPutValues($values) {
+		return fales;
 	}
 	
 	// Determine if correct post variables

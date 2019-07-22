@@ -123,7 +123,12 @@ class SOSController implements Settings {
 			// Need to validate PUT data
 			// then place in database
 			// then return appropriate header
-				if(valid)
+				if($this->checkPutValues($putVar)) {
+					
+				} else {
+					// Error
+				}
+					
 			} else {
 				// Return error header
 			}

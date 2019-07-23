@@ -11,10 +11,21 @@ class SOSView implements Settings {
 		$this->template = $this::HOME; // Default
 	}
 	
+	/**
+	 * Set the template for this view
+	 * 
+	 * @param Template $template
+	 */ 
 	public function setTemplate($template) {
 		$this->template = $template;
 	}
 	
+	/**
+	 * Send only a header to the client,
+	 * no content body
+	 * 	 
+	 * @param String $hdr the header to send
+	 */
 	public function headerOnly($hdr) {
 		header($hdr);
 		exit;

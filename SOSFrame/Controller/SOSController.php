@@ -126,7 +126,7 @@ class SOSController implements Settings {
 				if($this->checkPutValues($putVar)) {
 					
 				} else {
-					// Error
+					$this->view->headerOnly("HTTP/1.1 ");
 				}
 					
 			} else {

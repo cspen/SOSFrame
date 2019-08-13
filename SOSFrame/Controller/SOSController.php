@@ -86,8 +86,7 @@ class SOSController implements Settings {
 			$this->model->savePost();
 		} else {
 			// Return error header
-			header("HTTP/1.1 400 Bad Request");
-			exit;
+			$this->view->headerOnly("HTTP/1.1 400 Bad Request");
 		}
 	}
 	
@@ -114,15 +113,11 @@ class SOSController implements Settings {
 		} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
 			// Put will only work for articles, not topics.
 			if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-				header('HTTP/1.1 412 Precondition Failed');
-				exit;
+				$this->view->headerOnly('HTTP/1.1 412 Precondition Failed');
 			}
 			
 			$putVar = json_decode(file_get_contents("php://input"), true);
 			if(isset($putVar)) {
-			// Need to validate PUT data
-			// then place in database
-			// then return appropriate header
 				if($this->checkPutValues($putVar)) {
 					
 				} else {

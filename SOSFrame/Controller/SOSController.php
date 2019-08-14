@@ -119,11 +119,12 @@ class SOSController implements Settings {
 			$putVar = json_decode(file_get_contents("php://input"), true);
 			if(isset($putVar)) {
 				if($this->checkPutValues($putVar)) {
-					
+					// Need to update the database
+					// then return the appropriate header
 				} else {
+					// Need to complete this header
 					$this->view->headerOnly("HTTP/1.1 ");
-				}
-					
+				}					
 			} else {
 				// Return error header
 			}

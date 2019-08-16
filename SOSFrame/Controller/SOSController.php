@@ -28,6 +28,9 @@ class SOSController implements Settings {
 			$this->view->setTemplate(SOSView::HOME);
 			$this->model->update_state($path, null);
 		} else if($tail === "/") {
+			if($_SERVER['REQUEST_METHOD'] === 'PUT') {
+				$this->view->headerOnly('405 Method Not Allowed');
+			}
 			$this->view->setTemplate(SOSView::TOPIC);
 			$this->model->update_state($path, SOSModel::TOPIC);
 		} else { 
@@ -115,7 +118,7 @@ class SOSController implements Settings {
 			if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
 				$this->view->headerOnly('HTTP/1.1 412 Precondition Failed');
 			}
-			
+ 			
 			$putVar = json_decode(file_get_contents("php://input"), true);
 			if(isset($putVar)) {
 				if($this->checkPutValues($putVar)) {

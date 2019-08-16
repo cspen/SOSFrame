@@ -36,8 +36,6 @@ class SOSModel implements DBQueries, Settings {
 					$this->topic_data($path);
 				} else if($_SERVER['REQUEST_METHOD'] === "DELETE") {
 					$this->delate_topic($path);
-				} else if($_SERVER['REQUEST_METHOD'] === "PUT") {
-					$this->put_topic($path);
 				}
 			}
 		}		

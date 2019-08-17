@@ -173,12 +173,11 @@ class SOSController implements Settings {
 	}
 	
 	private function checkPutValues($values) {
-		if(isset($values['title']) && isset($values['content']) &&
-				isset($values['description']) && isset($values['topics']) &&
-				isset($values['status']) && isset($values['parent'])) {
+		if(isset($values['title'], $values['content'], $values['description'],
+				$values['topics'], $values['status'], $values['parent'])) {
 			return true;
 		}
-		return fales;
+		return false;
 	}
 	
 	// Determine if correct post variables

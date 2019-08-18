@@ -186,9 +186,8 @@ class SOSController implements Settings {
 	// and with parameters. Returns false
 	// otherwise
 	private function allset() {
-		if(isset($_POST['title']) && isset($_POST['content']) &&
-				isset($_POST['description']) && isset($_POST['topics']) &&
-				isset($_POST['status']) && isset($_POST['parent'])) {
+		if(isset($_POST['title'], $_POST['content'], $_POST['description'],
+				$_POST['topics'], $_POST['status'], $_POST['parent'])) {
 			return true;
 		}
 		return false;

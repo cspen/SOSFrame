@@ -75,7 +75,11 @@ class SOSModel implements DBQueries, Settings {
 	
 	// Update an existing article
 	private function put_article($path) {
-			
+		// Need to get data from 
+		$putVar = json_decode(file_get_contents("php://input"), true);
+		
+		
+		
 	}
 	
 	// Get home page content

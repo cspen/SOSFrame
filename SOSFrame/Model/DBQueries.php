@@ -37,6 +37,11 @@ interface DBQueries {
 	
 	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
 	
+	const PUT_ARTICLE_QUERY = "UPDATE article SET
+			article_title=:title, article_body=:body, article_publish_status=:status,
+			article_article_parent=:parent, article_path=:path
+			WHERE articleID=:id";
+	
 	// Need to do a substring search in the query
 	const DELETE_TOPIC_QUERY = "DELETE * FROM article
 			WHERE MATCH(article_path) AGAINST(:path)";
@@ -49,7 +54,7 @@ interface DBQueries {
 		 article_publish_status=:status,
 		 article_publish_date=:date,
 		 article_path=:path,
-		 article_parent=:parent) WHERE article_path=:path";	
+		 article_parent=:parent) WHERE article_path=:path";
 }
 
 ?>

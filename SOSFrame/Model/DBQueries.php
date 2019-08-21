@@ -55,6 +55,9 @@ interface DBQueries {
 		 article_publish_date=:date,
 		 article_path=:path,
 		 article_parent=:parent) WHERE article_path=:path";
+	
+	const GET_ARTICLE_ID_QUERY = "SELECT articleID FROM article WHERE
+		article_path=:path";
 }
 
 ?>

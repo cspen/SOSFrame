@@ -78,8 +78,12 @@ class SOSModel implements DBQueries, Settings {
 		// Need to get data from 
 		$putVar = json_decode(file_get_contents("php://input"), true);
 		
-		
-		
+		$stmt = $this->dbconn->prepare(DBQueries::HOME_QUERY);
+		if($stmt->execute()) {
+			
+		} else {
+			$this->error = true;
+		}
 	}
 	
 	// Get home page content

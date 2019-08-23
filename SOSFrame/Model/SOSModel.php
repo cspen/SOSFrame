@@ -81,7 +81,16 @@ class SOSModel implements DBQueries, Settings {
 		$stmt = $this->dbconn->prepare(DBQueries::GET_ARTICLE_ID_QUERY);
 		$stmt->bindParam(':path', $path);
 		if($stmt->execute()) {
+			$results = $stmt->fetch();
+			$id = $results['articleID'];
+			$stmt->closeCursor();
 			
+			$stmt->$this->dbconn->prepare(DBQueries::PUT_QUERY);
+			if($stmt->execute()) {
+				
+			} else {
+				$this->error = true;
+			}			
 		} else {
 			$this->error = true;
 		}

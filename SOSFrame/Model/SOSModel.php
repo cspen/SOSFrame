@@ -74,9 +74,8 @@ class SOSModel implements DBQueries, Settings {
 	}
 	
 	// Update an existing article
-	private function put_article($path) {
-		// Need to get data from 
-		$putVar = json_decode(file_get_contents("php://input"), true);
+	private function put_article($path, $values) {
+		// $putVar = json_decode(file_get_contents("php://input"), true);
 		
 		$stmt = $this->dbconn->prepare(DBQueries::GET_ARTICLE_ID_QUERY);
 		$stmt->bindParam(':path', $path);
@@ -85,12 +84,17 @@ class SOSModel implements DBQueries, Settings {
 			$id = $results['articleID'];
 			$stmt->closeCursor();
 			
-			$stmt->$this->dbconn->prepare(DBQueries::PUT_QUERY);
-			if($stmt->execute()) {
+			if($id != null) {
+				$stmt->$this->dbconn->prepare(DBQueries::PUT_QUERY);
+				if($stmt->execute()) {
 				
+				} else {
+					$this->error = true;
+				}
 			} else {
-				$this->error = true;
-			}			
+				// No such record
+				// Can create a new record
+			}
 		} else {
 			$this->error = true;
 		}

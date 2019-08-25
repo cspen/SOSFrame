@@ -86,6 +86,13 @@ class SOSModel implements DBQueries, Settings {
 			
 			if($id != null) {
 				$stmt->$this->dbconn->prepare(DBQueries::PUT_QUERY);
+				$stmt->bindParam(':title', $values);
+				$stmt->bindParam(':desc', $values);
+				$stmt->bindParam(':body', $values);
+				$stmt->bindParam(':status', $values);
+				$stmt->bindParam(':date', $values);
+				$stmt->bindParam(':parent', $values);
+				$stmt->bindParam(':path', $path);
 				if($stmt->execute()) {
 				
 				} else {
@@ -93,7 +100,7 @@ class SOSModel implements DBQueries, Settings {
 				}
 			} else {
 				// No such record
-				// Can create a new record
+				// Can create a new record?
 			}
 		} else {
 			$this->error = true;

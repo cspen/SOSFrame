@@ -86,12 +86,12 @@ class SOSModel implements DBQueries, Settings {
 			
 			if($id != null) {
 				$stmt->$this->dbconn->prepare(DBQueries::PUT_QUERY);
-				$stmt->bindParam(':title', $values);
-				$stmt->bindParam(':desc', $values);
-				$stmt->bindParam(':body', $values);
-				$stmt->bindParam(':status', $values);
-				$stmt->bindParam(':date', $values);
-				$stmt->bindParam(':parent', $values);
+				$stmt->bindParam(':title', $values['title']);
+				$stmt->bindParam(':desc', $values['content']);
+				$stmt->bindParam(':body', $values['description']);
+				$stmt->bindParam(':status', $values['topic']);
+				$stmt->bindParam(':date', $values['status']);
+				$stmt->bindParam(':parent', $values['parent']);
 				$stmt->bindParam(':path', $path);
 				if($stmt->execute()) {
 				

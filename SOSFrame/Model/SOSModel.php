@@ -94,7 +94,7 @@ class SOSModel implements DBQueries, Settings {
 				$stmt->bindParam(':parent', $values['parent']);
 				$stmt->bindParam(':path', $path);
 				if($stmt->execute()) {
-				
+					return true;
 				} else {
 					$this->error = true;
 				}

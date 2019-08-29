@@ -122,8 +122,11 @@ class SOSController implements Settings {
 			$putVar = json_decode(file_get_contents("php://input"), true);
 			if(isset($putVar)) {
 				if($this->checkPutValues($putVar)) {
-					// Need to update the database
-					// then return the appropriate header
+					if($this->model->put_article($path, $putVar)) {
+						$this->view->headerOnly();
+					} else {
+						$this->view->headerOnly();
+					}
 				} else {
 					// Need to complete this header
 					$this->view->headerOnly("HTTP/1.1 ");
@@ -174,7 +177,7 @@ class SOSController implements Settings {
 	
 	private function checkPutValues($values) {
 		if(isset($values['title'], $values['content'], $values['description'],
-				$values['topics'], $values['status'], $values['parent'])) {
+				$values['topic'], $values['status'], $values['parent'])) {
 			return true;
 		}
 		return false;
@@ -187,7 +190,7 @@ class SOSController implements Settings {
 	// otherwise
 	private function allset() {
 		if(isset($_POST['title'], $_POST['content'], $_POST['description'],
-				$_POST['topics'], $_POST['status'], $_POST['parent'])) {
+				$_POST['topic'], $_POST['status'], $_POST['parent'])) {
 			return true;
 		}
 		return false;

@@ -96,14 +96,16 @@ class SOSModel implements DBQueries, Settings {
 				if($stmt->execute()) {
 					return true;
 				} else {
-					$this->error = true;
+					return false;
 				}
 			} else {
 				// No such record
-				// Can create a new record?
+				// This application does not support
+				// entity creation with PUT, use POST
+				return false;
 			}
 		} else {
-			$this->error = true;
+			return false;
 		}
 	}
 	

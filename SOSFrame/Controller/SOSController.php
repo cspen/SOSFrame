@@ -123,19 +123,21 @@ class SOSController implements Settings {
 			if(isset($putVar)) {
 				if($this->checkPutValues($putVar)) {
 					if($this->model->put_article($path, $putVar)) {
-						$this->view->headerOnly();
+						$this->view->headerOnly('HTTP/1.1 200 Ok');
 					} else {
-						$this->view->headerOnly();
+						$this->view->headerOnly('HTTP/1.1 ');
 					}
 				} else {
-					// Need to complete this header
-					$this->view->headerOnly("HTTP/1.1 ");
+					// Client error
+					$this->view->headerOnly('HTTP/1.1 ');
 				}					
 			} else {
 				// Return error header
+				$this->view->headerOnly('HTTP/1.1 ');
 			}
 		} else {
 			// Unsupported operation
+			$this->view->headerOnly('HTTP/1.1 ');
 		}
 	}
 	 

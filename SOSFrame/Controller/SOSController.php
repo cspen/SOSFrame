@@ -129,15 +129,15 @@ class SOSController implements Settings {
 					}
 				} else {
 					// Client error
-					$this->view->headerOnly('HTTP/1.1 ');
+					$this->view->headerOnly('HTTP/1.1 400 Bad Request');
 				}					
 			} else {
 				// Return error header
-				$this->view->headerOnly('HTTP/1.1 ');
+				$this->view->headerOnly('HTTP/1.1 400 Bad Request');
 			}
 		} else {
 			// Unsupported operation
-			$this->view->headerOnly('HTTP/1.1 ');
+			$this->view->headerOnly('HTTP/1.1 405 Method Not Allowed');
 		}
 	}
 	 

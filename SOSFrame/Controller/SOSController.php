@@ -2,7 +2,7 @@
 /**
  * The purpose of the SOSController is to
  * ensure all necessary conditions are met
- * to continue processing the request.
+ * before processing the request.
  * 
  * 
  * 
@@ -98,6 +98,9 @@ class SOSController implements Settings {
 	 * administration backend.
 	 */
 	private function system_operation() {
+		// Need to check if user is logged in
+		// and has permission
+		
 		if($_SERVER['REQUEST_METHOD'] === "POST") {
 			if($this->allset()) {
 				$this->model->savePost();

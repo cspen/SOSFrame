@@ -143,6 +143,13 @@ class SOSController implements Settings {
 			$this->view->headerOnly('HTTP/1.1 405 Method Not Allowed');
 		}
 	}
+	
+	/**
+	 * 
+	 */
+	private function credentials() {
+		
+	}
 	 
 	/**
 	 * Set session token for form validation

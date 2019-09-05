@@ -184,6 +184,10 @@ class SOSModel implements DBQueries, Settings {
 		}		
 	}
 	
+	public function validate_credentials($name, $password) {
+		
+	}
+	
 	// Validate user login
 	public function validate_login() {
 		$name = explode(" ", $_POST['name']);
@@ -244,6 +248,7 @@ class SOSModel implements DBQueries, Settings {
 	/********************************************************
 	 * BACKEND ADMINISTRATION ACCESS.
 	 */
+	// Display login page
 	public function login() {
 		$this->output = new SOSOutput(
 				"Secret ? ",

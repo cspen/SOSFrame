@@ -154,14 +154,22 @@ class SOSController implements Settings {
 			list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = $seg;
 			
 			if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER']) == "")  {
-				header('WWW-Authenticate: Basic realm="Modintro"');
-				header('HTTP/1.0 401 Unauthorized');
-				echo 'Text to send if user hits Cancel button<br>';
-				exit;
+				
+				// Below is the standard way to handle
+				// no credentials being sent
+				// header('WWW-Authenticate: Basic realm="Modintro"');
+				// header('HTTP/1.0 401 Unauthorized');
+				// echo 'Text to send if user hits Cancel button<br>';
+				// exit;
+				
+				return false;
 			} else {
 				
 				// Put validation here
-				echo '{ UserName: '.$_SERVER['PHP_AUTH_USER'].', Password: '.$_SERVER['PHP_AUTH_PW'].' }';
+				// echo '{ UserName: '.$_SERVER['PHP_AUTH_USER'].', Password: '.$_SERVER['PHP_AUTH_PW'].' }';
+				
+				return true;
+				
 			}
 		} else {
 			

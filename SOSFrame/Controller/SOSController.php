@@ -59,6 +59,9 @@ class SOSController implements Settings {
 			if($this->verify_token()) { 
 				if($this->model->validate_login()) {
 					$this->view->setTemplate(SOSView::EDITOR);
+					
+					// Need to create a constant for user
+					$_SESSION['user'] = $this->model->getUser();
 				} else {
 					$this->token();
 					$this->model->login($_SESSION['token']);
@@ -167,7 +170,7 @@ class SOSController implements Settings {
 				
 				// Put validation here
 				// echo '{ UserName: '.$_SERVER['PHP_AUTH_USER'].', Password: '.$_SERVER['PHP_AUTH_PW'].' }';
-				
+				if($this->model->)
 				return true;
 				
 			}

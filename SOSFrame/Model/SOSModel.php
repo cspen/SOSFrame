@@ -223,8 +223,11 @@ class SOSModel implements DBQueries, Settings {
 		}
 	}
 	
+	// Get user profile data
 	public function getUser($name, $password) {
-		
+		// Need to create a user object to return
+		// Might need to expand this to include
+		// custom settings
 	}
 	
 	private function getSideMenu() {

@@ -223,6 +223,10 @@ class SOSModel implements DBQueries, Settings {
 		}
 	}
 	
+	public function getUser($name, $password) {
+		
+	}
+	
 	private function getSideMenu() {
 		$stmt = $this->dbconn->prepare(DBQueries::TOPIC_MENU_QUERY);
 		$results = array();

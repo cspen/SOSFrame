@@ -35,29 +35,34 @@ interface DBQueries {
 			article_path, article_parent) VALUES (:title, :description,
 			:body, :status, NOW(), :path, :parent)';
 	
-	const DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE article_path=:path";
+	const DELETE_ARTICLE_QUERY = 'DELETE FROM article WHERE article_path=:path';
 	
-	const PUT_ARTICLE_QUERY = "UPDATE article SET
+	const PUT_ARTICLE_QUERY = 'UPDATE article SET
 			article_title=:title, article_body=:body, article_publish_status=:status,
 			article_article_parent=:parent, article_path=:path
-			WHERE articleID=:id";
+			WHERE articleID=:id';
 	
 	// Need to do a substring search in the query
-	const DELETE_TOPIC_QUERY = "DELETE * FROM article
-			WHERE MATCH(article_path) AGAINST(:path)";
+	const DELETE_TOPIC_QUERY = 'DELETE * FROM article
+			WHERE MATCH(article_path) AGAINST(:path)';
 	
 	// Modify an existing article
-	const UPDATE_ARTICLE_QUERY = "UPDATE article SET
+	const UPDATE_ARTICLE_QUERY = 'UPDATE article SET
 		(article_title=:title,
 		 article_description=:desc,
 		 article_body=:body,
 		 article_publish_status=:status,
 		 article_publish_date=:date,
 		 article_path=:path,
-		 article_parent=:parent) WHERE articleID=:id";
+		 article_parent=:parent) WHERE articleID=:id';
 	
-	const GET_ARTICLE_ID_QUERY = "SELECT articleID FROM article WHERE
-		article_path=:path";
+	const GET_ARTICLE_ID_QUERY = 'SELECT articleID FROM article WHERE
+		article_path=:path';
+	
+	const GET_USER_INFO = 'SELECT userUD, user_first_name, user_last_name,
+		user_email, user_url, user_type, user_status FROM user
+		WHERE password=:password AND user_first_name=:fname
+		AND user_last_name=:lname';
 }
 
 ?>

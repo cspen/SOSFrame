@@ -59,6 +59,8 @@ interface DBQueries {
 	const GET_ARTICLE_ID_QUERY = 'SELECT articleID FROM article WHERE
 		article_path=:path';
 	
+	// The password is expected to be in the format returned by
+	// the PHP password_hash function
 	const GET_USER_INFO = 'SELECT userUD, user_first_name, user_last_name,
 		user_email, user_url, user_type, user_status FROM user
 		WHERE password=:password AND user_first_name=:fname

@@ -1,5 +1,7 @@
 # SOSFrame
 
+Soon to be updated.
+
 This is an experimental implementation of the MVC. 
 
 In traditional MVC design the user creats an event inside

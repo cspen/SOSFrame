@@ -1,8 +1,39 @@
 # SOSFrame
 
-Soon to be updated.
+THIS PROJECT IS ABANDONED!
 
-This is an experimental implementation of the MVC. 
+
+The SOSFrame project started off as an architecture experiment.
+It combines HTTP (Restful Web Services) with MVC (Model-
+View-Controller).
+
+The project is being abandond because the code base is inconsistent.
+Not All requests are handled the same way, make the logic difficult
+to follow.
+
+Initially it started out with the MVC as a pipeline as follows:
+
+Request -> Controller -> Model -> View -> Response 
+
+This works for some requests but not all. Some request do not
+involve the model. Other requests are denied before the model
+is invoked. Therefore, some requests involve only the controller and
+the view. A better design puts the controller as the "manager" of the
+application, like so:
+
+Request -> Controller -> (Model -> Controller) -> View -> Response
+
+The () means invoking the model, then returning to the controller is
+optional and not necessary for all requests.
+
+I will be starting a new project based on the improved design. I will
+leave this project in place as many of the functions are reusable.
+
+
+
+
+
+EVERYTHING BELOW IS FROM ORIGINAL README FOR HIS PROJECT!
 
 In traditional MVC design the user creats an event inside
 a view. This event is then passed on to the controller. The

@@ -18,7 +18,6 @@ class SOSController implements Settings {
 		$this->view = $view;
 	}
 	
-	// Called during program execution
 	public function process_request() {
 		$path = str_replace(Settings::APP_URL, "", $_SERVER['REQUEST_URI']);
 		$tail = substr($_SERVER['REQUEST_URI'], -1);
